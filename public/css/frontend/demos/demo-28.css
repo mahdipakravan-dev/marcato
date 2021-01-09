@@ -25,10 +25,6 @@
   padding: 40px 0 0;
 }
 
-.intro-section {
-  padding: 130px 0 0 0;
-}
-
 .intro-section h3 {
   text-indent: -2px;
 }
@@ -109,7 +105,7 @@
   width: 15px;
   border-radius: 3rem;
   color: #fff;
-  background: #61ab00;
+  background: #50485B;
   margin-top: -3px;
   vertical-align: middle;
   font-size: 8px;
@@ -176,7 +172,7 @@
 }
 
 .cat-title:hover {
-  box-shadow: 0 1px #61ab00;
+  box-shadow: 0 1px #50485B;
 }
 
 .cat-count {
@@ -211,7 +207,7 @@
   font-weight: 700;
 
   line-height: .8em;
-  color: #61ab00;
+  color: #50485B;
 }
 
 .deal-countdown .countdown-section:not(:last-child):after {
@@ -251,7 +247,7 @@
 
 .flash-content .product-sold .product-sold-val {
   height: 100%;
-  background-color: #ffd04d;
+  background-color: #2E3E77;
 }
 
 .product .wishlist-link-product {
@@ -337,7 +333,7 @@
 }
 
 .btn-product-zoom:hover {
-  background-color: #61ab00;
+  background-color: #50485B;
   color: #fff;
 }
 
