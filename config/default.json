@@ -1,0 +1,23 @@
+{
+    "projectName" : "مارکاتو" , 
+    "mongoConfig": {
+        "useNewUrlParser": true,
+        "useUnifiedTopology": true
+    },
+    "bodyParserConfig": {
+        "type": "application/json"
+    },
+
+    "passwordHash" : 10 , 
+    "jwtSign" : "ERXwuv$T$Ms4m*73vFUh*?_j-5bf_3&XspgFDGLWvJPD%SaQhJ" ,
+
+    "ExceptionPage": "/500",
+
+    "persianMessages": {
+        "NotFound": "404 یافت نشد",
+        "Internal": "500 خطایی رخ داده است مجددا تلاش کنید"
+    } ,
+    "session_secret" : "mysecretkey",
+    "cookie_secret" : "mysecretkey" 
+
+}

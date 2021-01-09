@@ -1,0 +1,43 @@
+<% 
+let data = [];
+
+users.forEach((item , index) => {
+  data[index] = {
+    id : item._id , 
+    link : `/dashboard/user/${item.id}` ,
+    data : [
+      {
+          type : "text" ,
+          text : `${item.name} ${item.family}` ,
+      } ,
+      {
+        type : "text" , 
+        text : item.phone
+      },
+      {
+        type : "text" , 
+        text : item.insta
+      },
+      {
+        type : "badge" , 
+        badge : "badge-warning" , 
+        text : "10 روز پیش"
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-danger" , 
+        text : "حذف" , 
+        link : `/dashboard/user/delete/${item.id}`
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-success" , 
+        text : "ویرایش" , 
+        link : `/dashboard/user/${item.id}`
+      }]
+  }
+}) 
+%>
+
+<%- include("../../components/table.ejs" , {title : "لیست کاربران" , th : ["نام کامل" , "تلفن" , "اینستا" , "آخرین آنلاینی" , "حذف" , "ویرایش"] ,
+showId : false , items : data}) %>

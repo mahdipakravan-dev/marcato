@@ -1,0 +1,156 @@
+<div class="card card-dark wysihtml5-supported">
+  <div class="card-header">
+      <h3 class="card-title">افزودن محصول جدید</h3>
+  </div>
+      <form role="form" action="/dashboard/product/insert" method="POST" enctype="multipart/form-data">
+
+  
+  <div class="card-body">
+
+      <!-- Product Title Section -->
+      <div class="form-group">
+          <label>نام محصول</label>
+          <input type="text" name="fullName" class="form-control">
+      </div>
+      <div class="form-group">
+          <label>نام انگلیسی محصول</label>
+          <input type="text" name="enName" class="form-control">
+      </div>
+      <!-- Product Title Section -->
+
+      <!-- Produt Body Section -->
+      <div class="form-group">
+          <label>توضیحات محصول</label>
+          <textarea type="text" name="desc" style="height: 22rem; direction: rtl;" class="form-control"></textarea>
+      </div>
+      <!-- Produt Body Section -->
+
+
+      <!-- Price And Another Price Section Start-->
+        <label>قیمت محصول</label>
+        <input type="text" name="price" class="form-control">
+      <!-- Price And Another Price Section End-->
+
+      <!-- Colors And Inventory Section Start -->
+      <div class="row mt-3">
+        <div class="col-6">
+            <div class="form-group">
+            <label>ساز</label>
+            <select name="instrument" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                <% if(locals.instruments) { %>
+                    <% instruments.forEach(instrument => { %>
+                        <option value="<%- instrument.enName %>"><%- instrument.faName %></option>
+                    <% }) %>
+                <% } else { %>
+                    <option value="non-categorized">بدون دسته بندی</option>
+                <% } %>
+            </select>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label>دسته بندی</label>
+                <select name="category" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    <% if(locals.categories) { %>
+                        <% categories.forEach(category => { %>
+                            <option value="<%- category.enName %>"><%- category.faName %></option>
+                        <% }) %>
+                    <% } else { %>
+                        <option value="non-categorized">بدون دسته بندی</option>
+                    <% } %>
+                </select>
+            </div>
+        </div>
+      </div>
+      <!-- Colors And Inventory Section End -->
+
+      <!-- Provider And Category Start -->
+        <div class="form-group mt-2">
+            <label>نوع محصول</label>
+            <input type="text" name="type" class="form-control">
+            </select>
+        </div>
+  
+      <!-- Picture Start -->
+      <h4 class="my-4">تصاویر محصول</h4>
+      <div class="alert alert-warning">
+          <p>لطفا تمامی عکس ها بدون بک گراند و مربعی باشند در سایز 190 * 190</p>
+      </div>
+
+      <div class="row">
+          <div class="col-6">
+              <div class="input-group my-2">
+                  <div class="custom-file">
+                      <input name="gallery" type="file" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">تصویر اصلی</label>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-6">
+              <div class="input-group my-2">
+                  <div class="custom-file">
+                      <input name="gallery" type="file" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">تصویر 1</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-6">
+              <div class="input-group my-2">
+                  <div class="custom-file">
+                      <input type="file" name="gallery" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">تصویر 2</label>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-6">
+              <div class="input-group my-2">
+                  <div class="custom-file">
+                      <input type="file" name="gallery" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">تصویر 3</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-6">
+              <div class="input-group my-2">
+                  <div class="custom-file">
+                      <input type="file" name="gallery" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">تصویر 4</label>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-6">
+              <div class="input-group my-2">
+                  <div class="custom-file">
+                      <input type="file" name="gallery" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">تصویر 5</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Picture End -->
+      
+
+
+  </div>
+  <!-- /.card-body -->
+
+  <div class="card-footer">
+      <button type="submit" class="btn btn-outline-primary">ارسال</button>
+      <button type="reset" class="btn btn-outline-danger">پاک کردن اطلاعات</button>
+  </div>
+  </form>
+</div>
+<!-- /.card -->
+
+<div class="ck ck-reset_all ck-body ck-rounded-corners">
+  <div class="ck ck-balloon-panel ck-balloon-panel_arrow_nw ck-balloon-panel_with-arrow" style="top: 0px; left: 0px;"></div>
+</div>

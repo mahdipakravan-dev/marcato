@@ -1,0 +1,36 @@
+ <!-- Input addon -->
+ <div class="card card-info">
+  <div class="card-header">
+    <h3 class="card-title"><%- formTitle %></h3>
+  </div>
+  <div class="card-body">
+  <form action="<%- action %>" method="<%- method %>">
+    <% inputs.forEach(input => { 
+
+        if(input.disabled) { %>
+        <div class="form-group mb-3">
+          <label for="<%- input.name %>"><%- input.label %></label>
+          <input type="<%- input.type %>" class="form-control" id="<%- input.name %>" name="<%- input.name %>" value="<%- input.value %>" disabled>
+        </div>
+
+        
+        <% }else { %>
+        <div class="form-group mb-3">
+          <label for="<%- input.name %>"><%- input.label %></label>
+          <input type="<%- input.type %>" value="<%- input.value %>"  id="<%- input.name %>" class="form-control" placeholder="<%- input.placeholder %>" name="<%- input.name %>">
+        </div>
+
+        <% } %>    
+         
+    <% }) %>
+    <input type="submit" class="btn btn-success" value="<%- submitText %>">
+
+    <% if(locals.backLink) { %>
+      <a href="<%- backLink %>" class="btn btn-primary">بازگشت</a>
+    <% } %>
+  </form>
+    <!-- /input-group -->
+  </div>
+  <!-- /.card-body -->
+</div>
+<!-- /.card -->

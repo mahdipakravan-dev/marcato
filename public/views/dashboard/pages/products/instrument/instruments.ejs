@@ -1,0 +1,35 @@
+<% 
+let data = [];
+
+instruments.forEach((instrument , index) => {
+  data[index] = {
+    id : instrument._id , 
+    link : "",
+    showId : false ,
+    data : [
+      {
+          type : "text" ,
+          text : instrument.faName
+      } ,
+      {
+        type : "text" , 
+        text : instrument.enName
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-danger" , 
+        text : "حذف" , 
+        link : `/dashboard/product/instrument/delete/${instrument._id}`
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-success" , 
+        text : "ویرایش" , 
+        link : `/dashboard/product/instrument/edit/${instrument._id}`
+      }]
+  }
+}) 
+%>
+
+<%- include("../../../components/table.ejs" , {title : "ساز ها" , th : ["نام فارسی" , "نام انگلیسی" , "حذف" , "ویرایش"] ,
+showId : false , items : data}) %>

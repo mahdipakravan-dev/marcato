@@ -1,0 +1,17 @@
+
+<%- include("../../../components/form.ejs" , {formTitle : "ویرایش ساز" , submitText : "ویرایش" ,
+action : `/dashboard/product/instrument/edit/${instrument.id}` , method : "post" , inputs : [
+ {
+   "type" : "text" ,
+   "name" : "faName" ,
+   "value" : instrument.faName ,
+   "label" : "نام فارسی"
+ },
+ {
+   "type" : "text" ,
+   "name" : "enName" ,
+   "value" : instrument.enName ,
+   "label" : "نام انگلیسی"
+ }
+
+]}) %>

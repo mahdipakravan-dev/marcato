@@ -1,0 +1,35 @@
+<% 
+let data = [];
+
+categories.forEach((category , index) => {
+  data[index] = {
+    id : category._id , 
+    link : "",
+    showId : false ,
+    data : [
+      {
+          type : "text" ,
+          text : category.faName
+      } ,
+      {
+        type : "text" , 
+        text : category.enName
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-danger" , 
+        text : "حذف" , 
+        link : `/dashboard/product/category/delete/${category._id}`
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-success" , 
+        text : "ویرایش" , 
+        link : `/dashboard/product/category/edit/${category._id}`
+      }]
+  }
+}) 
+%>
+
+<%- include("../../../components/table.ejs" , {title : "دسته بندی های اصلی" , th : ["نام فارسی" , "نام انگلیسی" , "حذف" , "ویرایش"] ,
+showId : false , items : data}) %>

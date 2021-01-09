@@ -1,0 +1,54 @@
+<!-- TABLE: LATEST ORDERS -->
+<div class="card">
+  <div class="card-header border-transparent">
+    <h3 class="card-title"><%- title %></h3>
+
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-widget="collapse">
+        <i class="fa fa-minus"></i>
+      </button>
+      <button type="button" class="btn btn-tool" data-widget="remove">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <% th.forEach(th => { %>
+          <th><%- th %></th>
+          <% }) %>
+        </tr>
+        </thead>
+        <tbody>
+          <% items.forEach(item => { %>
+            <tr>
+              <% if(showId) { %> 
+                <td><a href="<%- item.link %>"><%- item.id %></a></td>
+              <% } %>
+
+              <% item.data.forEach(listItem => { %>
+
+                <% if(listItem.type == "badge"){ %>
+                  <td><span class="badge <%- listItem.badge %>"><%- listItem.text %></span></td>
+                
+                <% } else if(listItem.type == "text"){ %>
+                  <td><%- listItem.text %></td>
+                  
+                <% } else if(listItem.type == "button"){ %>
+                  <td><a href="<%- listItem.link %>" class="<%-listItem.button %>"><%- listItem.text %></a></td>
+                <% } %>
+
+              <% }) %>
+              
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.table-responsive -->
+  </div>
+</div>

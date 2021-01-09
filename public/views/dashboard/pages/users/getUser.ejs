@@ -1,0 +1,36 @@
+
+<%- include("../../components/form.ejs" , {
+  formTitle : "اطلاعات کاربر" , submitText : "ثبت تغییرات" ,
+  action : `/dashboard/user/edit/${user._id}` , method : "post" , backLink : "/dashboard/users" , inputs : [
+  {
+    "type" : "text" ,
+    "name" : "name" ,
+    "label" : "نام" ,
+    "value" : user.name
+  },
+  {
+    "type" : "text" ,
+    "name" : "family" ,
+    "label" : "نام خانوادگی" ,
+    "value" : user.family
+  },
+  {
+    "type" : "text" ,
+    "name" : "phone" ,
+    "label" : "تلفن" ,
+    "value" : user.phone
+  },
+  {
+    "type" : "text" ,
+    "name" : "mail" ,
+    "label" : "ایمیل" ,
+    "value" : user.mail
+  },
+  {
+    "type" : "text" ,
+    "name" : "birthday" ,
+    "label" : "تولد" ,
+    "value" : user.birthday
+  }
+
+]}) %>

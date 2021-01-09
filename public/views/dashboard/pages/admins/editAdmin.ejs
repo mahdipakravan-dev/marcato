@@ -1,0 +1,43 @@
+
+<%- include("../../components/form.ejs" , {
+  formTitle : "اطلاعات ادمین" , submitText : "ثبت تغییرات" ,
+  action : `/dashboard/admin/edit/${admin._id}` , method : "post" , backLink : "/dashboard/admins" , inputs : [
+  {
+    "type" : "text" ,
+    "name" : "name" ,
+    "label" : "نام" ,
+    "value" : admin.name
+  },
+  {
+    "type" : "text" ,
+    "name" : "lastName" ,
+    "label" : "نام خانوادگی" ,
+    "value" : admin.lastName
+  },
+  {
+    "type" : "text" ,
+    "name" : "username" ,
+    "label" : "نام کاربری" ,
+    "value" : admin.username ,
+    "disabled" : true
+  },
+  {
+    "type" : "text" ,
+    "name" : "email" ,
+    "label" : "ایمیل" ,
+    "value" : admin.email
+  },
+  {
+    "type" : "text" ,
+    "name" : "phoneNumber" ,
+    "label" : "شماره تلفن" ,
+    "value" : admin.phoneNumber
+  },
+  {
+    "type" : "text" ,
+    "name" : "type" , 
+    "label" : "سطح دسترسی" , 
+    "value" : admin.type
+  }
+
+]}) %>

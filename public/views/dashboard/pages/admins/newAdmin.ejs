@@ -1,0 +1,45 @@
+
+<%- include("../../components/form.ejs" , {formTitle : "افزودن ادمین جدید" , submitText : "افزودن" ,
+action : `/dashboard/admin/insert` , method : "post" , inputs : [
+ {
+   "type" : "text" ,
+   "name" : "name" ,
+   "label" : "نام"
+ },
+ {
+   "type" : "text" ,
+   "name" : "lastName" ,
+   "label" : "نام خانوادگی"
+ },
+ {
+   "type" : "text" ,
+   "name" : "username" ,
+   "label" : "نام کاربری"
+ },
+ {
+   "type" : "text" ,
+   "name" : "email" ,
+   "label" : "ایمیل"
+ },
+ {
+   "type" : "text" ,
+   "name" : "phoneNumber" ,
+   "label" : "شماره تلفن"
+ },
+ {
+   "type" : "text" , 
+   "name" : "password" , 
+   "label" : "رمز عبور"
+ },
+ {
+   "type" : "text" , 
+   "name" : "address" , 
+   "label" : "آدرس"
+ },
+ {
+  "type" : "text" , 
+  "name" : "type" , 
+  "label" : "دسترسی"
+ }
+
+]}) %>

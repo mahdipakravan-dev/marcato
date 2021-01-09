@@ -1,0 +1,17 @@
+
+<%- include("../../../components/form.ejs" , {formTitle : "ویرایش دسته بندی" , submitText : "ویرایش" ,
+action : `/dashboard/product/category/edit/${category.id}` , method : "post" , inputs : [
+ {
+   "type" : "text" ,
+   "name" : "faName" ,
+   "value" : category.faName ,
+   "label" : "نام فارسی"
+ },
+ {
+   "type" : "text" ,
+   "name" : "enName" ,
+   "value" : category.enName ,
+   "label" : "نام انگلیسی"
+ }
+
+]}) %>

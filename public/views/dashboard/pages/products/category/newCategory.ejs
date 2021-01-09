@@ -1,0 +1,15 @@
+
+<%- include("../../../components/form.ejs" , {formTitle : "افزودن ادمین جدید" , submitText : "افزودن" ,
+action : `/dashboard/product/category/insert` , method : "post" , inputs : [
+ {
+   "type" : "text" ,
+   "name" : "faName" ,
+   "label" : "نام فارسی"
+ },
+ {
+   "type" : "text" ,
+   "name" : "enName" ,
+   "label" : "نام انگلیسی"
+ }
+
+]}) %>

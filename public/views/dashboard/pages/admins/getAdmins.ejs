@@ -1,0 +1,38 @@
+<% 
+let data = [];
+
+admins.forEach((item , index) => {
+  data[index] = {
+    id : item._id , 
+    link : `/dashboard/user/${item.id}` ,
+    data : [
+      {
+          type : "text" ,
+          text : `${item.name} ${item.lastName}` ,
+      } ,
+      {
+        type : "text" , 
+        text : item.phoneNumber
+      },
+      {
+        type : "text" , 
+        text : item.type
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-danger" , 
+        text : "حذف" , 
+        link : `/dashboard/admin/delete/${item.id}`
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-success" , 
+        text : "ویرایش" , 
+        link : `/dashboard/admin/edit/${item.id}`
+      }]
+  }
+}) 
+%>
+
+<%- include("../../components/table.ejs" , {title : "لیست کامل" , th : ["نام کامل" , "شماره تلفن" , "نوع" , "حذف" , "ویرایش"] ,
+showId : false , items : data}) %>

@@ -1,0 +1,14 @@
+{
+  "platform": "node",
+  "app": "marcato",
+  "port": 4750 ,
+  "node": {
+    "version": "12"
+  },
+  "disks" : [
+    {
+      "name" : "data" ,
+      "mountTo" : "logs"
+    }
+  ]
+}

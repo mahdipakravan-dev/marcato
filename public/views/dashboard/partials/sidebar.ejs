@@ -1,0 +1,50 @@
+ <!-- Main Sidebar Container -->
+ <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+  <!-- Sidebar -->
+  <div class="sidebar" style="direction: ltr">
+    <div style="direction: rtl">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/images/<%- userProfile %>"
+           class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block"><%- userName %></a>
+          <span class="text-white">
+            <%- userType %>
+          </span>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+         <% sidebar.forEach(item => { %>
+          
+          <li class="nav-header"><%- item.navHeader %></li>
+          <% item.navItems.forEach(navItem => { %>
+            <li class="nav-item">
+              <a href="<%- navItem.link %>" class="nav-link">
+                <i class="<%- navItem.icon %>"></i>
+                <p>
+                  <%- navItem.name %>
+                  <% if(navItem.badge.status == true){ %>
+                    <span class="badge badge-<%- navItem.badge.type %> right"><%- navItem.badge.text %></span>
+                  <% } %>
+                </p>
+              </a>
+            </li>
+          <% }) %>
+         <% }) %>
+          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+  </div>
+  <!-- /.sidebar -->
+</aside>

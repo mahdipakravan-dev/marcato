@@ -1,0 +1,8 @@
+node_modules
+build
+data
+.vscode
+
+rest.http
+
+public/uploads

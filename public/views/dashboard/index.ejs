@@ -1,0 +1,44 @@
+<%- include("./components/box.ejs" , {number : 10 , title : "Salam" , icon : "ion ion-bag"  , moreTitle : "اطلاعات بیشتر", moreLink : ""}) %>
+<%- include("./components/box2.ejs" , {title : "ترافیک cpu" , percent : 10 , icon : "fa fa-gear" , bgColor : "danger"}) %>
+<%- include("./components/box3.ejs" , {title : "فهرست" , number : "52,200" , icon : "fa fa-tag"}) %>
+<%- include("./components/table.ejs" , {title : "آخرین سفارشات" , th : ["آیدی محصول" , "محصول" , "وضعیت" , "رضایت مشتری"] ,
+showId : true , items : [
+  {
+    id : "OR9842" , 
+    link : "#" ,
+    data : [
+      {
+          type : "text" ,
+          text : "بازی ندای وظیفه" ,
+      } ,
+      {
+          type : "badge" , 
+          badge : "badge-success" , 
+          text : "ارسال شده"
+      },
+      {
+        type : "badge" , 
+        badge : "badge-danger" , 
+        text : "مشتری ناراضی"
+      }]
+  } ,
+  {
+    id : "OR9843" , 
+    link : "#" ,
+    data : [
+      {
+          type : "text" ,
+          text : "بازی دزدی در شهر" ,
+      } ,
+      {
+          type : "badge" , 
+          badge : "badge-success" , 
+          text : "ارسال شده"
+      },
+      {
+        type : "badge" , 
+        badge : "badge-success" , 
+        text : "مشتری راضی"
+      }]
+  }
+]}) %>
