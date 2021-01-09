@@ -2,7 +2,9 @@ node_modules
 build
 data
 .vscode
+logs
 
 rest.http
 
 public/uploads
+.env
