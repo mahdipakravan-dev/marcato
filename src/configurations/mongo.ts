@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import Logger from '../helpers/logger'
 
 import config from 'config'
 

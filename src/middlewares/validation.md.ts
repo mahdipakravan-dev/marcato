@@ -3,7 +3,6 @@ import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
 import HttpException from '../helpers/Exception';
 import { statusCodes } from '../helpers/interfaces';
-import logger from '../helpers/logger'
 import HttpResponse from '../helpers/Response';
 
 function validationMiddleware<T>(type: any): express.RequestHandler {

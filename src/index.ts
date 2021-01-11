@@ -11,9 +11,7 @@ import DashboardRoutes from './routes/dashboardRoutes'
 
 import EnvConfig from './configurations/env'
 import MongoConfig from './configurations/mongo'
-import MorganConfig from './configurations/morgan'
 import ViewConfig from './configurations/view'
-import Logger from "./helpers/logger"
 import IpDetector from "./middlewares/ipDetector.md"
 import ExceptionHandler from "./middlewares/ExceptionHandler.md"
 
@@ -32,13 +30,11 @@ import { CategoryModel } from "./models/category"
 class App {
 
     app: Application = express()
-    logger = Logger.getInstance()
 
     constructor() {
         // console.log("***********THIS IS PROCESS.env***********" , process.env)
         new EnvConfig()
         new MongoConfig()
-        new MorganConfig(this.app)
         new ViewConfig(this.app)
         this.configServer()
         this.configExpress()
