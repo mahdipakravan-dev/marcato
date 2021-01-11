@@ -8,6 +8,8 @@ import { RoleModel } from '../../models/roles'
 
 import {requestFiles} from '../../helpers/interfaces'
 
+import config from 'config'
+
 export default new class dashboard_product {
 
   public async getProducts(req : Request , res:Response , next:NextFunction){
@@ -23,17 +25,24 @@ export default new class dashboard_product {
   }
 
   public async postNewProduct(req:Request , res:Response , next:NextFunction){
-    const {enName , fullName , type , price , desc , category , instrument , files } = req.body ,
+    const {enName , fullName , type , price , desc , category , files } = req.body ,
     sellCount = 0
-    let thumbnails = [""]
-    
+    let thumbnails = [""] , 
+
+    //Processing Instruments
+    instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument})
+
+
+    //Processing Images
     files.forEach((file : requestFiles) => {
-      const dest = file.destination.replace("public/" , '/')
-      thumbnails.push(`${dest}${file.filename}`)
+      const dest = file.destination.replace("./public/" , '')
+      thumbnails.push(`${config.get("url")}${dest}${file.filename}`)
     });
     thumbnails.shift()
 
-    await new ProductModel().createProduct({
+
+    //Save
+    await new ProductModel().CreateProduct({
       enName , fullName , type , price , desc , category , instrument , sellCount , thumbnails 
     })
     .then(result => {

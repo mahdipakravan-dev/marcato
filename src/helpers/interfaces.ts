@@ -93,6 +93,6 @@ export interface productInterface {
     sellCount : number ,
     desc : string ,
     category : string , 
-    instrument : string ,
+    instrument : {enName : string , faName : string} ,
     thumbnails : any[]
 }

@@ -6,7 +6,7 @@ export interface IInstrument extends Document {
   enName : string ,
   CreateInstrument(category : instrumentInterface) : Promise<any>
   DeleteInstrument(id:string) : Promise<any>
-  FindInstrument(id:string) : Promise<any>
+  FindInstrument(query:any) : Promise<any>
   Find(query:any) : Promise<any>
   EditInstrument(id:string , category:instrumentInterface) : Promise<any>
 }
@@ -48,9 +48,9 @@ instrumentSchema.methods.EditInstrument = function(id:string , category : instru
     })
 }
 
-instrumentSchema.methods.FindInstrument = function(id:string){
+instrumentSchema.methods.FindInstrument = function(query : any){
     return new Promise((resolve , reject) => {
-        InstrumentModel.findOne({_id : id})
+        InstrumentModel.findOne(query)
         .then(result => {
             resolve(result)
         })

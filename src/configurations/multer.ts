@@ -5,11 +5,16 @@ export const MulterConfig = {
     const year = moment().format('YYYY') ,
     month = moment().format('M')
 
-    cb(null, `./public/uploads/${year}/${month}`)
+    cb(null, `./public/uploads/${year}/${month}/`)
   },
   
   filename: function (req: any, file: any, cb: any) {
-      cb(null, file.originalname)
+    const day = moment().format("D") ,
+    time = moment().format("HHmm") ,
+    ms = moment().format("SSS") ,
+    type = file.originalname.match(/\.[0-9a-z]+$/i)[0]
+
+    cb(null, `${file.fieldname}-${day}${time}${ms}${type}`)
   }
 }
 
