@@ -12,8 +12,8 @@ export interface IProduct extends Document {
   instrument : {enName : string , faName : string} ,
   thumbnails : requestFiles[] ,
   CreateProduct(category : productInterface) : Promise<any>
-  DeleteProduct(id:string) : Promise<any>
-  FindProduct(id:string) : Promise<any>
+  DeleteProduct(query : any) : Promise<any>
+  FindProduct(query:any) : Promise<any>
   Find(query:any) : Promise<any>
   EditProduct(id:string , category:productInterface) : Promise<any>
 }
@@ -42,9 +42,9 @@ productSchema.methods.CreateProduct = function(product:productInterface){
     })
 }
 
-productSchema.methods.DeleteProduct = function(id:string){
+productSchema.methods.DeleteProduct = function(query : any){
   return new Promise((resolve , reject) => {
-      ProductModel.deleteOne({_id : id})
+      ProductModel.deleteOne(query)
       .then(result => {resolve(result)})
       .catch(err => {reject(err)})
   })
@@ -62,9 +62,9 @@ productSchema.methods.EditProduct = function(id:string , newChange : productInte
   })
 }
 
-productSchema.methods.FindProduct = function(id:string){
+productSchema.methods.FindProduct = function(query:any){
   return new Promise((resolve , reject) => {
-      ProductModel.findOne({_id : id})
+      ProductModel.findOne(query)
       .then(result => {
           resolve(result)
       })

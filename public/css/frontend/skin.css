@@ -512,9 +512,9 @@ a:focus {
   color: #4F4D7F; }
 .product.product-list .btn-product.btn-cart {
   color: #4F4D7F;
-  border-bolor: #4F4D7F; }
+  border-color: #4F4D7F; }
   .product.product-list .btn-product.btn-cart:hover, .product.product-list .btn-product.btn-cart:focus {
-    background-color: #4F4D7F; }
+    background-color: #24225c; }
 
 /* Footers */
 .footer a:hover,

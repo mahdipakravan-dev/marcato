@@ -17312,6 +17312,10 @@ button:focus {
   transition: box-shadow .35s ease, color 0s ease;
 }
 
+.product-details-action .btn-cart span:hover {
+  color: #ffffff;
+}
+
 .product-details-action .btn-cart:before {
   margin-left: .4rem;
 }

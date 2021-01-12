@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ProductModel } from "../models/product";
+import { ProductModel } from "../../models/product";
 
 export default new class HomeController {
 
