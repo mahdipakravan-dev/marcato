@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 import { NextFunction } from 'express'
+import { cartInterface, userInterface } from '../helpers/interfaces'
 
 export interface IUser extends Document {
     name : string , 
@@ -10,22 +11,24 @@ export interface IUser extends Document {
     insta : string , 
     birthday : string , 
     password : string ,
-    startedInstrumentAt : string[]
+    cart : cartInterface[]
 
-    CreateUser(user:any):Promise<any>
+    CreateUser(user:userInterface):Promise<any>
+    FindUser(query:any):Promise<any>
 }
 
 const UserSchema: Schema = new Schema({
-    name : { type :String , required : true} , 
-    family : { type :String , required : true} ,
-    phone : { type :String } , 
-    mail : { type :String , required : true} , 
+    name : { type :String } , 
+    family : { type :String } ,
+    phone : { type :String , required : true} , 
+    mail : { type :String } , 
     insta : { type :String } , 
     birthday : { type :String } , 
-    password : {type : String , required:true}
+    password : {type : String , required:true} , 
+    cart : {type : Array , default : [] }
 })
 
-UserSchema.methods.CreateUser = function(user:any){
+UserSchema.methods.CreateUser = function(user:userInterface){
     return new Promise((resolve , reject) => {
         new UserModel(user).save()
         .then(result => {
@@ -36,5 +39,17 @@ UserSchema.methods.CreateUser = function(user:any){
         })
     })
 }
+
+UserSchema.methods.FindUser = function(query:any){
+    return new Promise((resolve , reject) => {
+        UserModel.findOne(query)
+        .then(result => {
+            resolve(result)
+        })
+        .catch(err => {
+            reject(err)
+        })
+    })
+  }
 
 export const UserModel = mongoose.model<IUser>('users', UserSchema)

@@ -22,7 +22,7 @@
                       <div class="tab-content" id="tab-content-5">
                           <div class="tab-pane fade show active" id="signin" role="tabpanel"
                               aria-labelledby="signin-tab">
-                              <form action="#">
+                              <form action="/signin">
                                   <div class="form-group">
                                       <label for="singin-email">نام کاربری یا آدرس ایمیل *</label>
                                       <input type="text" class="form-control" id="singin-email"
@@ -54,17 +54,17 @@
                               <!-- End .form-choice -->
                           </div><!-- .End .tab-pane -->
                           <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                              <form action="#">
+                              <form action="/user/register" method="POST">
                                   <div class="form-group">
-                                      <label for="register-email">آدرس ایمیل شما *</label>
-                                      <input type="email" class="form-control" id="register-email"
-                                          name="register-email" required>
+                                      <label for="register-email">شماره تلفن *</label>
+                                      <input type="text" class="form-control" id="register-email"
+                                          name="phone" required>
                                   </div><!-- End .form-group -->
 
                                   <div class="form-group">
                                       <label for="register-password">رمز عبور *</label>
                                       <input type="password" class="form-control" id="register-password"
-                                          name="register-password" required>
+                                          name="password" required>
                                   </div><!-- End .form-group -->
 
                                   <div class="form-footer">

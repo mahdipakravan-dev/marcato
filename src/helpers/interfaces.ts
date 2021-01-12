@@ -39,6 +39,29 @@ export enum adminTypes {
 }
 
 /**
+ * User Interface
+ */
+
+export interface userInterface {
+    name ?: string , 
+    username ?: string ,
+    family ?: string , 
+    phone : string , 
+    mail ?: string , 
+    insta ?: string , 
+    birthday ?: string , 
+    password : string 
+    cart ?: cartInterface[]
+}
+
+export interface cartInterface {
+    enName : string , 
+    fullName : string , 
+    qty : number , 
+    price : number
+}
+
+/**
  * Dashboard Interfaces
  */
 
@@ -63,6 +86,10 @@ export interface DashboardToken {
     userName : string ,
     userProfile : string ,
     roles : dashboardSidebarInterface[]
+}
+
+export interface FrontendToken {
+    phone : string 
 }
 
 /**

@@ -15,6 +15,7 @@ export interface IProduct extends Document {
   DeleteProduct(query : any) : Promise<any>
   FindProduct(query:any) : Promise<any>
   Find(query:any) : Promise<any>
+  Sort(query:any , sort:any , limit:number) : Promise<any>
   EditProduct(id:string , category:productInterface) : Promise<any>
 }
 
@@ -84,6 +85,18 @@ productSchema.methods.Find = function(query : any){
           reject(err)
       })
   })
+}
+
+productSchema.methods.Sort = function(query:any , sort:any , limit:number){
+    return new Promise((resolve , reject) => {
+        ProductModel.find(query)
+        .sort(sort)
+        .limit(limit)
+        .exec((err:any,products:productInterface) => {
+            if(err) reject(err)
+            else resolve(products)
+        })
+    })
 }
 
 export const ProductModel = mongoose.model<IProduct>('product', productSchema)

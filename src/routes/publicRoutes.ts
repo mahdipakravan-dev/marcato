@@ -1,21 +1,42 @@
 import express = require('express')
-import authController from '../controllers/auth.controller'
-import validationMiddleware from '../middlewares/validation.md'
-import SignUpDto from '../dto/signup.dto'
-import SignInDto from '../dto/signIn.dto'
-import homeController from '../controllers/frontend/frontend_home'
+
+//Middleware
 import frontLocalVariableMd from '../middlewares/frontLocalVariable.md'
+import validationMiddleware from '../middlewares/validation.md'
 
+// DTO
+import SignUpDto from '../dto/frontend/signup.dto'
+
+//Controller
+import homeController from '../controllers/frontend/frontend_home'
 import productController from '../controllers/frontend/frontend_product'
-
-import {Request , Response} from 'express'
+import cartController from '../controllers/frontend/frontend_cart'
+import authController from '../controllers/frontend/frontend_auth'
+import userController from '../controllers/frontend/frontend_user'
 
 const Router = express.Router()
 
 Router.use(frontLocalVariableMd)
 
+/**
+ * HomePage
+ */
 Router.get('/' , homeController.getHome)
 
+/**
+ * Product
+ */
 Router.get('/product/:id' , productController.getProduct)
+Router.get('/cart' , cartController.getCart)
+
+/**
+ * Auth
+ */
+Router.post("/user/register" , validationMiddleware(SignUpDto) , authController.postRegister)
+
+/**
+ * User
+ */
+Router.get("/user" , userController.getHome)
 
 export default Router
