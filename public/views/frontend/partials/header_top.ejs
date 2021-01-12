@@ -14,8 +14,18 @@
           <ul class="top-menu top-link-menu">
               <li>
                   <ul>
-                      <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>ورود یا مارکاتویی شدن!</a>
-                      </li>
+                      <% if(loggedIn) { %>
+                        <li>
+                            <a href="/user"><i class="icon-user"></i>ناحیه کاربری</a>
+                        </li>
+                        <li>
+                            <a href="/user/logout">خروج</a>
+                        </li>
+                      <% } else { %>
+                        <li>
+                            <a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>ورود یا مارکاتویی شدن!</a>
+                        </li>
+                      <% } %>
                   </ul>
               </li>
           </ul><!-- End .top-menu -->

@@ -8,8 +8,21 @@ import { UserModel } from "../../models/user";
 
 export default new class frontend_auth {
 
-    public async postLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async postLogin(req: Request, res: Response, next: NextFunction) {
+        const {phone , password } = req.body
+        const user = await new UserModel().FindUser({phone})
         
+        if(!user) return res.send("کاربر دیگری با این شماره تلفن وجود دارد")
+
+        await Encrypt.Compare(password , user!.password)
+        .then(result => {
+          const token = Jwt.getToken<FrontendToken>({
+            phone
+          })  
+          res.cookie("frontendToken" , token)
+          res.redirect('/user')
+        })
+        .catch(err => {throw new Error(err)})
     }
 
     public async postRegister(req: Request, res: Response, next: NextFunction) {
@@ -37,6 +50,11 @@ export default new class frontend_auth {
       .catch(err => {
         throw new Error(err)
       })
+    }
+
+    public async getLogout(req:Request,  res:Response , next:NextFunction) {
+      res.clearCookie("frontendToken")
+      res.redirect("/user/login")
     }
 
 }

@@ -22,17 +22,17 @@
                       <div class="tab-content" id="tab-content-5">
                           <div class="tab-pane fade show active" id="signin" role="tabpanel"
                               aria-labelledby="signin-tab">
-                              <form action="/signin">
+                              <form action="/user/login" method="POST">
                                   <div class="form-group">
-                                      <label for="singin-email">نام کاربری یا آدرس ایمیل *</label>
+                                      <label for="singin-email">شماره تلفن *</label>
                                       <input type="text" class="form-control" id="singin-email"
-                                          name="singin-email" required>
+                                          name="phone" required>
                                   </div><!-- End .form-group -->
 
                                   <div class="form-group">
                                       <label for="singin-password">رمز عبور *</label>
                                       <input type="password" class="form-control" id="singin-password"
-                                          name="singin-password" required>
+                                          name="password" required>
                                   </div><!-- End .form-group -->
 
                                   <div class="form-footer">
