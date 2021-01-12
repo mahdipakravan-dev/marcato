@@ -52,6 +52,10 @@ export default new class frontend_auth {
       })
     }
 
+    public async getLogin(req: Request, res: Response, next: NextFunction) {
+      res.render("frontend/login")
+    }
+
     public async getLogout(req:Request,  res:Response , next:NextFunction) {
       res.clearCookie("frontendToken")
       res.redirect("/user/login")

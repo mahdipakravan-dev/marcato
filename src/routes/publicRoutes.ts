@@ -40,6 +40,7 @@ Router.get('/cart' , cartController.getCart)
  * Auth
  */
 Router.post("/user/register" , validationMiddleware(SignUpDto) , authController.postRegister)
+Router.get("/user/login" , authController.getLogin)
 Router.post("/user/login" , validationMiddleware(SignInDto) , authController.postLogin)
 Router.get("/user/logout" , authController.getLogout)
 
