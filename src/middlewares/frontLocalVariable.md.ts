@@ -6,7 +6,6 @@ export default function(req:Request , res:Response , next:NextFunction){
   
   req.app.locals.loggedIn = false
   if(req.cookies.frontendToken) {
-    console.log("This isnt logged in")
     req.app.locals.loggedIn = true
   }
 

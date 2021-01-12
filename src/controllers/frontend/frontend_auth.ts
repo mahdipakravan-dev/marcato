@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Encrypt from "../../helpers/Encrypt";
 import { FrontendToken, statusCodes } from "../../helpers/interfaces";
 import Jwt from "../../helpers/jwt";
+import Regex from "../../helpers/Regex";
 import HttpResponse from "../../helpers/Response";
 import { ProductModel } from "../../models/product";
 import { UserModel } from "../../models/user";
@@ -28,15 +29,16 @@ export default new class frontend_auth {
     public async postRegister(req: Request, res: Response, next: NextFunction) {
       let {password , phone } = req.body
 
-      //Hash Password
+      //Hash Password & Regex phone
       password = await Encrypt.Hash(req.body.password)
+      phone = Regex.phoneNumber(phone)
 
       //Check Conflict For username
       const user = await new UserModel().FindUser({phone})
       if(user) return res.send("کاربر دیگری با این شماره تلفن وجود دارد")
       
       await new UserModel().CreateUser({
-        phone : req.body.phone ,
+        phone ,
         password
       })
       .then(() => {

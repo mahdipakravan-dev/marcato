@@ -21,6 +21,7 @@ import {adminTypes, productTypes} from './helpers/interfaces'
 import { UserModel } from "./models/user"
 import { ProductModel } from "./models/product"
 import { CategoryModel } from "./models/category"
+import Regex from "./helpers/Regex"
 
 /**
   * Repository Design Pattern                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -42,7 +43,7 @@ class App {
         // this.logger.info(`Server Started On ${process.env.HOST}:${process.env.PORT} [${process.env.NODE_ENV}]`)
         // console.log(`Server Started On ${process.env.HOST}:${process.env.PORT} [${process.env.NODE_ENV}]`)
 
-        // this.test()
+        this.test()
     }
 
     private configServer(): void {
@@ -112,6 +113,12 @@ class App {
         //     enName : "percussion" ,
         //     faName : "کوبه ای"
         // })
+
+        // let result = '' , phoneNumber = "09369514975"
+
+        // console.log(phoneNumber.replace(
+        //     /(0|\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}/ 
+        //     , "$1 $2 $3 $4"))
     }
 
 }
