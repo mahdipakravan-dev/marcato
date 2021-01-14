@@ -1,0 +1,29 @@
+<form action="/user/login" method="POST">
+  <div class="form-group">
+      <label for="singin-email">شماره تلفن *</label>
+      <input type="text" class="form-control" id="singin-email"
+          name="phone" required>
+  </div><!-- End .form-group -->
+
+  <div class="form-group">
+      <label for="singin-password">رمز عبور *</label>
+      <input type="password" class="form-control" id="singin-password"
+          name="password" required>
+  </div><!-- End .form-group -->
+
+  <div class="form-footer">
+      <button type="submit" class="btn btn-outline-primary-2">
+          <span>ورود</span>
+          <i class="icon-long-arrow-left"></i>
+      </button>
+
+      <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input"
+              id="signin-remember">
+          <label class="custom-control-label" for="signin-remember">مرا به خاطر
+              بسپار</label>
+      </div><!-- End .custom-checkbox -->
+
+      <a href="#" class="forgot-link">فراموشی رمز عبور؟</a>
+  </div><!-- End .form-footer -->
+</form>

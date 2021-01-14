@@ -11,14 +11,15 @@ export default new class frontend_auth {
 
     public async postLogin(req: Request, res: Response, next: NextFunction) {
         const {phone , password } = req.body
-        const user = await new UserModel().FindUser({phone})
+        const user = await new UserModel().FindUser({phone : Regex.phoneNumber(phone)})
         
-        if(!user) return res.send("کاربر دیگری با این شماره تلفن وجود دارد")
+        if(!user) return res.send("کاربری با این شماره تلفن وجود ندارد")
 
         await Encrypt.Compare(password , user!.password)
         .then(result => {
           const token = Jwt.getToken<FrontendToken>({
-            phone
+            phone ,
+            id : user._id
           })  
           res.cookie("frontendToken" , token)
           res.redirect('/user')
@@ -44,7 +45,8 @@ export default new class frontend_auth {
       .then(() => {
         //Create Session Or Cookie For Here
         const token = Jwt.getToken<FrontendToken>({
-          phone
+          phone ,
+          id : user._id
         })  
         res.cookie("frontendToken" , token)
         res.redirect("/user")

@@ -1,0 +1,27 @@
+<form action="/user/register" method="POST">
+  <div class="form-group">
+      <label for="register-email">شماره تلفن *</label>
+      <input type="text" class="form-control" id="register-email"
+          name="phone" required>
+  </div><!-- End .form-group -->
+
+  <div class="form-group">
+      <label for="register-password">رمز عبور *</label>
+      <input type="password" class="form-control" id="register-password"
+          name="password" required>
+  </div><!-- End .form-group -->
+
+  <div class="form-footer">
+      <button type="submit" class="btn btn-outline-primary-2">
+          <span>ثبت نام</span>
+          <i class="icon-long-arrow-left"></i>
+      </button>
+
+      <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="register-policy"
+              required>
+          <label class="custom-control-label" for="register-policy">با
+              <a href="#">قوانین و مقررات </a>موافقم *</label>
+      </div><!-- End .custom-checkbox -->
+  </div><!-- End .form-footer -->
+</form>

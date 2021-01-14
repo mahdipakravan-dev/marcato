@@ -89,7 +89,8 @@ export interface DashboardToken {
 }
 
 export interface FrontendToken {
-    phone : string 
+    phone : string ,
+    id : string
 }
 
 /**

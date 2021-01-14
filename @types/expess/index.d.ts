@@ -7,6 +7,7 @@ declare global {
             token: string
             auth: { userId: string } 
             session : any 
+            headers : token
         }
 
     }

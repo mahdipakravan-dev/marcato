@@ -8,6 +8,7 @@ import flash from 'express-flash'
 import PrivateRoutes from './routes/privateRoutes'
 import PublicRoutes from './routes/publicRoutes'
 import DashboardRoutes from './routes/dashboardRoutes'
+import restRoutes from "./routes/restRoutes"
 
 import EnvConfig from './configurations/env'
 import MongoConfig from './configurations/mongo'
@@ -67,6 +68,7 @@ class App {
     private configRoutesAndLog(): void {
         this.app.use(IpDetector)
         this.app.use(PublicRoutes)
+        this.app.use("/rest" , restRoutes)
         this.app.use("/dashboard" , DashboardRoutes)
         this.app.use(PrivateRoutes)
         this.app.use(ExceptionHandler)

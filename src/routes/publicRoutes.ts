@@ -35,6 +35,7 @@ Router.get('/product/:id' , productController.getProduct)
  * Cart
  */
 Router.get('/cart' , cartController.getCart)
+Router.get('/cart/add/:productId/:userId' , cartController.addCart)
 
 /**
  * Auth

@@ -5,6 +5,12 @@
     {title : product.fullName , link : "" , active : true}
 ]}) %>
 
+<%- include("./components/popup-loginRequired.ejs" , {from : product._id}) %>
+
+<%- include("./components/popup-custom.ejs" , {title : "این محصول در سبد خرید شما موجود می باشد" , text : `
+    <a href='/cart' class='btn btn-primary'>رفتن به سبد خرید</a>
+` , id : "alerdyInBasket"}) %>
+
   <div class="page-content">
       <div class="container">
           <div class="product-details-top">
@@ -62,11 +68,24 @@
                           </div><!-- End .details-filter-row -->
 
                             <div class="product-details-action">
-                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
+                                <a style="cursor: pointer;" 
+                                onclick="
+                                    let qty = document.getElementById('qty').value , 
+                                    productId = '<%- product._id %>' ,
+                                    userId = '<%- auth.id %>' 
+                                    addToCart(productId , userId , qty)
+                                "
+                                class="btn-product btn-cart"> 
+                                    <span>افزودن به سبد خرید</span>
+                                </a>
 
                                 <div class="details-action-wrapper">
                                 </div><!-- End .details-action-wrapper -->
                             </div><!-- End .product-details-action -->
+
+                            <div class="alert alert-success" style="display: none;" id="alertSuccess" role="alert">
+                                با موفقیت به <a href="/cart">سبد خرید</a> شما اضافه شد
+                            </div>
 
                           <div class="product-details-footer">
                               <div class="product-cat text-center">
