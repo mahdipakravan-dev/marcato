@@ -68,16 +68,22 @@
                           </div><!-- End .details-filter-row -->
 
                             <div class="product-details-action">
-                                <a style="cursor: pointer;" 
-                                onclick="
-                                    let qty = document.getElementById('qty').value , 
-                                    productId = '<%- product._id %>' ,
-                                    userId = '<%- auth.id %>' 
-                                    addToCart(productId , userId , qty)
-                                "
-                                class="btn-product btn-cart"> 
-                                    <span>افزودن به سبد خرید</span>
-                                </a>
+                                <% if(loggedIn){ %>
+                                    <a style="cursor: pointer;" 
+                                    onclick="
+                                        let qty = document.getElementById('qty').value , 
+                                        productId = '<%- product._id %>' ,
+                                        userId = '<%- auth.id %>' 
+                                        addToCart(productId , userId , qty)"
+
+                                        class="btn-product btn-cart"> 
+                                            <span>افزودن به سبد خرید</span>
+                                        </a>
+                                <% } else { %>
+                                    <a style="cursor: pointer;" href="/cart" class="btn btn-primary"> 
+                                        <span>رفتن به سبد خرید</span>
+                                    </a>
+                                <% } %>
 
                                 <div class="details-action-wrapper">
                                 </div><!-- End .details-action-wrapper -->
