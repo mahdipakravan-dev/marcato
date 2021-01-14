@@ -80,9 +80,11 @@
                                             <span>افزودن به سبد خرید</span>
                                         </a>
                                 <% } else { %>
-                                    <a style="cursor: pointer;" href="/cart" class="btn btn-primary"> 
-                                        <span>رفتن به سبد خرید</span>
-                                    </a>
+                                    <a style="cursor: pointer;" 
+                                    onclick="$('#loginRequired').modal('show')"
+                                        class="btn-product btn-cart"> 
+                                            <span>افزودن به سبد خرید</span>
+                                        </a>
                                 <% } %>
 
                                 <div class="details-action-wrapper">
