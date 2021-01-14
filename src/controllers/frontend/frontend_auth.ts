@@ -42,17 +42,18 @@ export default new class frontend_auth {
         phone ,
         password
       })
-      .then(() => {
+      .then(result => {
         //Create Session Or Cookie For Here
         const token = Jwt.getToken<FrontendToken>({
           phone ,
-          id : user._id
+          id : result._id
         })  
         res.cookie("frontendToken" , token)
         res.redirect("/user")
       })
       .catch(err => {
         throw new Error(err)
+        res.send("مشکلی پیش آمده مجددا تلاش نمایید").status(statusCodes.INTERNAL)
       })
     }
 
