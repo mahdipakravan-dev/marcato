@@ -55,7 +55,7 @@
                 <h3 class="product-title text-center"><a href="product.html"><%- product.fullName %></a></h3>
                 <!-- End .product-title -->
                 <div class="product-price">
-                    <%- product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %> تومان
+                    <%- helper.decimaller(product.price) %> تومان
                 </div><!-- End .product-price -->
                 <div class="ratings-container">
                     <div class="ratings">

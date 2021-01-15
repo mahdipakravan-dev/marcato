@@ -6,7 +6,7 @@ export default new class frontend_cart {
 
     public async getCart(req: Request, res: Response, next: NextFunction): Promise<void> {
         const user = await new UserModel().FindUser({_id : req.token})
-        res.render('frontend/cart' , {user})
+        res.render('frontend/cart' , {user , getTest(name:string){return `Salam ${name}`} })
     }
 
     public async addCart(req: Request, res: Response, next: NextFunction){

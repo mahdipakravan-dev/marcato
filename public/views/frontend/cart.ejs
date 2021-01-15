@@ -42,7 +42,7 @@
                                             </h3><!-- End .product-title -->
                                         </div><!-- End .product -->
                                     </td>
-                                    <td class="price-col"><%- cart.price %></td>
+                                    <td class="price-col"><%- helper.decimaller(cart.price) %></td>
                                     <td class="quantity-col">
                                         <div class="cart-product-quantity">
                                             <input type="number" class="form-control" value="<%- cart.qty %>" min="1" max="10"
@@ -50,7 +50,7 @@
                                         </div><!-- End .cart-product-quantity -->
                                     </td>
                                     <td class="total-col">
-                                        2500,000
+                                        <%- helper.decimaller(cart.qty * cart.price) %>
                                     </td>
                                     <td class="remove-col">
                                         <button class="btn-remove" onclick="
@@ -74,7 +74,7 @@
                             </form>
                         </div><!-- End .cart-discount -->
 
-                        <a href="#" class="btn btn-outline-dark-2"><span>به روز رسانی سبد خرید</span><i
+                        <a onclick="reloadCart()" class="btn btn-outline-dark-2"><span>به روز رسانی سبد خرید</span><i
                                 class="icon-refresh"></i></a>
                     </div><!-- End .cart-bottom -->
                 </div><!-- End .col-lg-9 -->
@@ -86,57 +86,20 @@
                             <tbody>
                                 <tr class="summary-subtotal">
                                     <td>جمع کل سبد خرید : </td>
-                                    <td class="text-left">236,000 تومان</td>
+                                    <td class="text-left" id="cartPrice"><%- helper.decimaller(user.cartPrice) %> تومان</td>
                                 </tr><!-- End .summary-subtotal -->
-                                <tr class="summary-shipping">
-                                    <td>شیوه ارسال : </td>
-                                    <td>&nbsp;</td>
-                                </tr>
 
-                                <tr class="summary-shipping-row">
+                                
+                                <tr class="summary-shipping-row pt-2">
                                     <td>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="free-shipping" name="shipping"
-                                                class="custom-control-input">
-                                            <label class="custom-control-label" for="free-shipping">ارسال
-                                                رایگان</label>
-                                        </div><!-- End .custom-control -->
+                                        <label class="custom-control-label" for="standart-shipping">هزینه ارسال</label>
                                     </td>
-                                    <td class="text-left">0,000 تومان</td>
+                                    <td class="text-left">25,000 تومان</td>
                                 </tr><!-- End .summary-shipping-row -->
-
-                                <tr class="summary-shipping-row">
-                                    <td>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="standart-shipping" name="shipping"
-                                                class="custom-control-input">
-                                            <label class="custom-control-label" for="standart-shipping">پست
-                                                سفارشی :</label>
-                                        </div><!-- End .custom-control -->
-                                    </td>
-                                    <td class="text-left">10,000 تومان</td>
-                                </tr><!-- End .summary-shipping-row -->
-
-                                <tr class="summary-shipping-row">
-                                    <td>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="express-shipping" name="shipping"
-                                                class="custom-control-input">
-                                            <label class="custom-control-label" for="express-shipping">پست
-                                                پیشتاز :</label>
-                                        </div><!-- End .custom-control -->
-                                    </td>
-                                    <td class="text-left">20,000 تومان</td>
-                                </tr><!-- End .summary-shipping-row -->
-
-                                <tr class="summary-shipping-estimate">
-                                    <td>آدرس<br> <a href="dashboard.html">تغییر آدرس</a></td>
-                                    <td>&nbsp;</td>
-                                </tr><!-- End .summary-shipping-estimate -->
 
                                 <tr class="summary-total">
                                     <td>مبلغ قابل پرداخت :</td>
-                                    <td class="text-left">236,000 تومان</td>
+                                    <td class="text-left"><%- helper.decimaller(user.cartPrice + 25000) %> تومان</td>
                                 </tr><!-- End .summary-total -->
                             </tbody>
                         </table><!-- End .table table-summary -->
@@ -144,9 +107,6 @@
                         <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">رفتن
                             به صفحه پرداخت</a>
                     </div><!-- End .summary -->
-
-                    <a href="category.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>ادامه
-                            خرید</span><i class="icon-refresh"></i></a>
                 </aside><!-- End .col-lg-3 -->
             </div><!-- End .row -->
             <% } else { %>

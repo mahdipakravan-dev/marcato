@@ -42,10 +42,10 @@ function alertSuccess(){
 function reloadCart(){
   $("#cartBody").empty()
   Ajax("rest/cart/get" , "GET" , {} , {token : getCookies().frontendToken})
-  .then(result => {
-    if(!result) return alert("Error")
-    result.forEach(cart => {
-      $("#cartBody").html(`
+  .then(user => {
+    if(!user) return alert("Error")
+    user.cart.forEach(cart => {
+      $("#cartBody").append(`
       <tr>
         <td class="product-col">
             <div class="product">
@@ -75,8 +75,10 @@ function reloadCart(){
             <button class="btn-remove" onclick="
                 deleteCart('${cart.id }')
             "><i class="icon-close"></i></button></td>
-    </tr>`) 
+    </tr>`)   
     })
+
+    $("#cartPrice").html(`${user.cartPrice} تومان`)
   })
   .catch(err => {console.log(err.status)})
 }

@@ -13,6 +13,12 @@ export default async function(req:Request , res:Response , next:NextFunction){
     req.app.locals.auth = user.userData
   }
 
+  req.app.locals.helper = {
+    decimaller(number:any){
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
+    }
+  }
+
 
   req.app.locals.url = config.get("url")
 

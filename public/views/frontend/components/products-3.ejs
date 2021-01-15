@@ -46,7 +46,7 @@
                         <h3 class="product-title text-center"><a href="/product/<%- sameProduct._id %>"><%- sameProduct.fullName %></a></h3>
                         <!-- End .product-title -->
                         <div class="product-price">
-                            <%- product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %> تومان
+                            <%- helper.decimaller(sameProduct.price) %> تومان
                         </div><!-- End .product-price -->
                     </div><!-- End .product-body -->
                 </div><!-- End .product -->

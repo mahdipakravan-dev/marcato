@@ -22,7 +22,7 @@ export default new class api_cart {
     .then(async user => {
 
       //Initialize Cart
-      if(!user.cart[0]) {
+    if(!user.cart[0]) {
         await new UserModel().updateCart({_id : userId} , [
           {id : product._id , enName : product.enName , qty , price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]}
         ])
@@ -73,6 +73,6 @@ export default new class api_cart {
 
   public async getCart(req: Request, res: Response, next: NextFunction){
     const user = await new UserModel().FindUser({_id : req.auth.id})
-    res.json(user.cart || [])
+    res.json(user)
   }
 }

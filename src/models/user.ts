@@ -26,7 +26,8 @@ const UserSchema: Schema = new Schema({
     insta : { type :String } , 
     birthday : { type :String } , 
     password : {type : String , required:true} , 
-    cart : {type : Array , default : [] }
+    cart : {type : Array , default : [] } , 
+    cartPrice : {type : Number , required : true , default : 0}
 })
 
 UserSchema.methods.CreateUser = function(user:userInterface){
@@ -55,7 +56,9 @@ UserSchema.methods.FindUser = function(query:any){
 
 UserSchema.methods.updateCart = function(query:any , newCart : any){
     return new Promise((resolve , reject) => {
-      UserModel.updateOne(query , {cart : newCart})  
+      let cartPrice = 0
+      newCart.forEach((newCartItem:any) => {cartPrice += newCartItem.price})
+      UserModel.updateOne(query , {cart : newCart , cartPrice})  
       .then(result => resolve(result))
       .catch(err => {reject(err)})
     })
