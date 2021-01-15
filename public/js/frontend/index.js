@@ -39,6 +39,8 @@ function alertSuccess(){
   } , 4000)
 }
 
+function decimaller(number){return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
+
 function reloadCart(){
   $("#cartBody").empty()
   Ajax("rest/cart/get" , "GET" , {} , {token : getCookies().frontendToken})
@@ -61,24 +63,27 @@ function reloadCart(){
                 </h3><!-- End .product-title -->
             </div><!-- End .product -->
         </td>
-        <td class="price-col">${cart.price }</td>
+        <td class="price-col">${decimaller(cart.price)}</td>
         <td class="quantity-col">
             <div class="cart-product-quantity">
-                <input type="number" class="form-control" value="${cart.qty }" min="1" max="10"
+                <input data-productid="${cart.id}" type="number" class="form-control" value="${cart.qty }" min="1" max="10"
                     step="1" data-decimals="0" required>
             </div><!-- End .cart-product-quantity -->
         </td>
         <td class="total-col">
-            ${cart.price * cart.qty}
+            ${decimaller(cart.price * cart.qty)}
         </td>
         <td class="remove-col">
             <button class="btn-remove" onclick="
                 deleteCart('${cart.id }')
             "><i class="icon-close"></i></button></td>
     </tr>`)   
+
     })
 
-    $("#cartPrice").html(`${user.cartPrice} تومان`)
+    $("#cartPrice").html(`${decimaller(user.cartPrice)} تومان`)
+    location.reload()
+    
   })
   .catch(err => {console.log(err.status)})
 }
@@ -106,3 +111,15 @@ function deleteCart(productId) {
     else {alert("هنگام ارسال اطلاعات به سرور مشکلی پیش آمده لطفا مجددا تلاش نمایید")}
   })
 }
+
+$("input[type='number']").change(function(){
+  console.log("This is Called")
+  const productId = $(this).data().productid
+  Ajax("rest/cart/update" , "PUT" , {productId , qty : parseInt(this.value)} , {token : getCookies().frontendToken} )
+  .then(result => {reloadCart(); console.log(result)})
+  .catch(err => {
+    console.log(err)
+    if(err.status !== 200) alert("در هنگام ارسال اطلاعات به سرور مشکلی پیش آمده مجددا تلاش نمایید")
+    else {reloadCart(); $(this).next()}
+  })
+})

@@ -54,10 +54,10 @@ UserSchema.methods.FindUser = function(query:any){
     })
   }
 
-UserSchema.methods.updateCart = function(query:any , newCart : any){
+UserSchema.methods.updateCart = function(query:any , newCart : cartInterface[]){
     return new Promise((resolve , reject) => {
       let cartPrice = 0
-      newCart.forEach((newCartItem:any) => {cartPrice += newCartItem.price})
+      newCart.forEach((newCartItem:any) => {cartPrice += (newCartItem.price * newCartItem.qty)})
       UserModel.updateOne(query , {cart : newCart , cartPrice})  
       .then(result => resolve(result))
       .catch(err => {reject(err)})

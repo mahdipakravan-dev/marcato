@@ -45,8 +45,7 @@
                                     <td class="price-col"><%- helper.decimaller(cart.price) %></td>
                                     <td class="quantity-col">
                                         <div class="cart-product-quantity">
-                                            <input type="number" class="form-control" value="<%- cart.qty %>" min="1" max="10"
-                                                step="1" data-decimals="0" required>
+                                            <input type="number" data-productid="<%- cart.id %>" class="form-control qty" value="<%- cart.qty %>" min="1" max="10" step="1" data-decimals="0" required>
                                         </div><!-- End .cart-product-quantity -->
                                     </td>
                                     <td class="total-col">
@@ -90,17 +89,34 @@
                                 </tr><!-- End .summary-subtotal -->
 
                                 
-                                <tr class="summary-shipping-row pt-2">
-                                    <td>
-                                        <label class="custom-control-label" for="standart-shipping">هزینه ارسال</label>
-                                    </td>
-                                    <td class="text-left">25,000 تومان</td>
-                                </tr><!-- End .summary-shipping-row -->
+                                <% if(options.transportCost !== 0) { %>
+                                    <tr class="summary-shipping-row pt-2">
+                                        <td>
+                                            <label class="custom-control-label" for="standart-shipping">هزینه ارسال</label>
+                                        </td>
+                                        <td class="text-left"><%- helper.decimaller(options.transportCost) %> تومان</td>
+                                    </tr><!-- End .summary-shipping-row -->
+    
+                                    <% if(options.debtPercent  == 0) { %>
+                                        <tr class="summary-total">
+                                        <td>مبلغ قابل پرداخت :</td>
+                                        <td class="text-left"><%- helper.decimaller(user.cartPrice + options.transportCost) %> تومان</td>
+                                        </tr><!-- End .summary-total -->
+                                    <% } %>
 
-                                <tr class="summary-total">
-                                    <td>مبلغ قابل پرداخت :</td>
-                                    <td class="text-left"><%- helper.decimaller(user.cartPrice + 25000) %> تومان</td>
-                                </tr><!-- End .summary-total -->
+                                <% } if(options.debtPercent !== 0) {  %>
+                                    <tr class="summary-shipping-row pt-2">
+                                        <td>
+                                            <label class="custom-control-label" for="standart-shipping">مالیات بر ارزش افزوده</label>
+                                        </td>
+                                        <td class="text-left"><%- helper.decimaller(options.debtPercent) %> درصد</td>
+                                    </tr><!-- End .summary-shipping-row -->
+
+                                    <tr class="summary-total">
+                                        <td>مبلغ قابل پرداخت :</td>
+                                        <td class="text-left"><%- user.cartPrice + ((options.debtPercent * user.cartPrice) / 100) %> تومان</td>
+                                    </tr><!-- End .summary-total -->
+                                <% } %>
                             </tbody>
                         </table><!-- End .table table-summary -->
 

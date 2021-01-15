@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from "express";
+import { OptionModel } from "../../models/options";
 import { ProductModel } from "../../models/product";
 import { UserModel } from "../../models/user";
 
 export default new class frontend_cart {
 
     public async getCart(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const user = await new UserModel().FindUser({_id : req.token})
-        res.render('frontend/cart' , {user , getTest(name:string){return `Salam ${name}`} })
+        const user = await new UserModel().FindUser({_id : req.token}) ,
+        options = await new OptionModel().GetOptions()  
+        res.render('frontend/cart' , {user , options})
     }
 
     public async addCart(req: Request, res: Response, next: NextFunction){

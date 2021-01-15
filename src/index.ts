@@ -23,6 +23,7 @@ import { UserModel } from "./models/user"
 import { ProductModel } from "./models/product"
 import { CategoryModel } from "./models/category"
 import Regex from "./helpers/Regex"
+import { OptionModel } from "./models/options"
 
 /**
   * Repository Design Pattern                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -121,6 +122,13 @@ class App {
         // console.log(phoneNumber.replace(
         //     /(0|\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}/ 
         //     , "$1 $2 $3 $4"))
+
+        // await new OptionModel().InitOption()
+
+        // await new OptionModel().EditOption("transportCost" , 35000)
+        await new OptionModel().EditOption("debtPercent" , 0)
+
+
     }
 
 }

@@ -24,7 +24,7 @@ export default new class api_cart {
       //Initialize Cart
     if(!user.cart[0]) {
         await new UserModel().updateCart({_id : userId} , [
-          {id : product._id , enName : product.enName , qty , price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]}
+          {id : product._id , enName : product.enName , qty : 1 , price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]}
         ])
         .then(() => {res.json().status(statusCodes.SUCCESS)})
         .catch(() => {res.json().status(statusCodes.INTERNAL)})
@@ -40,7 +40,7 @@ export default new class api_cart {
         if(haveIt) {
           res.json().status(statusCodes.CONFLICT)
         } else {
-          newCart.push({id : product._id , enName : product.enName , qty , price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]})
+          newCart.push({id : product._id , enName : product.enName , qty : 1, price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]})
           await new UserModel().updateCart({_id : userId} , newCart)
           res.json().status(statusCodes.SUCCESS)
         }
@@ -68,7 +68,33 @@ export default new class api_cart {
   }
 
   public async updateCart(req: Request, res: Response, next: NextFunction){
-    //Get mm pp 
+    const {productId , qty} = req.body ,
+    userId = req.auth.id , 
+    user = await new UserModel().FindUser({_id : userId})
+
+    if(!user) return res.json().status(statusCodes.NOT_FOUND)
+
+    console.log(productId , typeof qty)
+
+    let newCart = [] 
+    for(let i = 0 ; i < user.cart.length ; i++){  
+      if(user.cart[i].id != productId) newCart.push(user.cart[i]) ;   
+      else newCart.push(
+        {
+          id : user.cart[i].id , 
+          enName : user.cart[i].enName , 
+          qty : parseInt(qty) , 
+          price : user.cart[i].price , 
+          fullName : user.cart[i].fullName , 
+          thumbnail : user.cart[i].thumbnail
+        }
+      )
+    }
+
+    await new UserModel().updateCart({_id : userId} , newCart)
+    .then(() => {res.json().status(statusCodes.SUCCESS)})
+    .catch(err => {res.json().status(statusCodes.INTERNAL)})
+
   }
 
   public async getCart(req: Request, res: Response, next: NextFunction){
