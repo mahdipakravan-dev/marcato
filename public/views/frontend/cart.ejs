@@ -10,6 +10,8 @@
 <div class="page-content">
     <div class="cart">
         <div class="container">
+            <% if(user.cart.length >= 0) { %>
+                
             <div class="row">
                 <div class="col-lg-9">
                     <table class="table table-cart table-mobile">
@@ -23,59 +25,39 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td class="product-col">
-                                    <div class="product">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="assets/images/products/table/product-1.jpg"
-                                                    alt="تصویر محصول">
-                                            </a>
-                                        </figure>
-
-                                        <h3 class="product-title">
-                                            <a href="#">کتونی ورزشی مخصوص دویدن رنگ بژ</a>
-                                        </h3><!-- End .product-title -->
-                                    </div><!-- End .product -->
-                                </td>
-                                <td class="price-col">84,000</td>
-                                <td class="quantity-col">
-                                    <div class="cart-product-quantity">
-                                        <input type="number" class="form-control" value="1" min="1" max="10"
-                                            step="1" data-decimals="0" required>
-                                    </div><!-- End .cart-product-quantity -->
-                                </td>
-                                <td class="total-col">84,000</td>
-                                <td class="remove-col"><button class="btn-remove"><i
-                                            class="icon-close"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="product-col">
-                                    <div class="product">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="assets/images/products/table/product-2.jpg"
-                                                    alt="تصویر محصول">
-                                            </a>
-                                        </figure>
-
-                                        <h3 class="product-title">
-                                            <a href="#">لباس زنانه آبی</a>
-                                        </h3><!-- End .product-title -->
-                                    </div><!-- End .product -->
-                                </td>
-                                <td class="price-col">76,000</td>
-                                <td class="quantity-col">
-                                    <div class="cart-product-quantity">
-                                        <input type="number" class="form-control" value="2" min="1" max="10"
-                                            step="1" data-decimals="0" required>
-                                    </div><!-- End .cart-product-quantity -->
-                                </td>
-                                <td class="total-col">152,000</td>
-                                <td class="remove-col"><button class="btn-remove"><i
-                                            class="icon-close"></i></button></td>
-                            </tr>
+                        <tbody id="cartBody">
+                            <% user.cart.forEach(cart => { %>
+                                <tr>
+                                    <td class="product-col">
+                                        <div class="product">
+                                            <figure class="product-media">
+                                                <a href="#">
+                                                    <img src="<%- cart.thumbnail %>"
+                                                        alt="<%- cart.fullName %>">
+                                                </a>
+                                            </figure>
+    
+                                            <h3 class="product-title">
+                                                <a href="/product/<%- cart.id %>"><%- cart.fullName %></a>
+                                            </h3><!-- End .product-title -->
+                                        </div><!-- End .product -->
+                                    </td>
+                                    <td class="price-col"><%- cart.price %></td>
+                                    <td class="quantity-col">
+                                        <div class="cart-product-quantity">
+                                            <input type="number" class="form-control" value="<%- cart.qty %>" min="1" max="10"
+                                                step="1" data-decimals="0" required>
+                                        </div><!-- End .cart-product-quantity -->
+                                    </td>
+                                    <td class="total-col">
+                                        2500,000
+                                    </td>
+                                    <td class="remove-col">
+                                        <button class="btn-remove" onclick="
+                                            deleteCart('<%- cart.id %>')
+                                        "><i class="icon-close"></i></button></td>
+                                </tr>
+                            <% }) %>
                         </tbody>
                     </table><!-- End .table table-wishlist -->
 
@@ -167,6 +149,12 @@
                             خرید</span><i class="icon-refresh"></i></a>
                 </aside><!-- End .col-lg-3 -->
             </div><!-- End .row -->
+            <% } else { %>
+                <div class="alert alert-info my-5 d-flex justify-content-center flex-column align-items-center" role="alert">    
+                    <h6 class="text-center text-white">محصولی در سبد خرید شما موجود نیست</h6>
+                    <a href="/products">بازگشت به فروشگاه</a>
+                </div>
+            <% } %>
         </div><!-- End .container -->
     </div><!-- End .cart -->
 </div><!-- End .page-content -->

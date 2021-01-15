@@ -52,7 +52,6 @@ export default new class frontend_auth {
         res.redirect("/user")
       })
       .catch(err => {
-        throw new Error(err)
         res.send("مشکلی پیش آمده مجددا تلاش نمایید").status(statusCodes.INTERNAL)
       })
     }

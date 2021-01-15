@@ -5,7 +5,7 @@ declare global {
     namespace Express {
         interface Request {
             token: string
-            auth: { userId: string } 
+            auth: { id: string } 
             session : any 
             headers : token
         }

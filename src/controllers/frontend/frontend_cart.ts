@@ -5,8 +5,8 @@ import { UserModel } from "../../models/user";
 export default new class frontend_cart {
 
     public async getCart(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const products = await new ProductModel().Find({})
-        res.render('frontend/cart')
+        const user = await new UserModel().FindUser({_id : req.token})
+        res.render('frontend/cart' , {user})
     }
 
     public async addCart(req: Request, res: Response, next: NextFunction){

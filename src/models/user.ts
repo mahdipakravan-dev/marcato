@@ -15,7 +15,7 @@ export interface IUser extends Document {
 
     CreateUser(user:userInterface):Promise<any>
     FindUser(query:any):Promise<any>
-    addToCart(query:any , newCart :any):Promise<any>
+    updateCart(query:any , newCart :any):Promise<any>
 }
 
 const UserSchema: Schema = new Schema({
@@ -53,12 +53,14 @@ UserSchema.methods.FindUser = function(query:any){
     })
   }
 
-UserSchema.methods.addToCart = function(query:any , newCart : any){
+UserSchema.methods.updateCart = function(query:any , newCart : any){
     return new Promise((resolve , reject) => {
       UserModel.updateOne(query , {cart : newCart})  
       .then(result => resolve(result))
       .catch(err => {reject(err)})
     })
 }
+
+
 
 export const UserModel = mongoose.model<IUser>('users', UserSchema)
