@@ -24,6 +24,7 @@ import { ProductModel } from "./models/product"
 import { CategoryModel } from "./models/category"
 import Regex from "./helpers/Regex"
 import { OptionModel } from "./models/options"
+import { OrderModel } from "./models/order"
 
 /**
   * Repository Design Pattern                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -126,8 +127,15 @@ class App {
         // await new OptionModel().InitOption()
 
         // await new OptionModel().EditOption("transportCost" , 35000)
-        await new OptionModel().EditOption("debtPercent" , 0)
-
+        // await new OptionModel().EditOption("debtPercent" , 0)
+        // await new OrderModel().CreateOrder({
+        //     userId : string  ,
+        //     cart : cartInterface[] ,
+        //     status : boolean ,
+        //     discountCode ?: string ,
+        //     count ?: number ,
+        //     price ?: number
+        // })
 
     }
 

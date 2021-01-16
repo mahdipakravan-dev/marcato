@@ -55,10 +55,12 @@ export interface userInterface {
 }
 
 export interface cartInterface {
+    id : string
     enName : string , 
     fullName : string , 
     qty : number , 
     price : number
+    thumbnail : string
 }
 
 /**

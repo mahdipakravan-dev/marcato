@@ -42,6 +42,10 @@ function alertSuccess(){
 function decimaller(number){return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
 function reloadCart(){
+  return location.reload()
+  /**
+   * Below Will Implement in next Future
+   */
   $("#cartBody").empty()
   Ajax("rest/cart/get" , "GET" , {} , {token : getCookies().frontendToken})
   .then(user => {
@@ -82,7 +86,6 @@ function reloadCart(){
     })
 
     $("#cartPrice").html(`${decimaller(user.cartPrice)} تومان`)
-    location.reload()
     
   })
   .catch(err => {console.log(err.status)})
