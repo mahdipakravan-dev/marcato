@@ -10,12 +10,14 @@
 
             <div class="products mb-3">
                 <div class="row justify-content-center">
-                    <%- include("./components/products-product.ejs") %>
+                    <% products.docs.forEach(product => { %>
+                        <%- include("./components/products-product.ejs" , {product}) %>
+                    <% }) %>
                 </div><!-- End .row -->
             </div><!-- End .products -->
 
 
-            <%- include("./components/products-navigation") %>
+            <%- include("./components/products-navigation" , {products}) %>
         </div><!-- End .col-lg-9 -->
         <aside class="col-lg-3 order-lg-first">
             <div class="sidebar sidebar-shop">

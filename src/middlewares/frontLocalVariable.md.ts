@@ -16,7 +16,19 @@ export default async function(req:Request , res:Response , next:NextFunction){
   req.app.locals.helper = {
     decimaller(number:any){
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
-    }
+    } , 
+
+    linkToProducts(page:number){return `/products?page=${page}`},
+
+    linkToProduct(productId : string){
+      return `/product/${productId}`
+    },
+    linkToCategory(category : string){
+      return `/products-category/${category}`
+    } ,
+    linkToInstrument(instrument : string) {
+      return `/products-instrument/${instrument}`
+    },
   }
 
 

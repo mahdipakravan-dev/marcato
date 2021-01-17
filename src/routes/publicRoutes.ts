@@ -29,6 +29,8 @@ Router.get('/' , homeController.getHome)
  * Product
  */
 Router.get('/products' , productController.getProducts)
+Router.get('/products-instrument/:instrument' , productController.getProductsIns)
+Router.get('/products-category/:category' , productController.getProductsCat)
 Router.get('/product/:id' , productController.getProduct)
 
 

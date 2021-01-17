@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 import {productInterface, productTypes, requestFiles} from '../helpers/interfaces'
+import { mongoosePagination, Pagination } from 'mongoose-paginate-ts'
 
 export interface IProduct extends Document {
   fullName : string , 
@@ -16,6 +17,7 @@ export interface IProduct extends Document {
   FindProduct(query:any) : Promise<any>
   Find(query:any) : Promise<any>
   Sort(query:any , sort:any , limit:number) : Promise<any>
+  Paginate(query:any) : Promise<any>
   EditProduct(id:string , category:productInterface) : Promise<any>
 }
 
@@ -27,9 +29,11 @@ const productSchema : Schema = new Schema({
   price : {type : Number , required : true , default : 0} , 
   sellCount : {type : Number , required : true , default : 0} ,
   thumbnails : {type : Array  , default : ["https://i.stack.imgur.com/y9DpT.jpg"]} , 
-  category : {type : String  , default : "دسته بندی نشده"} , 
+  category : {type : Object , default : {enName : "none" , faName : "انتخاب نشده"}} , 
   instrument : {type : Object , default : {enName : "none" , faName : "انتخاب نشده"}}
 })
+
+productSchema.plugin(mongoosePagination)
 
 productSchema.methods.CreateProduct = function(product:productInterface){
     return new Promise((resolve , reject) => {
@@ -99,4 +103,12 @@ productSchema.methods.Sort = function(query:any , sort:any , limit:number){
     })
 }
 
-export const ProductModel = mongoose.model<IProduct>('product', productSchema)
+productSchema.methods.Paginate = function(query:any){
+    return new Promise((resolve , reject) => {
+        ProductModel.paginate(query)
+        .then(result => resolve(result))
+        .catch(err => reject(err))
+    })
+}
+
+export const ProductModel = mongoose.model<IProduct , Pagination<IProduct>>('product', productSchema)

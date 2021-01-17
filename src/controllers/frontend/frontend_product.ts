@@ -17,7 +17,38 @@ export default new class frontend_product {
     }
 
     public async getProducts(req:Request , res:Response , next:NextFunction) {
-      res.render("frontend/products")
+      const {page = 1} = req.query ,
+      products = await new ProductModel().Paginate({
+        query : {},
+        sort: { price : -1 },
+        limit: 12 ,
+        page
+      })
+      res.render("frontend/products" , {products})
+    }
+
+    public async getProductsCat(req:Request , res:Response , next:NextFunction) {
+      const {page = 1} = req.query ,
+      {category} = req.params ,
+      products = await new ProductModel().Paginate({
+        query : {'category.enName' : category},
+        sort: { price : -1 },
+        limit: 12 ,
+        page
+      })
+      res.render("frontend/products" , {products})
+    }
+
+    public async getProductsIns(req:Request , res:Response , next:NextFunction) {
+      const {page = 1} = req.query ,
+      {instrument} = req.params ,
+      products = await new ProductModel().Paginate({
+        query : {'instrument.enName' : instrument},
+        sort: { price : -1 },
+        limit: 12 ,
+        page
+      })
+      res.render("frontend/products" , {products})
     }
 
 }

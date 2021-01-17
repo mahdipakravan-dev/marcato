@@ -98,8 +98,8 @@
                           <div class="product-details-footer">
                               <div class="product-cat text-center">
                                   <span>دسته بندی : </span>
-                                  <a href="/products?cat=<%- product.category %>"><%- product.category %></a> <-
-                                  <a href="/products?cat=<%- product.instrument.enName %>"><%- product.instrument.faName %></a>
+                                  <a href="<%- helper.linkToCategory(product.category.enName) %>"><%- product.category.faName %></a> <-
+                                  <a href="<%- helper.linkToInstrument(product.instrument.enName) %>"><%- product.instrument.faName %></a>
                               </div><!-- End .product-cat -->
                               </div>
                           </div><!-- End .product-details-footer -->
@@ -117,12 +117,7 @@
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab"
-                          role="tab" aria-controls="product-info-tab" aria-selected="false">اطلاعات بیشتر</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" id="product-shipping-link" data-toggle="tab"
-                          href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab"
-                          aria-selected="false">ارسال و بازگشت</a>
+                          role="tab" aria-controls="product-info-tab" aria-selected="false">مشخصات</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" id="product-review-link" data-toggle="tab"
