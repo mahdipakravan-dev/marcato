@@ -118,23 +118,23 @@ function deleteCart(productId) {
 
 function useDiscount() {
   const discountCode = $("#discountCode").val()
-  console.log(discountCode)
   Ajax("rest/cart/discount" , "POST" , {discountCode } , {token : getCookies().frontendToken})
-  .then(result => {reloadCart(); console.log("result" , result)})
+  .then(result => {
+    console.log("Result" , result)
+    reloadCart();
+  })
   .catch(err => {
-    console.log("err" ,err)
+    console.log("Err" , err)
+    if(err.status == 404) alert("کدتخفیف شما معتبر نمیباشد , درصورتی که اطمینان دارید با پشتیبانی تماس حاصل کنید")
     if(err.status === 200 ) {reloadCart()}
-    else {alert("کدتخفیف شما معتبر نمیباشد , در صورتی که مطمئن هستین با پشتیبانی تماس بگیرید")}
   })
 }
 
 function disableDiscount() {
   const discountCode = $("#discountCode").val()
-  console.log(discountCode)
   Ajax("rest/cart/discount" , "DELETE" , {discountCode } , {token : getCookies().frontendToken})
   .then(result => {reloadCart(); console.log("result" , result)})
   .catch(err => {
-    console.log("err" ,err)
     if(err.status === 200 ) {reloadCart()}
     else {alert("هنگام ارسال اطلاعات مشکلی پیش آمده مجددا تلاش نمایید")}
   })

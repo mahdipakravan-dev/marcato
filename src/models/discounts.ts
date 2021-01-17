@@ -67,9 +67,9 @@ discountSchema.methods.UseDiscount = function(code:string , userId : string){
 
       })
 
-    .catch(err => {throw new Error(err)})
+    .catch(err => {reject(err)})
      })
-    .catch(err => {throw new Error(err)})
+    .catch(err => {reject(err)})
   })
 }
 

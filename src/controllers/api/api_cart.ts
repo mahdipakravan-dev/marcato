@@ -101,11 +101,9 @@ export default new class api_cart {
   public async useDiscount(req: Request, res: Response, next: NextFunction){
     const {discountCode} = req.body,
     userId = req.auth.id
-    console.log("This is Inside Controller")
     await new DiscountModel().UseDiscount(discountCode , userId)
-    // await new OrderModel().UseDiscount(discountCode , {userId})
-    .then(result => {console.log(result);res.json().status(statusCodes.SUCCESS)})
-    .catch(err => {console.log(err); res.json().status(statusCodes.NOT_FOUND)})
+    .then(result => {res.json().status(statusCodes.SUCCESS)})
+    .catch(err => {res.json().status(statusCodes.NOT_FOUND)})
   }
 
   public async disableDiscount(req: Request, res: Response, next: NextFunction){
