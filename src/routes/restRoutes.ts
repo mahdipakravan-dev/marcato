@@ -19,5 +19,7 @@ Router.post('/cart/add' , AuthHandler , api_cart.addCart)
 Router.delete("/cart/delete" , AuthHandler , api_cart.deleteCart)
 Router.get("/cart/get" , AuthHandler , api_cart.getCart)
 Router.put("/cart/update" , AuthHandler , api_cart.updateCart)
+Router.post("/cart/discount" , AuthHandler , api_cart.useDiscount)
+Router.delete("/cart/discount" , AuthHandler , api_cart.disableDiscount)
 
 export default Router

@@ -10,7 +10,7 @@
 <div class="page-content">
     <div class="cart">
         <div class="container">
-            <% if(user.cart.length >= 0) { %>
+            <% if(user && user.cart.length >= 0) { %>
                 
             <div class="row">
                 <div class="col-lg-9">
@@ -62,15 +62,24 @@
 
                     <div class="cart-bottom">
                         <div class="cart-discount">
-                            <form action="#">
+                            <% if(user.discountCode) { %>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" required placeholder="کد تخفیف">
+                                    <input type="text" disabled value="<%- user.discountCode %>" id="discountCode" class="form-control" required placeholder="کد تخفیف">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-primary-2" type="submit"><i
+                                        <button class="btn btn-outline-primary-2 px-2"
+                                            onclick="disableDiscount()"
+                                        type="submit">حذف کد تخفیف</button>
+                                    </div><!-- .End .input-group-append -->
+                                </div><!-- End .input-group -->
+                            <% } else { %>
+                                <div class="input-group">
+                                    <input type="text" id="discountCode" class="form-control" required placeholder="کد تخفیف">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary-2" type="submit" onclick="useDiscount()"><i
                                                 class="icon-long-arrow-left"></i></button>
                                     </div><!-- .End .input-group-append -->
                                 </div><!-- End .input-group -->
-                            </form>
+                            <% } %>
                         </div><!-- End .cart-discount -->
 
                         <a onclick="reloadCart()" class="btn btn-outline-dark-2"><span>به روز رسانی سبد خرید</span><i
@@ -97,26 +106,27 @@
                                         <td class="text-left"><%- helper.decimaller(options.transportCost) %> تومان</td>
                                     </tr><!-- End .summary-shipping-row -->
     
-                                    <% if(options.debtPercent  == 0) { %>
+                                    <% if(!user.discountCode) { %>
                                         <tr class="summary-total">
                                         <td>مبلغ قابل پرداخت :</td>
-                                        <td class="text-left"><%- helper.decimaller(user.price + options.transportCost) %> تومان</td>
+                                        <td class="text-left"><%- helper.decimaller(user.finalPrice + options.transportCost) %> تومان</td>
                                         </tr><!-- End .summary-total -->
                                     <% } %>
 
-                                <% } if(options.debtPercent !== 0) {  %>
+                                <% } if(user.discountCode && user.discountCode != "") {  %>
                                     <tr class="summary-shipping-row pt-2">
                                         <td>
-                                            <label class="custom-control-label" for="standart-shipping">مالیات بر ارزش افزوده</label>
+                                            <label class="custom-control-label" for="standart-shipping">کد تخفیف</label>
                                         </td>
-                                        <td class="text-left"><%- helper.decimaller(options.debtPercent) %> درصد</td>
+                                        <td class="text-left"><%- user.discountCode %></td>
                                     </tr><!-- End .summary-shipping-row -->
 
                                     <tr class="summary-total">
                                         <td>مبلغ قابل پرداخت :</td>
-                                        <td class="text-left"><%- user.price + ((options.debtPercent * user.price) / 100) %> تومان</td>
+                                        <td class="text-left"><%- user.finalPrice %> تومان</td>
                                     </tr><!-- End .summary-total -->
                                 <% } %>
+
                             </tbody>
                         </table><!-- End .table table-summary -->
 

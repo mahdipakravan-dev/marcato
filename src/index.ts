@@ -25,6 +25,7 @@ import { CategoryModel } from "./models/category"
 import Regex from "./helpers/Regex"
 import { OptionModel } from "./models/options"
 import { OrderModel } from "./models/order"
+import { DiscountModel } from "./models/discounts"
 
 /**
   * Repository Design Pattern                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -135,6 +136,20 @@ class App {
         //     discountCode ?: string ,
         //     count ?: number ,
         //     price ?: number
+        // })
+
+        // await new DiscountModel().CreateDiscount({
+        //     code : "discode" ,
+        //     percent : 50 , 
+        //     max : 2
+        // })
+
+        // await new OrderModel().CalculateCart({userId : "5ff09e84f4f1f24804bf006e" , status : "pending"})
+        // .then(result => {
+        //     console.log("Order Calculated and resolved with" , result)
+        // })
+        // .catch(err => {
+        //     console.log("Order Crashed With " , err)
         // })
 
     }

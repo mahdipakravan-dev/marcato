@@ -6,6 +6,7 @@ import { UserModel } from "../../models/user";
 import autobind from "auto-bind"
 import { userInfo } from "os";
 import { OrderModel } from "../../models/order";
+import { DiscountModel } from "../../models/discounts";
 
 export default new class api_cart {
 
@@ -37,7 +38,7 @@ export default new class api_cart {
         res.json().status(statusCodes.CONFLICT)
       } else {
         newCart.push({id : product._id , enName : product.enName , qty : 1, price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]})
-        await new OrderModel().UpdateCart({userId} , newCart)
+        await new OrderModel().UpdateOrder({userId} , {cart : newCart})
         res.json().status(statusCodes.SUCCESS)
       }
 
@@ -58,7 +59,7 @@ export default new class api_cart {
     for(let i = 0 ; i < user.cart.length ; i++){  
       if(user.cart[i].id != productId) newCart.push(user.cart[i]) ;   
     }
-    await new OrderModel().UpdateCart({userId} , newCart)
+    await new OrderModel().UpdateOrder({userId} , {cart : newCart})
     res.json().status(statusCodes.SUCCESS)
   }
 
@@ -86,7 +87,7 @@ export default new class api_cart {
       )
     }
 
-    await new OrderModel().UpdateCart({userId} , newCart)
+    await new OrderModel().UpdateOrder({userId} , {cart : newCart})
     .then(() => {res.json().status(statusCodes.SUCCESS)})
     .catch(err => {res.json().status(statusCodes.INTERNAL)})
 
@@ -95,5 +96,24 @@ export default new class api_cart {
   public async getCart(req: Request, res: Response, next: NextFunction){
     const order = await new OrderModel().FindOrder({userId : req.auth.id})
     res.json(order)
+  }
+
+  public async useDiscount(req: Request, res: Response, next: NextFunction){
+    const {discountCode} = req.body,
+    userId = req.auth.id
+    console.log("This is Inside Controller")
+    await new DiscountModel().UseDiscount(discountCode , userId)
+    // await new OrderModel().UseDiscount(discountCode , {userId})
+    .then(result => {console.log(result);res.json().status(statusCodes.SUCCESS)})
+    .catch(err => {console.log(err); res.json().status(statusCodes.NOT_FOUND)})
+  }
+
+  public async disableDiscount(req: Request, res: Response, next: NextFunction){
+    const {discountCode} = req.body,
+    userId = req.auth.id
+    await new DiscountModel().DisableDiscount(discountCode , userId)
+    // await new OrderModel().UseDiscount(discountCode , {userId})
+    .then(result => {console.log(result);res.json().status(statusCodes.SUCCESS)})
+    .catch(err => {console.log(err); res.json().status(statusCodes.NOT_FOUND)})
   }
 }
