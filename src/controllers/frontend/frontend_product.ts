@@ -16,4 +16,8 @@ export default new class frontend_product {
       res.render('frontend/product-physic' , {product , sameProducts})
     }
 
+    public async getProducts(req:Request , res:Response , next:NextFunction) {
+      res.render("frontend/products")
+    }
+
 }

@@ -28,6 +28,7 @@ Router.get('/' , homeController.getHome)
 /**
  * Product
  */
+Router.get('/products' , productController.getProducts)
 Router.get('/product/:id' , productController.getProduct)
 
 

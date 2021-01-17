@@ -10,7 +10,7 @@
 <div class="page-content">
     <div class="cart">
         <div class="container">
-            <% if(user && user.cart.length >= 0) { %>
+            <% if(user && user.cart.length > 0) { %>
                 
             <div class="row">
                 <div class="col-lg-9">
@@ -123,7 +123,7 @@
 
                                     <tr class="summary-total">
                                         <td>مبلغ قابل پرداخت :</td>
-                                        <td class="text-left"><%- user.finalPrice %> تومان</td>
+                                        <td class="text-left"><%- helper.decimaller(user.finalPrice) %> تومان</td>
                                     </tr><!-- End .summary-total -->
                                 <% } %>
 
