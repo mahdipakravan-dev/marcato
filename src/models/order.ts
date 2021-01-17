@@ -96,9 +96,9 @@ OrderSchema.methods.CalculateCart = function(query:any){
       
 
       if(result.discountCode) {
-        await new DiscountModel().CheckDiscount(result.discountCode)
+        await new DiscountModel().FindDiscount(result.discountCode)
         .then(discount => {
-          if(!discount) reject("No Discount")
+          if(!discount && discount.used == discount.max) reject("No Discount")
           finalPrice = price - (discount.percent * price) / 100
         })
         .catch(err => reject(err))

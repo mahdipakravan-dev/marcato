@@ -10,9 +10,10 @@ export interface IDiscount extends Document {
   max : number
   used : number
   CreateDiscount(discount:any):Promise<any>
+  FindDiscount(code:string):Promise<any>
+
   UseDiscount(code:string , userId : string):Promise<any>
   DisableDiscount(code:string , userId : string):Promise<any>
-  CheckDiscount(code:string):Promise<any>
 }
 
 const discountSchema: Schema = new Schema({
@@ -35,17 +36,10 @@ discountSchema.methods.CreateDiscount = function(discount:any){
     })
 }
 
-discountSchema.methods.CheckDiscount = function(code:string){
+discountSchema.methods.FindDiscount = function(code:string){
   return new Promise(async (resolve , reject) => {
       await DiscountModel.findOne({code})
-      .then(result => {
-        console.log(result)
-        if(!result) return reject("Not Found")
-        else if(result.used != result.max) {
-          resolve(result)
-          // discountCode.used++
-        }
-      })
+      .then(result => {resolve(result)})
       .catch(err => {reject(err)})
   })
 }
@@ -53,7 +47,7 @@ discountSchema.methods.CheckDiscount = function(code:string){
 discountSchema.methods.UseDiscount = function(code:string , userId : string){
   return new Promise(async (resolve , reject) => {
 
-    await new DiscountModel().CheckDiscount(code)
+    await new DiscountModel().FindDiscount(code)
     .then(async () => {
        
       await new OrderModel().FindOrder({userId , status : "pending"})
