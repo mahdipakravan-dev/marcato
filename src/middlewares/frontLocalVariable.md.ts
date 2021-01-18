@@ -32,7 +32,7 @@ export default async function(req:Request , res:Response , next:NextFunction){
   }
 
 
-  req.app.locals.url = config.get("url")
+  req.app.locals.url = process.env.URL
 
   next()
 }

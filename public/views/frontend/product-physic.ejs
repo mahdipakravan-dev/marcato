@@ -1,7 +1,7 @@
 
 <%- include("./components/breadcrumb.ejs" , {array : [
     {title : "خانه" , link : "/"} , 
-    {title : product.instrument.faName , link : `/products?cat=${product.instrument.enName}`} , 
+    {title : product.instrument.faName , link : helper.linkToInstrument(product.instrument.enName)} , 
     {title : product.fullName , link : "" , active : true}
 ]}) %>
 
@@ -19,8 +19,8 @@
                       <div class="product-gallery product-gallery-vertical">
                           <div class="row">
                               <figure class="product-main-image">
-                                  <img id="product-zoom" src="<%- product.thumbnails[0] %>"
-                                      data-zoom-image="<%- product.thumbnails[0] %>"
+                                  <img id="product-zoom" src="<%- product.thumbnails[0].original %>"
+                                      data-zoom-image="<%- product.thumbnails[0].big %>"
                                       alt="<%- product.fullName %>">
 
                                   <a href="#" id="btn-product-gallery" class="btn-product-gallery">
@@ -29,14 +29,23 @@
                               </figure><!-- End .product-main-image -->
 
                               <div id="product-zoom-gallery" class="product-image-gallery">
-                                  <% product.thumbnails.forEach(image => { %>
-                                    <a class="product-gallery-item active" href="#"
-                                        data-image="<%- image %>"
-                                        data-zoom-image="<%- image %>">
-                                        <img src="<%- image %>"
+                                  <% for(let i=0;i<product.thumbnails.length;i++){ %>
+                                    <% if(i==0) { %>
+                                        <a class="product-gallery-item active" href="#"
+                                            data-image="<%- product.thumbnails[i].normal %>"
+                                            data-zoom-image="<%- product.thumbnails[i].big %>">
+                                            <img src="<%- product.thumbnails[i].small %>"
+                                                alt="توضیحات تصویر">
+                                        </a>
+                                    <% } else { %>
+                                    <a class="product-gallery-item" href="#"
+                                        data-image="<%- product.thumbnails[i].normal %>"
+                                        data-zoom-image="<%- product.thumbnails[i].big %>">
+                                        <img src="<%- product.thumbnails[i].small %>"
                                             alt="توضیحات تصویر">
                                     </a>
-                                  <% }) %>
+                                    <% } %>
+                                  <% } %>
                               </div><!-- End .product-image-gallery -->
                           </div><!-- End .row -->
                       </div><!-- End .product-gallery -->
@@ -48,7 +57,7 @@
                           <!-- End .product-title -->
 
                           <div class="product-price">
-                            <%- product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %> تومان
+                            <%- helper.decimaller(product.price) %> تومان
                           </div><!-- End .product-price -->
 
                           <div class="product-content">
@@ -59,22 +68,13 @@
 
                           </div><!-- End .details-filter-row -->
 
-                          <div class="details-filter-row details-row-size">
-                              <label for="qty">تعداد : </label>
-                              <div class="product-details-quantity">
-                                  <input type="number" id="qty" class="form-control" value="1" min="1"
-                                      max="10" step="1" data-decimals="0" required>
-                              </div><!-- End .product-details-quantity -->
-                          </div><!-- End .details-filter-row -->
-
                             <div class="product-details-action">
                                 <% if(loggedIn){ %>
                                     <a style="cursor: pointer;" 
                                     onclick="
-                                        let qty = document.getElementById('qty').value , 
                                         productId = '<%- product._id %>' ,
                                         userId = '<%- auth.id %>' 
-                                        addToCart(productId , userId , qty)"
+                                        addToCart(productId , userId , 1)"
 
                                         class="btn-product btn-cart"> 
                                             <span>افزودن به سبد خرید</span>
@@ -107,148 +107,6 @@
                   </div><!-- End .col-md-6 -->
               </div><!-- End .row -->
           </div><!-- End .product-details-top -->
-
-          <div class="product-details-tab">
-              <ul class="nav nav-pills justify-content-center" role="tablist">
-                  <li class="nav-item">
-                      <a class="nav-link active" id="product-desc-link" data-toggle="tab"
-                          href="#product-desc-tab" role="tab" aria-controls="product-desc-tab"
-                          aria-selected="true">توضیحات</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab"
-                          role="tab" aria-controls="product-info-tab" aria-selected="false">مشخصات</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" id="product-review-link" data-toggle="tab"
-                          href="#product-review-tab" role="tab" aria-controls="product-review-tab"
-                          aria-selected="false">نظرات (2)</a>
-                  </li>
-              </ul>
-              <div class="tab-content">
-                  <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel"
-                      aria-labelledby="product-desc-link">
-                      <div class="product-desc-content">
-                          <h3>اطلاعات محصول</h3>
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                              سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                              ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم
-                              ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی
-                              نامفهوم. </p>
-                          <ul>
-                              <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </li>
-                              <li>لورم ایپسوم متن ساختگی با تولید سادگی.</li>
-                              <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم</li>
-                          </ul>
-
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                              سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
-                              ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم
-                              ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی
-                              نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم. </p>
-                      </div><!-- End .product-desc-content -->
-                  </div><!-- .End .tab-pane -->
-                  <div class="tab-pane fade" id="product-info-tab" role="tabpanel"
-                      aria-labelledby="product-info-link">
-                      <div class="product-desc-content">
-                          <h3>اطلاعات</h3>
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                              سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
-                              ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم
-                              ایپسوم متن ساختگی با تولید سادگی نامفهوم. </p>
-
-                          <h3>اطلاعات بیشتر</h3>
-                          <ul>
-                              <li>لورم ایپسوم متن ساختگی</li>
-                              <li>لورم ایپسوم متن ساختگی با تولید سادگی</li>
-                              <li>لورم ایپسوم</li>
-                              <li>لورم ایپسوم متن ساختگی </li>
-                              <li>لورم ایپسوم متن ساختگی با تولید سادگی</li>
-                              <li> ارتفاع: 31سانتی متر; عرض: 32سانتی متر; عمق: 12سانتی متر</li>
-                          </ul>
-
-                          <h3>سایز</h3>
-                          <p>تک سایز</p>
-                      </div><!-- End .product-desc-content -->
-                  </div><!-- .End .tab-pane -->
-                  <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel"
-                      aria-labelledby="product-shipping-link">
-                      <div class="product-desc-content">
-                          <h3>ارسال و بازگشت</h3>
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                              سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                              ساختگی با تولید سادگی نامفهوم<br>
-                              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                              سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
-                              ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</a>
-                          </p>
-                      </div><!-- End .product-desc-content -->
-                  </div><!-- .End .tab-pane -->
-                  <div class="tab-pane fade" id="product-review-tab" role="tabpanel"
-                      aria-labelledby="product-review-link">
-                      <div class="reviews">
-                          <h3>نظر (2)</h3>
-                          <div class="review">
-                              <div class="row no-gutters">
-                                  <div class="col-auto">
-                                      <h4><a href="#">کاربر 1</a></h4>
-                                      <div class="ratings-container">
-                                          <div class="ratings">
-                                              <div class="ratings-val" style="width: 80%;"></div>
-                                              <!-- End .ratings-val -->
-                                          </div><!-- End .ratings -->
-                                      </div><!-- End .rating-container -->
-                                      <span class="review-date">4 روز پیش</span>
-                                  </div><!-- End .col -->
-                                  <div class="col-12">
-                                      <h4>عالی، سایز فوق العاده</h4>
-
-                                      <div class="review-content">
-                                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم،لورم ایپسوم متن
-                                              ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید
-                                              سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم!</p>
-                                      </div><!-- End .review-content -->
-
-                                      <div class="review-action">
-                                          <a href="#"><i class="icon-thumbs-up"></i>مثبت (2)</a>
-                                          <a href="#"><i class="icon-thumbs-down"></i>منفی (0)</a>
-                                      </div><!-- End .review-action -->
-                                  </div><!-- End .col-auto -->
-                              </div><!-- End .row -->
-                          </div><!-- End .review -->
-
-                          <div class="review">
-                              <div class="row no-gutters">
-                                  <div class="col-auto">
-                                      <h4><a href="#">کاربر 2</a></h4>
-                                      <div class="ratings-container">
-                                          <div class="ratings">
-                                              <div class="ratings-val" style="width: 100%;"></div>
-                                              <!-- End .ratings-val -->
-                                          </div><!-- End .ratings -->
-                                      </div><!-- End .rating-container -->
-                                      <span class="review-date">2 روز پیش</span>
-                                  </div><!-- End .col -->
-                                  <div class="col-12">
-                                      <h4>خیلی عالی</h4>
-
-                                      <div class="review-content">
-                                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن
-                                              ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                              سادگی نامفهوم.</p>
-                                      </div><!-- End .review-content -->
-
-                                      <div class="review-action">
-                                          <a href="#"><i class="icon-thumbs-up"></i>مثبت (0)</a>
-                                          <a href="#"><i class="icon-thumbs-down"></i>منفی (0)</a>
-                                      </div><!-- End .review-action -->
-                                  </div><!-- End .col-auto -->
-                              </div><!-- End .row -->
-                          </div><!-- End .review -->
-                      </div><!-- End .نظر -->
-                  </div><!-- .End .tab-pane -->
-              </div><!-- End .tab-content -->
-          </div><!-- End .product-details-tab -->
 
           <%- include("./components/products-3.ejs" , {sameProducts , title : "این محصولات هم شبیه همین هستند"}) %>
       </div><!-- End .container -->

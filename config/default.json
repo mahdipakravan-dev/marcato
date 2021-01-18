@@ -18,7 +18,6 @@
         "Internal": "500 خطایی رخ داده است مجددا تلاش کنید"
     } ,
     "session_secret" : "mysecretkey",
-    "cookie_secret" : "mysecretkey" ,
-    "url" : "http://localhost:4750/"
+    "cookie_secret" : "mysecretkey"
 
 }

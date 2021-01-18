@@ -10,6 +10,8 @@ import {requestFiles} from '../../helpers/interfaces'
 
 import config from 'config'
 
+import sharp from 'sharp'
+
 export default new class dashboard_product {
 
   public async getProducts(req : Request , res:Response , next:NextFunction){
@@ -27,19 +29,39 @@ export default new class dashboard_product {
   public async postNewProduct(req:Request , res:Response , next:NextFunction){
     const {enName , fullName , type , price , desc , category , files } = req.body ,
     sellCount = 0
-    let thumbnails = [""] , 
+    let thumbnails = [{}]
 
     //Processing Instruments
-    instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument})
+    const instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument})
 
 
     //Processing Images
     files.forEach((file : requestFiles) => {
       const dest = file.destination.replace("./public/" , '')
-      thumbnails.push(`${config.get("url")}${dest}${file.filename}`)
+      //`${process.env.URL}${dest}${file.filename}`
+      thumbnails.push({
+        original : `${process.env.URL}${dest}${file.filename}` , 
+        small : `${process.env.URL}${dest}small-${file.filename}` , 
+        normal : `${process.env.URL}${dest}normal-${file.filename}` ,
+        big : `${process.env.URL}${dest}big-${file.filename}` ,
+      })
+      
+      sharp(file.path)
+      .resize(107,107)
+      .toFile(`public/${dest}/small-${file.filename}` , (err , resizedImage) => {})
+
+      .resize(458,458)
+      .toFile(`public/${dest}/normal-${file.filename}` , (err , resizedImage) => {})
+
+      .resize(1200,1200)
+      .toFile(`public/${dest}/big-${file.filename}` , (err , resizedImage) => {})
+
     });
     thumbnails.shift()
 
+    //file (458 * 458)
+    //file-big (1200 * 1200)
+    //file-small (107 * 107)
 
     //Save
     await new ProductModel().CreateProduct({

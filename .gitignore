@@ -8,3 +8,5 @@ rest.http
 
 public/uploads
 .env
+
+package-loch.json
