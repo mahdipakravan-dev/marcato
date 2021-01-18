@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import { CategoryModel } from "../../models/category";
+import { InstrumentModel } from "../../models/instrument";
 import { ProductModel } from "../../models/product";
 
 export default new class frontend_product {
@@ -23,8 +25,10 @@ export default new class frontend_product {
         sort: { price : -1 },
         limit: 12 ,
         page
-      })
-      res.render("frontend/products" , {products})
+      }) , 
+      instruments = await new InstrumentModel().Find({}) , 
+      categories = await new CategoryModel().Find({})
+      res.render("frontend/products" , {products , categories , instruments , instrument : "" , category : ""})
     }
 
     public async getProductsCat(req:Request , res:Response , next:NextFunction) {
@@ -35,8 +39,10 @@ export default new class frontend_product {
         sort: { price : -1 },
         limit: 12 ,
         page
-      })
-      res.render("frontend/products" , {products})
+      }) ,
+      instruments = await new InstrumentModel().Find({}) , 
+      categories = await new CategoryModel().Find({})
+      res.render("frontend/products" , {products , categories , instruments , category , instrument : ""})
     }
 
     public async getProductsIns(req:Request , res:Response , next:NextFunction) {
@@ -47,8 +53,10 @@ export default new class frontend_product {
         sort: { price : -1 },
         limit: 12 ,
         page
-      })
-      res.render("frontend/products" , {products})
+      }) ,
+      instruments = await new InstrumentModel().Find({}) , 
+      categories = await new CategoryModel().Find({})
+      res.render("frontend/products" , {products , categories , instruments , instrument , category : ""})
     }
 
 }

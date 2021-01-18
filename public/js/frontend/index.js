@@ -151,3 +151,7 @@ $("input[type='number']").change(function(){
     else {reloadCart(); $(this).next()}
   })
 })
+
+function link(location){
+  window.location.href = `${websiteUrl}${location}`
+}
