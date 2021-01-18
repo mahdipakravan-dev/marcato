@@ -12,7 +12,7 @@ export default new class dashboard_category {
 
   public async getNewCategory(req : Request , res:Response , next:NextFunction){
     // (GET) Render 'newCategory' Page
-    res.render("dashboard/pages/products/Category/newCategory" , {pageName : "دسته بندی جدید" , layout : "dashboard/master_dashboard"})
+    res.render("dashboard/pages/products/category/newCategory" , {pageName : "دسته بندی جدید" , layout : "dashboard/master_dashboard"})
   }
 
   public async postNewCategory(req : Request , res:Response , next:NextFunction){
