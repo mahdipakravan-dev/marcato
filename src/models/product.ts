@@ -9,7 +9,7 @@ export interface IProduct extends Document {
   price : number , 
   sellCount : number ,
   desc : string , 
-  category : string , 
+  category : {enName : string , faName : string } , 
   instrument : {enName : string , faName : string} ,
   thumbnails : requestFiles[] ,
   CreateProduct(category : productInterface) : Promise<any>

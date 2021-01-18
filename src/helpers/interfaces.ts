@@ -122,7 +122,7 @@ export interface productInterface {
     price : number , 
     sellCount : number ,
     desc : string ,
-    category : string , 
+    category : {enName : string , faName : string}  , 
     instrument : {enName : string , faName : string} ,
     thumbnails : any[]
 }

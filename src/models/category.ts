@@ -6,7 +6,7 @@ export interface ICategory extends Document {
   enName : string ,
   CreateCategory(category : categoryInterface) : Promise<any>
   DeleteCategory(id:string) : Promise<any>
-  FindCategory(id:string) : Promise<any>
+  FindCategory(query : any) : Promise<any>
   Find(query:any) : Promise<any>
   EditCategory(id:string , category:categoryInterface) : Promise<any>
 }
@@ -48,9 +48,9 @@ categorySchema.methods.EditCategory = function(id:string , category : categoryIn
     })
 }
 
-categorySchema.methods.FindCategory = function(id:string){
+categorySchema.methods.FindCategory = function(query:any){
     return new Promise((resolve , reject) => {
-        CategoryModel.findOne({_id : id})
+        CategoryModel.findOne(query)
         .then(result => {
             resolve(result)
         })

@@ -27,12 +27,13 @@ export default new class dashboard_product {
   }
 
   public async postNewProduct(req:Request , res:Response , next:NextFunction){
-    const {enName , fullName , type , price , desc , category , files } = req.body ,
+    const {enName , fullName , type , price , desc , files } = req.body ,
     sellCount = 0
     let thumbnails = [{}]
 
     //Processing Instruments
-    const instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument})
+    const instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument}) , 
+    category = await new CategoryModel().FindCategory({enName : req.body.category})
 
 
     //Processing Images
@@ -58,10 +59,6 @@ export default new class dashboard_product {
 
     });
     thumbnails.shift()
-
-    //file (458 * 458)
-    //file-big (1200 * 1200)
-    //file-small (107 * 107)
 
     //Save
     await new ProductModel().CreateProduct({

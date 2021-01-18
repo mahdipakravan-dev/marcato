@@ -27,7 +27,7 @@ export default new class dashboard_category {
   }
 
   public async getEditCategory(req : Request , res:Response , next:NextFunction){
-    const category = await new CategoryModel().FindCategory(req.params.id)
+    const category = await new CategoryModel().FindCategory({_id : req.params.id})
     res.render('dashboard/pages/products/category/editCategory' , {category , layout : "dashboard/master_dashboard"})
   }
 
