@@ -101,6 +101,8 @@ export default new class api_cart {
   public async useDiscount(req: Request, res: Response, next: NextFunction){
     const {discountCode} = req.body,
     userId = req.auth.id
+    const validation = await new DiscountModel().FindDiscount(discountCode)
+    if(!validation)  return res.json().status(statusCodes.NOT_FOUND)
     await new DiscountModel().UseDiscount(discountCode , userId)
     .then(result => {res.json().status(statusCodes.SUCCESS)})
     .catch(err => {res.json().status(statusCodes.NOT_FOUND)})

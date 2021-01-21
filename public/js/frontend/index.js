@@ -100,7 +100,16 @@ function addToCart(productId , userId , qty){
     Ajax("rest/cart/add" , "POST" , {productId , userId , qty} , {token : cookies.frontendToken})
     .then(result => {console.log(result)})
     .catch(err => {
-      if(err.status === 409 ) {$('#alerdyInBasket').modal('show')}
+      console.log
+      if(err.status === 409 ) {showModal("" 
+      , `
+        این محصول در سبدخرید شما موجود میباشد
+        <br/>
+        <br/>
+        <a href="/cart" class="btn btn-primary">اوکی پس بریم به سبد خرید</a>
+      ` ,
+       5000 
+       , true)}
       if(err.status === 200 ) {alertSuccess()}
     })
   }
@@ -125,18 +134,26 @@ function useDiscount() {
   })
   .catch(err => {
     console.log("Err" , err)
-    if(err.status == 404) alert("کدتخفیف شما معتبر نمیباشد , درصورتی که اطمینان دارید با پشتیبانی تماس حاصل کنید")
-    if(err.status === 200 ) {reloadCart()}
+    if(err.status == 404) showModal("خطا" 
+    , `<div class="alert alert-danger">کد تخفیف شما اشتباه است , درصورتی که مطمئن هستید با پشتیبانی تماس حاصل کنید</div>` , 5000)
+    if(err.status === 200 ) {
+      showModal("تبریک میگم" 
+      , `<div class="alert alert-success">کد تخفیف شما صحیح است</div>` , 3000)
+      reloadCart()}
   })
 }
 
 function disableDiscount() {
   const discountCode = $("#discountCode").val()
   Ajax("rest/cart/discount" , "DELETE" , {discountCode } , {token : getCookies().frontendToken})
-  .then(result => {reloadCart(); console.log("result" , result)})
+  .then(result => {
+    reloadCart();
+  })
   .catch(err => {
-    if(err.status === 200 ) {reloadCart()}
-    else {alert("هنگام ارسال اطلاعات مشکلی پیش آمده مجددا تلاش نمایید")}
+    if(err.status === 200 ) {
+      reloadCart()
+    }
+    else {showModal("خطا" , "امکان داره سرور دچار اختلال باشه , درصورتی که مطمئن هستید با پشتیبانی تماس حاصل کنید")}
   })
 }
 
@@ -159,7 +176,10 @@ function link(location){
 function showModal(title , text , time = 2000 , btn = true){
   $("#customModalTitle").html(title)
   $("#customModalText").html(text)
+
+  if(title=="") $("#customModalHeader").css("display" , "none")
   if(!btn) $("#customModalBtn").css("display" , "none")
+
   $("#customModal").modal()
   const interval = setInterval(() => {
     $("#customModalBtn").click()
