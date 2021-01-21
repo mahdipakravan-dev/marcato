@@ -11,8 +11,13 @@ import {requestFiles} from '../../helpers/interfaces'
 import config from 'config'
 
 import sharp from 'sharp'
+import autoBind from 'auto-bind'
 
 export default new class dashboard_product {
+
+  constructor(){
+    autoBind(this)
+  }
 
   public async getProducts(req : Request , res:Response , next:NextFunction){
     const products = await ProductModel.find()
@@ -26,18 +31,10 @@ export default new class dashboard_product {
     res.render("dashboard/pages/products/newProduct" , {instruments , categories , layout : "dashboard/master_dashboard"})
   }
 
-  public async postNewProduct(req:Request , res:Response , next:NextFunction){
-    const {enName , fullName , type , price , desc , files } = req.body ,
-    sellCount = 0
+  private async thumbnailProccess(files:requestFiles[]){
     let thumbnails = [{}]
-
-    //Processing Instruments
-    const instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument}) , 
-    category = await new CategoryModel().FindCategory({enName : req.body.category})
-
-
     //Processing Images
-    files.forEach((file : requestFiles) => {
+    await files.forEach((file : requestFiles) => {
       const dest = file.destination.replace("./public/" , '')
       //`${process.env.URL}${dest}${file.filename}`
       thumbnails.push({
@@ -59,6 +56,19 @@ export default new class dashboard_product {
 
     });
     thumbnails.shift()
+    return thumbnails
+  }
+
+  public async postNewProduct(req:Request , res:Response , next:NextFunction){
+    const {enName , fullName , type , price , desc , files } = req.body ,
+    sellCount = 0
+
+    //Processing Instruments
+    const instrument = await new InstrumentModel().FindInstrument({enName : req.body.instrument}) , 
+    category = await new CategoryModel().FindCategory({enName : req.body.category})
+
+    
+    const thumbnails = await this.thumbnailProccess(files)
 
     //Save
     await new ProductModel().CreateProduct({
