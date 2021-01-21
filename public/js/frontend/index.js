@@ -155,3 +155,13 @@ $("input[type='number']").change(function(){
 function link(location){
   window.location.href = `${websiteUrl}${location}`
 }
+
+function showModal(title , text){
+  $("#customModalTitle").html(title)
+  $("#customModalText").html(text)
+  $("#customModal").modal()
+  const interval = setInterval(() => {
+    $("#customModalBtn").click()
+    clearInterval(interval)
+  } , 5000)
+}

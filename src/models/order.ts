@@ -12,6 +12,7 @@ export interface IOrder extends Document {
   price ?: number
   UpdateOrder(query:any , val : any):Promise<any>
   FindOrder(query:any):Promise<any>
+  FindOrders(query:any):Promise<any>
   InitOrder(userId : string , cart : cartInterface[]) : Promise<any>
   UseDiscount(discountCode : string , query : any) : Promise<any>
   CalculateCart(query:any) : Promise<any>
@@ -41,6 +42,14 @@ OrderSchema.methods.UpdateOrder = function(query:any , val : any){
       .then(result => resolve(result))
       .catch(err => reject(err))
     })
+    .catch(err => {reject(err)})
+  })
+}
+
+OrderSchema.methods.FindOrders = function(query:any){
+  return new Promise((resolve , reject) => {
+    OrderModel.find(query)  
+    .then(result => resolve(result))
     .catch(err => {reject(err)})
   })
 }

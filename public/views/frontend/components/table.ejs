@@ -1,0 +1,33 @@
+<table class="table">
+  <thead>
+    <tr>
+        <% th.forEach(th => { %>
+          <th class="text-center"><%- th %></th>
+        <% }) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(item => { %>
+      <tr class="text-center">
+        <% if(showId) { %> 
+          <td><a href="<%- item.link %>"><%- item.id %></a></td>
+        <% } %>
+
+        <% item.data.forEach(listItem => { %>
+
+          <% if(listItem.type == "badge"){ %>
+            <td><span class="badge <%- listItem.badge %>"><%- listItem.text %></span></td>
+          
+          <% } else if(listItem.type == "text"){ %>
+            <td><%- listItem.text %></td>
+            
+          <% } else if(listItem.type == "button"){ %>
+            <td class="d-flex justify-content-center"><a href="<%- listItem.link %>" class="<%-listItem.button %>"><%- listItem.text %></a></td>
+          <% } %>
+
+        <% }) %>
+        
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

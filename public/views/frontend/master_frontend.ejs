@@ -1,6 +1,8 @@
 <%- include('./partials/header.ejs') %>
 
+
   <%- body %>
+  <%- include('./components/popup-custom.ejs' , {id : "customModal" , title : "title test" , text : "text test"}) %>
   <%- include('./components/scroll-top.ejs') %>
   <%- include('./partials/mobile-menu.ejs') %>
   <%- include('./components/popup-auth.ejs') %>

@@ -29,6 +29,22 @@ export default async function(req:Request , res:Response , next:NextFunction){
     linkToInstrument(instrument : string) {
       return `/products-instrument/${instrument}`
     },
+
+    orderStatus(status:string){
+      switch(status) {
+        case "cancel" :
+          return {type : "badge" , badge : "badge badge-danger" , text : "کنسل شده"}
+          break
+        case "pending" :
+          return {type : "badge" , badge : "badge badge-primary" , text : "پرداخت نشده(به سبد خرید مراجعه کنید)"}
+          break
+        case "success" :
+        return {type : "badge" , badge : "badge badge-success" , text : "تکمیل(ارسال شده و دریافت شده)"}
+        break
+        default :
+          return {type : "badge" , badge : "badge badge-warning" , text : "با پشتیبانی تماس بگیرید"}
+      }
+    }
   }
 
 
