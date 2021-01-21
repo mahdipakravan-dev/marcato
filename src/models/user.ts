@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose'
-import { NextFunction } from 'express'
+import { NextFunction, query } from 'express'
 import { cartInterface, userInterface } from '../helpers/interfaces'
 
 export interface IUser extends Document {
@@ -15,6 +15,8 @@ export interface IUser extends Document {
 
     CreateUser(user:userInterface):Promise<any>
     FindUser(query:any):Promise<any>
+    EditUser(query:any , value:any):Promise<any>
+
     updateCart(query:any , newCart :any):Promise<any>
 }
 
@@ -39,6 +41,14 @@ UserSchema.methods.CreateUser = function(user:userInterface){
         .catch(err => {
             reject(err)
         })
+    })
+}
+
+UserSchema.methods.EditUser = function(query:any , value : any){
+    return new Promise((resolve , reject) => {
+        UserModel.updateOne(query , value)
+        .then(result => resolve(result))
+        .catch(err => reject(err))
     })
 }
 

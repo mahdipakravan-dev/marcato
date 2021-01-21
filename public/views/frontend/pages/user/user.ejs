@@ -1,6 +1,6 @@
-<%- include("./components/jumbotron.ejs" , {title : "داشبورد" , subtitle : "پنل مدیریت شما"}); %>
+<%- include("../../components/jumbotron.ejs" , {title : "داشبورد" , subtitle : "پنل مدیریت شما"}); %>
 
-<%- include("./components/breadcrumb.ejs" , {array : [
+<%- include("../../components/breadcrumb.ejs" , {array : [
     {title : "خانه" , link : "/"} , 
     {title : "داشبورد" , link : `/user`}
     ]}) %>
@@ -21,12 +21,7 @@ orders.forEach((item , index) => {
           text : `${item.cart[0].fullName} و ... `
       } ,
       helper.orderStatus(item.status) ,
-      {
-        type : "button" , 
-        link : `/user/order/${item._id}`,
-        button : "btn-sm p-3 btn-primary" ,
-        text : 'پیگیری سفارش'
-      }]
+      helper.orderLink(item)]
   }
 }) 
 %>
@@ -61,7 +56,7 @@ orders.forEach((item , index) => {
                                 <a href="category.html" class="btn btn-outline-primary-2"><span>رفتن به
                                     فروشگاه</span><i class="icon-long-arrow-left"></i></a>
                             <% } %>
-                            <%- include("./components/table.ejs" ,  
+                            <%- include("../../components/table.ejs" ,  
                                 {
                                 showId : false ,
                                 th : ["محصولات" , "وضعیت" , "عملیات"] ,
@@ -75,21 +70,21 @@ orders.forEach((item , index) => {
                             <form action="/user/edit" method="POST">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label>نام *</label>
-                                        <% if(user.name) { %> <input type="text" name="name" class="form-control" value="<%- user.name %>" required> <% } else { %>
-                                            <input type="text" class="form-control" name="name" required>
+                                        <label>نام</label>
+                                        <% if(user.name) { %> <input type="text" name="name" class="form-control" value="<%- user.name %>"> <% } else { %>
+                                            <input type="text" class="form-control" name="name">
                                         <% } %>
                                     </div><!-- End .col-sm-6 -->
 
                                     <div class="col-sm-6">
-                                        <label>نام خانوادگی *</label>
-                                        <% if(user.family) { %> <input type="text" name="family" class="form-control" value="<%- user.family %>" required> <% } else { %>
-                                            <input type="text" class="form-control" name="family" required>
+                                        <label>نام خانوادگی</label>
+                                        <% if(user.family) { %> <input type="text" name="family" class="form-control" value="<%- user.family %>"> <% } else { %>
+                                            <input type="text" class="form-control" name="family">
                                         <% } %>
                                     </div><!-- End .col-sm-6 -->
                                 </div><!-- End .row -->
 
-                                <label>نام نمایش *</label>
+                                <label>شماره تلفن *</label>
                                 <% if(user.phone) { %> <input type="text" name="phone" class="form-control" value="<%- user.phone %>" required> <% } else { %>
                                     <input type="text" class="form-control" name="phone" required>
                                 <% } %>

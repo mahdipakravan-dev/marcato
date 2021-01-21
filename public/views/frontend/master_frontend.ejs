@@ -1,9 +1,28 @@
 <%- include('./partials/header.ejs') %>
 
-
   <%- body %>
   <%- include('./components/popup-custom.ejs' , {id : "customModal" , title : "title test" , text : "text test"}) %>
   <%- include('./components/scroll-top.ejs') %>
   <%- include('./partials/mobile-menu.ejs') %>
   <%- include('./components/popup-auth.ejs') %>
   <%- include('./partials/footer.ejs') %>
+
+  <% if(error && error.length) { %>
+    <script>
+      showModal(
+        "خطا" , 
+        "<div class='alert alert-danger'><%- error %></div>" , 
+        3000 , 
+        false
+      )
+    </script>
+  <% } else if (success && success.length) { %>
+    <script>
+      showModal(
+        "تبریک میگم" , 
+        "<div class='alert alert-success'><%- success %></div>" , 
+        5000 , 
+        true
+      )
+    </script>
+  <% } %>

@@ -51,5 +51,7 @@ Router.get("/user/logout" , authController.getLogout)
  * User
  */
 Router.get("/user" , FrontendAuthenticationMd , userController.getHome)
+Router.get('/user/order/:id' , FrontendAuthenticationMd , userController.getOrder)
+Router.post('/user/edit' , FrontendAuthenticationMd , userController.postEdit)
 
 export default Router

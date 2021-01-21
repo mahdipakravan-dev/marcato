@@ -1,0 +1,70 @@
+<% 
+let data = [];
+
+order.cart.forEach((item , index) => {
+  data[index] = {
+    id : item.id , 
+    link : `/product/${item.id}`,
+    showId : true ,
+    data : [
+      {
+          type : "text" ,
+          text : `${item.fullName}`
+      } ,
+      {
+          type : "text" ,
+          text : `${item.qty}`
+      } ,
+      {
+          type : "text" ,
+          text : `${helper.decimaller(`${item.price}`)} تومان`
+      } ,
+    ]
+  }
+}) 
+%>
+
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-center"><img src="/images/logo.png" alt="" class="img-fluid"></div>
+
+  <h6 class="text-center my-5">فاکتور خرید به شماره : <%- order._id %></h6>
+  <%- include("../../components/table.ejs" ,  
+    {
+    showId : true ,
+    th : ["شناسه" , "نام محصول" , "تعداد" , "قیمت واحد"] ,
+    items : data
+    })
+  %>
+
+<p class="my-5 text-center">
+  وضعیت سفارش : 
+  <b><u><%- helper.orderStatusTranslator(order.status) %></b></u>
+  <br>
+  <% if(order.status == "pending") { %> 
+    <a href="/cart">بریم به سبد خرید</a>  
+  <%}%>
+</p>
+
+<p class="my-5 text-center">
+  مبلغ نهایی  :
+  <%- helper.decimaller(order.price) %>
+  تومان
+</p>
+
+<% if(order.discountCode) { %>
+  
+<div class="row mt-3">
+  <div class="col-4 text-center">تحفیف : ندارد</div>
+  <div class="col-4 text-center">کد تخفیف : </div>
+  <div class="col-4 text-center">درصد : 0</div>
+</div>
+
+<p class="my-5 text-center">
+  مبلغ نهایی با احتساب تخفیف :
+  <%- helper.decimaller(order.finalPrice) %>
+  تومان
+</p>
+<% } %>
+
+</div>

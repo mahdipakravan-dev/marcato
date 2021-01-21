@@ -156,12 +156,13 @@ function link(location){
   window.location.href = `${websiteUrl}${location}`
 }
 
-function showModal(title , text){
+function showModal(title , text , time = 2000 , btn = true){
   $("#customModalTitle").html(title)
   $("#customModalText").html(text)
+  if(!btn) $("#customModalBtn").css("display" , "none")
   $("#customModal").modal()
   const interval = setInterval(() => {
     $("#customModalBtn").click()
     clearInterval(interval)
-  } , 5000)
+  } , time)
 }

@@ -34,20 +34,41 @@ export default async function(req:Request , res:Response , next:NextFunction){
       switch(status) {
         case "cancel" :
           return {type : "badge" , badge : "badge badge-danger" , text : "کنسل شده"}
-          break
         case "pending" :
           return {type : "badge" , badge : "badge badge-primary" , text : "پرداخت نشده(به سبد خرید مراجعه کنید)"}
-          break
         case "success" :
-        return {type : "badge" , badge : "badge badge-success" , text : "تکمیل(ارسال شده و دریافت شده)"}
-        break
+          return {type : "badge" , badge : "badge badge-success" , text : "تکمیل(ارسال شده و دریافت شده)"}
         default :
           return {type : "badge" , badge : "badge badge-warning" , text : "با پشتیبانی تماس بگیرید"}
       }
-    }
+    } ,
+    
+    orderLink(item:any){
+      switch(item.status) {
+        case "cancel" :
+          return {type : "button" , link : `` ,button : "btn-sm " ,text : 'برای پیگیری با پشتیبانی تماس بگیرید'}
+        case "pending" :
+          return {type : "button" , link : `/user/order/${item._id}` ,button : "btn-sm p-3 btn-primary" ,text : 'پیش فاکتور'}
+        case "success" :
+          return {type : "button" , link : `/user/order/${item._id}` ,button : "btn-sm p-3 btn-primary" ,text : 'پیگیری/فاکتور'}
+        default :
+          return {type : "badge" , badge : "badge badge-warning" , text : "با پشتیبانی تماس بگیرید"}
+      }
+    } ,
+
+    orderStatusTranslator(status:string){
+      switch(status) {
+        case "cancel" :
+          return "کنسل شده"
+        case "pending" :
+          return "پرداخت نشده"
+        case "success" :
+          return "تکمیل(ارسال شده و دریافت شده)"
+      }
+    } ,
   }
-
-
+  req.app.locals.error = req.flash('error')
+  req.app.locals.success = req.flash('success')
   req.app.locals.url = process.env.URL
 
   next()
