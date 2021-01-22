@@ -8,7 +8,7 @@ export default new class frontend_user {
     public async getHome(req: Request, res: Response, next: NextFunction): Promise<void> {
         const userId = req.token , 
         user = await new UserModel().FindUser({_id : userId}) ,
-        orders = await new OrderModel().FindOrders({userId})
+        orders = await new OrderModel().FindOrders({userId , status : {$ne : "pending"}})
         res.render('frontend/pages/user/user' , {orders , user})
     }
 

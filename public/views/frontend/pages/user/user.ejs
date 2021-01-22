@@ -17,11 +17,20 @@ orders.forEach((item , index) => {
     showId : false ,
     data : [
       {
+          type : "text" , 
+          text : index+1
+      },
+      {
           type : "text" ,
           text : `${item.cart[0].fullName} و ... `
       } ,
+      {
+          type : "text" , 
+          text : item.finalPrice
+      },
       helper.orderStatus(item.status) ,
-      helper.orderLink(item)]
+      helper.orderLink(item) ,
+    ]
   }
 }) 
 %>
@@ -51,6 +60,7 @@ orders.forEach((item , index) => {
 
                         <div class="tab-pane fade show active" id="tab-orders" role="tabpanel"
                             aria-labelledby="tab-orders-link">
+                            <h5>لیست سفارشات شما : </h5>
                             <% if(!orders) { %> 
                                 <p>سفارش جدیدی وجود ندارد</p>
                                 <a href="category.html" class="btn btn-outline-primary-2"><span>رفتن به
@@ -59,7 +69,7 @@ orders.forEach((item , index) => {
                             <%- include("../../components/table.ejs" ,  
                                 {
                                 showId : false ,
-                                th : ["محصولات" , "وضعیت" , "عملیات"] ,
+                                th : ["ردیف" ,"محصولات" , "قیمت" , "وضعیت" , "عملیات"] ,
                                 items : data
                                 })
                             %>
