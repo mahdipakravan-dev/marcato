@@ -14,9 +14,11 @@ export interface IOrder extends Document {
   rFullName ?:string
   rPhoneNumber ?:string
   rPostalCode ?: string
+  rAddress ?:string
   rNote ?: string
   UpdateOrder(query:any , val : any):Promise<any>
   FindOrder(query:any):Promise<any>
+  FindOrderAndUpdate(query:any , value : any):Promise<any>
   FindOrders(query:any):Promise<any>
   InitOrder(userId : string , cart : cartInterface[]) : Promise<any>
   UseDiscount(discountCode : string , query : any) : Promise<any>
@@ -35,7 +37,8 @@ const OrderSchema: Schema = new Schema({
   rFullName : {type : String} ,
   rPhoneNumber : {type : String} ,
   rPostalCode : {type : String} ,
-  rNote : {type : String}
+  rNote : {type : String},
+  rAddress : {type : String}
 })
 /**
  * 
@@ -74,6 +77,14 @@ OrderSchema.methods.FindOrder = function(query:any){
     .populate("payments")  
     .then(result => resolve(result))
     .catch(err => {reject(err)})
+  })
+}
+
+OrderSchema.methods.FindOrderAndUpdate = function(query:any , value : any){
+  return new Promise((resolve , reject) => {
+    const order = OrderModel.findOneAndUpdate(query , value)
+    if(!order) return reject(order)
+    resolve(order)
   })
 }
 

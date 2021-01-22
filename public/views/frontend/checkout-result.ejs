@@ -17,12 +17,21 @@
     <a href="/" class="btn btn-primary">بازگشت به صفحه اول</a>
   </div>
 
-  <% } else if(message && message.length>0) { %>
+  <% } else if(message) { %>
 
     <div class="alert alert-success" role="alert">
       <h1>پرداخت با موفقیت انجام شد</h1>
       <h2><%- message[0] %></h2>
       <p>میتواننید وضعیت سفارش خود را از طریق پنل پیگیری کنید</p>
+      <a href="/user">بریم به پنل</a>
+    </div>
+  
+  <% } else if(warning) { %>
+
+    <div class="alert alert-success" role="alert">
+      <h1>اخطار</h1>
+      <h5>پرداخت شما از قبل تایید شده و نیازی به تایید مجدد نیست</h5>
+      <h6>از طریق پنل به وضعیت سفارش خود میتوانید با خبر شوید</h6>
       <a href="/user">بریم به پنل</a>
     </div>
   

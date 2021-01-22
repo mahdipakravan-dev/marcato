@@ -14,7 +14,11 @@ export default new class frontend_checkout {
     }
 
     public async postCheckout(req: Request, res: Response, next: NextFunction){
-        const order = await new OrderModel().FindOrder({userId : req.token , status : "pending"})
+        const {rFullName , rPhoneNumber , rAddress , rPostalCode , rNote = "" } = req.body
+
+        const order = await new OrderModel().FindOrderAndUpdate({userId : req.token , status : "pending"} , {
+            rFullName , rPhoneNumber , rAddress , rPostalCode , rNote
+        })
         const payment = await new PaymentModel().CreatePayment(order.id , {
             orderId : order._id , 
             amount : order.finalPrice , 
@@ -100,13 +104,11 @@ export default new class frontend_checkout {
                     if(verifyError) {
                         console.log("Verify Problem" , verifyError)
                         await new PaymentModel().DeletePayment({token})
-                        req.flash("errors" , ["تراکنش شما از قبل تایید شده یا از طرف درگاه تایید نشده"])
+                        req.flash("warning" , ["x" , "a"]) // This is Just a fake argument for flash
                         return res.redirect("/checkout_result")
                     }
 
                     await new PaymentModel().PaymentSuccess(token , transactionResult)
-                    console.log("Zaheran Everything well")
-                    return res.send("S")
                     // await new OrderModel().UpdateOrder({orderId : })
                     req.flash("message" , [`پرداخت شما با موفقیت انجام شد , کد رهگیری : ${transactionResult.transId}`])
                     res.redirect('/checkout_result')

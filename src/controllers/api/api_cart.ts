@@ -52,7 +52,7 @@ export default new class api_cart {
   public async deleteCart(req: Request, res: Response, next: NextFunction){
     const userId = req.auth.id , 
     {productId} = req.body ,
-    user = await new OrderModel().FindOrder({userId})
+    user = await new OrderModel().FindOrder({userId , status : "pending"})
     
     if(!user) return res.json().status(statusCodes.NOT_FOUND)
 
@@ -60,14 +60,14 @@ export default new class api_cart {
     for(let i = 0 ; i < user.cart.length ; i++){  
       if(user.cart[i].id != productId) newCart.push(user.cart[i]) ;   
     }
-    await new OrderModel().UpdateOrder({userId} , {cart : newCart})
+    await new OrderModel().UpdateOrder({userId , status : 'pending'} , {cart : newCart})
     res.json().status(statusCodes.SUCCESS)
   }
 
   public async updateCart(req: Request, res: Response, next: NextFunction){
     const {productId , qty} = req.body ,
     userId = req.auth.id , 
-    user = await new OrderModel().FindOrder({userId})
+    user = await new OrderModel().FindOrder({userId , status : "pending"})
 
     if(!user) return res.json().status(statusCodes.NOT_FOUND)
 
@@ -88,7 +88,7 @@ export default new class api_cart {
       )
     }
 
-    await new OrderModel().UpdateOrder({userId} , {cart : newCart})
+    await new OrderModel().UpdateOrder({userId , status : 'pending'} , {cart : newCart})
     .then(() => {res.json().status(statusCodes.SUCCESS)})
     .catch(err => {res.json().status(statusCodes.INTERNAL)})
 
@@ -96,7 +96,7 @@ export default new class api_cart {
 
   public async getCart(req: Request, res: Response, next: NextFunction){
     await new OrderModel().CalculateCart({userId : req.auth.id , status : "pending"})
-    const order = await new OrderModel().FindOrder({userId : req.auth.id})
+    const order = await new OrderModel().FindOrder({userId : req.auth.id , status : 'pending'})
     res.json(order)
   }
 
