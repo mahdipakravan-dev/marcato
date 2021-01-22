@@ -1,0 +1,30 @@
+<div class="container my-5">
+
+  <% if(errors && errors.length > 0) { %>
+
+  <div class="alert alert-danger d-flex justify-content-center align-items-center flex-column" role="alert">
+    <h2 class="text-center">پرداخت ناموفق</h2>
+    <ul>
+        <% errors.forEach(error => { %>
+         <li class="text-center"><%- error %></li> 
+        <% }) %>
+    </ul>
+
+    <span>اگر از مبلغ شما کسر شده است , تا 24 ساعت دیگر به حساب شما عودت داده میشود</span>
+    <span>در صورتی که هر سوال یا راهنمایی در این خصوص نیاز داشتین تیم پشتیبانی در خدمت شماست</span>
+    <b>0930-307-6784</b>
+
+    <a href="/" class="btn btn-primary">بازگشت به صفحه اول</a>
+  </div>
+
+  <% } else if(message && message.length>0) { %>
+
+    <div class="alert alert-success" role="alert">
+      <h2><%- message[0] %></h2>
+      <p>میتواننید وضعیت سفارش خود را از طریق پنل پیگیری کنید</p>
+      <a href="/user">بریم به پنل</a>
+    </div>
+  
+  <% } %>
+
+</div>

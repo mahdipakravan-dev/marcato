@@ -3,6 +3,7 @@ import express = require('express')
 //Middleware
 import frontLocalVariableMd from '../middlewares/frontLocalVariable.md'
 import validationMiddleware from '../middlewares/validation.md'
+import FrontendAuthenticationMd from '../middlewares/FrontendAuthentication.md'
 
 // DTO
 import SignUpDto from '../dto/frontend/signup.dto'
@@ -14,7 +15,8 @@ import productController from '../controllers/frontend/frontend_product'
 import cartController from '../controllers/frontend/frontend_cart'
 import authController from '../controllers/frontend/frontend_auth'
 import userController from '../controllers/frontend/frontend_user'
-import FrontendAuthenticationMd from '../middlewares/FrontendAuthentication.md'
+import checkoutController from '../controllers/frontend/frontend_checkout'
+
 
 const Router = express.Router()
 
@@ -38,6 +40,14 @@ Router.get('/product/:id' , productController.getProduct)
  * Cart
  */
 Router.get('/cart' , FrontendAuthenticationMd ,  cartController.getCart)
+
+/**
+ * Checkout
+ */
+Router.get('/checkout' , FrontendAuthenticationMd , checkoutController.getCheckout)
+Router.post('/checkout' , FrontendAuthenticationMd , checkoutController.postCheckout)
+Router.get('/checkout_callback' , FrontendAuthenticationMd , checkoutController.getCallback)
+Router.get('/checkout_result' , FrontendAuthenticationMd , checkoutController.getCheckoutResult)
 
 /**
  * Auth

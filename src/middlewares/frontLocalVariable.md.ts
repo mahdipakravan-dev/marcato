@@ -38,18 +38,27 @@ export default async function(req:Request , res:Response , next:NextFunction){
           return {type : "badge" , badge : "badge badge-primary" , text : "پرداخت نشده(به سبد خرید مراجعه کنید)"}
         case "success" :
           return {type : "badge" , badge : "badge badge-success" , text : "تکمیل(ارسال شده و دریافت شده)"}
+        case "paid" :
+          return {type : "badge" , badge : "badge badge-success" , text : "پرداخت شده/درحال آماده سازی"}
+        case "sending" :
+          return {type : "badge" , badge : "badge badge-success" , text : "ارسال شده و تو راهه..."}
         default :
           return {type : "badge" , badge : "badge badge-warning" , text : "با پشتیبانی تماس بگیرید"}
       }
     } ,
     
     orderLink(item:any){
+
       switch(item.status) {
         case "cancel" :
           return {type : "button" , link : `` ,button : "btn-sm " ,text : 'برای پیگیری با پشتیبانی تماس بگیرید'}
         case "pending" :
-          return {type : "button" , link : `/user/order/${item._id}` ,button : "btn-sm p-3 btn-primary" ,text : 'پیش فاکتور'}
+          return {type : "button" , link : `/cart` ,button : "btn-sm p-3 btn-primary" ,text : 'سبدخرید'}
         case "success" :
+          return {type : "button" , link : `/user/order/${item._id}` ,button : "btn-sm p-3 btn-primary" ,text : 'فاکتور'}
+        case "paid" :
+          return {type : "button" , link : `/user/order/${item._id}` ,button : "btn-sm p-3 btn-primary" ,text : 'پیگیری/فاکتور'}
+        case "sending" :
           return {type : "button" , link : `/user/order/${item._id}` ,button : "btn-sm p-3 btn-primary" ,text : 'پیگیری/فاکتور'}
         default :
           return {type : "badge" , badge : "badge badge-warning" , text : "با پشتیبانی تماس بگیرید"}
@@ -64,6 +73,10 @@ export default async function(req:Request , res:Response , next:NextFunction){
           return "پرداخت نشده"
         case "success" :
           return "تکمیل(ارسال شده و دریافت شده)"
+        case "paid" :
+          return "پرداخت شده و درحال آماده سازی"
+        case "sending" :
+          return "درحال رسیدن"
       }
     } ,
   }

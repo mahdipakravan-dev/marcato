@@ -10,6 +10,10 @@ export interface IOrder extends Document {
   discountCode ?: string
   count ?: number
   price ?: number
+  rFullName ?:string
+  rPhoneNumber ?:string
+  rPostalCode ?: string
+  rNote ?: string
   UpdateOrder(query:any , val : any):Promise<any>
   FindOrder(query:any):Promise<any>
   FindOrders(query:any):Promise<any>
@@ -20,14 +24,18 @@ export interface IOrder extends Document {
 
 const OrderSchema: Schema = new Schema({
   userId : {type : mongoose.Types.ObjectId , required : true , ref : "users" } ,
+  payId : {type : mongoose.Types.ObjectId , ref : "payments"},
   cart : {type : Array , default : []} , 
-  status : {type : String , default : "pending"} , // pending , error , success
+  status : {type : String , default : "pending"} , // pending , error , success , paid , sending
   discountCode : {type : String},
   count : {type : Number},
   price : {type : Number} ,
-  finalPrice : {type : Number} 
+  finalPrice : {type : Number} ,
+  rFullName : {type : String} ,
+  rPhoneNumber : {type : String} ,
+  rPostalCode : {type : String} ,
+  rNote : {type : String}
 })
-
 /**
  * 
  * @param query 
@@ -61,7 +69,8 @@ OrderSchema.methods.FindOrders = function(query:any){
  */
 OrderSchema.methods.FindOrder = function(query:any){
   return new Promise((resolve , reject) => {
-    OrderModel.findOne(query)  
+    OrderModel.findOne(query)
+    .populate("payments")  
     .then(result => resolve(result))
     .catch(err => {reject(err)})
   })
