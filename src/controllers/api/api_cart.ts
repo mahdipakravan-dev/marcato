@@ -20,7 +20,7 @@ export default new class api_cart {
     product = await new ProductModel().FindProduct({_id : productId})
 
     if(!product) res.json().status(statusCodes.NOT_FOUND)
-    await new OrderModel().FindOrder({userId})
+    await new OrderModel().FindOrder({userId , status : "pending"})
     .then(async order => {
       //Initialize Cart
       if(!order) {
@@ -38,8 +38,9 @@ export default new class api_cart {
         res.json().status(statusCodes.CONFLICT)
       } else {
         newCart.push({id : product._id , enName : product.enName , qty : 1, price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]})
-        await new OrderModel().UpdateOrder({userId} , {cart : newCart})
-        res.json().status(statusCodes.SUCCESS)
+        await new OrderModel().UpdateOrder({userId , status : "pending"} , {cart : newCart})
+        .then(result => {res.json().status(statusCodes.SUCCESS)})
+        .catch(err => {res.json().status(statusCodes.INTERNAL)})
       }
 
     })
@@ -94,6 +95,7 @@ export default new class api_cart {
   }
 
   public async getCart(req: Request, res: Response, next: NextFunction){
+    await new OrderModel().CalculateCart({userId : req.auth.id , status : "pending"})
     const order = await new OrderModel().FindOrder({userId : req.auth.id})
     res.json(order)
   }

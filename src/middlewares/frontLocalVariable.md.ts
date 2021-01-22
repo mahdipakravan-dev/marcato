@@ -15,7 +15,8 @@ export default async function(req:Request , res:Response , next:NextFunction){
 
   req.app.locals.helper = {
     decimaller(number:any){
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
+      const toman = number.toString().slice(0,-1)
+      return toman.replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
     } , 
 
     linkToProducts(page:number){return `/products?page=${page}`},

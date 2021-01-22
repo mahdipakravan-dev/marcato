@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose'
 import {adminTypes, cartInterface} from '../helpers/interfaces'
 import { DiscountModel } from './discounts'
+import { OptionModel } from './options'
 
 
 export interface IOrder extends Document {
@@ -92,7 +93,8 @@ OrderSchema.methods.InitOrder = function(userId:any , cart : cartInterface[]){
       userId , 
       cart ,
       count , 
-      price
+      price , 
+      finalPrice : price 
     }).save()
     .then(result => resolve(result))
     .catch(err => {reject(err)})
@@ -111,16 +113,16 @@ OrderSchema.methods.CalculateCart = function(query:any){
     .then(async result => {
       let price = 0 , finalPrice = 0
       result.cart.forEach((newCartItem:any) => {price += (newCartItem.price * newCartItem.qty);})
-      
+      const option = await new OptionModel().GetOptions()
 
       if(result.discountCode) {
         await new DiscountModel().FindDiscount(result.discountCode)
         .then(discount => {
           if(!discount && discount.used == discount.max) reject("No Discount")
-          finalPrice = price - (discount.percent * price) / 100
+          finalPrice = (price - (discount.percent * price) / 100) + option.transportCost 
         })
         .catch(err => reject(err))
-      } else finalPrice=price
+      } else finalPrice=price + option.transportCost
 
       await OrderModel.updateOne(query , {price , finalPrice})
       .then(result => {resolve(result)})

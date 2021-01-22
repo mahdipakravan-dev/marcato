@@ -36,6 +36,7 @@ export default new class frontend_checkout {
         })
         .end(async (err , result) => {
             if(err) {
+                console.log(err)
                 await new PaymentModel().UpdatePayment({_id : payment._id} , {internalStatus : 4})
                 throw new Error("ظاهرا مشکلی سمت سرور درگاه پیش آمده مجددا تلاش کنید یا با پشتیبانی تماس حاصل کنید")
             }
@@ -43,7 +44,12 @@ export default new class frontend_checkout {
 
             if(result.status == 200 && sendResult.status == 1) {
                 await new PaymentModel().UpdatePayment({_id : payment._id , internalStatus : 1} , {internalStatus : 2 , token : sendResult.token})
-                res.redirect(`${config.get("vandar.redirectUrl")}${sendResult.token}`)
+                .then(result => {
+                    res.redirect(`${config.get("vandar.redirectUrl")}${sendResult.token}`)
+                })
+                .catch(err => {
+                    throw new Error("مشکلی پیش آمده")    
+                })
             } else {
                 throw new Error("مشکلی پیش آمده")
             }
@@ -51,10 +57,15 @@ export default new class frontend_checkout {
     }
 
     public async getCallback(req:Request , res:Response , next:NextFunction){
-        const {token , payment_status} = req.query
+        const {token , payment_status} = req.query as {token : string , payment_status : string}
         await new PaymentModel().UpdatePayment({token} , {internalStatus : 3 , message : payment_status})
 
         if(payment_status == "OK") {
+            
+            /**
+             * Transaction
+             */
+
             superagent
             .post(config.get("vandar.transactionUrl"))
             .set('Accept' , 'application/json')
@@ -65,10 +76,12 @@ export default new class frontend_checkout {
             })
             .end(async(err,result) => {
                 if(err) throw new Error("مشکلی پیش آمده است , با پشتیبانی تماس حاصل کنید")
-                console.log("TransactionResult" , result.text)
-                const sendResult = JSON.parse(result.text)
-                if(sendResult.status == 0) {
-                    req.flash("errors" , sendResult.errors)
+
+                const transactionResult = JSON.parse(result.text)
+
+                if(transactionResult.status == 0) {
+                    await new PaymentModel().DeletePayment({token})
+                    req.flash("errors" , transactionResult.errors)
                     return res.redirect("/checkout_result")
                 }
                 
@@ -84,13 +97,18 @@ export default new class frontend_checkout {
                     token
                 })
                 .end(async (verifyError , verifyResult) => {
-                    console.log("VerifyResult" , verifyResult)
                     if(verifyError) {
-                        req.flash("errors" , sendResult.errors)
+                        console.log("Verify Problem" , verifyError)
+                        await new PaymentModel().DeletePayment({token})
+                        req.flash("errors" , ["تراکنش شما از قبل تایید شده یا از طرف درگاه تایید نشده"])
                         return res.redirect("/checkout_result")
                     }
-                    await new PaymentModel().UpdatePayment({token} , sendResult)
-                    req.flash("message" , ['',`پرداخت شما با موفقیت انجام شد , کد رهگیری : ${sendResult.transId}`])
+
+                    await new PaymentModel().PaymentSuccess(token , transactionResult)
+                    console.log("Zaheran Everything well")
+                    return res.send("S")
+                    // await new OrderModel().UpdateOrder({orderId : })
+                    req.flash("message" , [`پرداخت شما با موفقیت انجام شد , کد رهگیری : ${transactionResult.transId}`])
                     res.redirect('/checkout_result')
                 })
             })
@@ -98,6 +116,7 @@ export default new class frontend_checkout {
             //2-Store Result + Change orderStatus
             //3-
         } else {
+            await new PaymentModel().DeletePayment({token})
             req.flash("errors" , ["تراکنش از طرف شما کنسل شده است"]);
             return res.redirect("/checkout_result")
         }

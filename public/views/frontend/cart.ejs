@@ -109,7 +109,7 @@
                                     <% if(!user.discountCode) { %>
                                         <tr class="summary-total">
                                         <td>مبلغ قابل پرداخت :</td>
-                                        <td class="text-left"><%- helper.decimaller(user.finalPrice + options.transportCost) %> تومان</td>
+                                        <td class="text-left"><%- helper.decimaller(user.finalPrice) %> تومان</td>
                                         </tr><!-- End .summary-total -->
                                     <% } %>
 

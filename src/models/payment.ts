@@ -19,10 +19,12 @@ export interface IPayment extends Document {
   CID ?: string ,
   paymentDate ?: string ,
   message ?: string 
+  token ?: string
 
   CreatePayment(orderId : string , payment : any):Promise<any>
   UpdatePayment(query : any , value : any):Promise<void>
   DeletePayment(query:any) : Promise<void>
+  PaymentSuccess(token:string , transactionResult : any):Promise<void>
 }
 
 const PaymentSchema: Schema = new Schema({
@@ -39,7 +41,8 @@ const PaymentSchema: Schema = new Schema({
   cardNumber : {type : String} ,
   CID : {type : String} ,
   paymentDate : {type : String} ,
-  message : {type : String} 
+  message : {type : String} ,
+  token : {type : String , default : "noToken"}
 })
 
 PaymentSchema.methods.CreatePayment = function(orderId : string ,payment : any){
@@ -57,18 +60,33 @@ PaymentSchema.methods.CreatePayment = function(orderId : string ,payment : any){
 }
 
 PaymentSchema.methods.UpdatePayment = function(query : any , value : any){
-  return new Promise((resolve , reject) => {
-    PaymentModel.updateOne(query , value)
+  return new Promise(async (resolve , reject) => {
+    await PaymentModel.updateOne(query , value)
     .then(result => resolve(result))
     .catch(err => reject(err))
   })
 }
 
 PaymentSchema.methods.DeletePayment = function(query : any){
-  return new Promise((resolve , reject) => {
-    PaymentModel.updateOne(query , {internalStatus : 4})
-    .then(result => resolve(result))
-    .catch(err => reject(err))
+  return new Promise(async (resolve , reject) => {
+    await PaymentModel.updateOne(query , {internalStatus : 4 , message : "canceledOrBug"})
+    .then(result => {console.log(result,"dResult");resolve(result)})
+    .catch(err => {console.log(err,"dError");reject(err)})
+  })
+}
+
+PaymentSchema.methods.PaymentSuccess = function(token : string , transactionResult : any){
+  return new Promise(async (resolve , reject) => {
+    /**
+     * 1- Find Payment By token
+     * 2- Change 
+     */
+    transactionResult.internalStatus = 5
+    const payment = await PaymentModel.findOneAndUpdate({token , internalStatus : 3} , transactionResult)
+    if(!payment) throw new Error("something Wrong : Payment With internalStatus 3 Not Found !")
+    await new OrderModel().UpdateOrder({payId : payment._id} , {status : 'paid'})
+    .then(result => {resolve(result)})
+    .catch(err => {reject(err)})
   })
 }
 
