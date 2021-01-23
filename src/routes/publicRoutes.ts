@@ -50,7 +50,6 @@ Router.get('/cart' , FrontendAuthenticationMd ,  cartController.getCart)
 Router.get('/checkout' , FrontendAuthenticationMd , checkoutController.getCheckout)
 Router.post('/checkout' , FrontendAuthenticationMd , frontValidationMiddleware(checkoutDto , '/checkout') , checkoutController.postCheckout)
 Router.get('/checkout_callback' , FrontendAuthenticationMd , checkoutController.getCallback)
-Router.get('/checkout_result' , FrontendAuthenticationMd , checkoutController.getCheckoutResult)
 
 /**
  * Auth
