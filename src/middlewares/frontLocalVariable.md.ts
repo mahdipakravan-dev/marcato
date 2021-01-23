@@ -82,6 +82,7 @@ export default async function(req:Request , res:Response , next:NextFunction){
     } ,
   }
   req.app.locals.error = req.flash('error')
+  req.app.locals.errors = req.flash('errors')
   req.app.locals.success = req.flash('success')
   req.app.locals.url = process.env.URL
 

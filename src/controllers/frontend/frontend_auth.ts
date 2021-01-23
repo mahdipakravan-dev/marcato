@@ -13,7 +13,10 @@ export default new class frontend_auth {
         const {phone , password } = req.body
         const user = await new UserModel().FindUser({phone : Regex.phoneNumber(phone)})
         
-        if(!user) return res.send("کاربری با این شماره تلفن وجود ندارد")
+        if(!user) {
+          req.flash("errors" , ["نام کاربری یا رمز عبور شما اشتباه است"])
+          res.redirect('/user/login')
+        }
 
         await Encrypt.Compare(password , user!.password)
         .then(result => {
@@ -36,7 +39,10 @@ export default new class frontend_auth {
 
       //Check Conflict For username
       const user = await new UserModel().FindUser({phone})
-      if(user) return res.send("کاربر دیگری با این شماره تلفن وجود دارد")
+      if(user) {
+        req.flash("errors" , ["کاربر دیگری با این شماره تلفن وجود دارد"])
+        res.redirect('/user/login')
+      }
       
       await new UserModel().CreateUser({
         phone ,

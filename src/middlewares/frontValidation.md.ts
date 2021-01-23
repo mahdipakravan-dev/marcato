@@ -5,23 +5,21 @@ import HttpException from '../helpers/Exception';
 import { statusCodes } from '../helpers/interfaces';
 import HttpResponse from '../helpers/Response';
 
-function validationMiddleware<T>(type: any): express.RequestHandler {
+export default function frontValidationMiddleware<T>(type: any , redirectTo : string): express.RequestHandler {
     return (req: express.Request, res: express.Response, next: express.NextFunction) => {
         validate(plainToClass(type, req.body))
             .then((errors: ValidationError[]) => {
-                console.log(errors)
                 if (errors.length > 0) {
                     let messages: string[] = []
                     errors.forEach((error: ValidationError) => {
                         messages.push(Object.values(error.constraints || "")[0])
                     })
-                    next(new HttpResponse(res, statusCodes.VALIDATION_ERROR, messages))
+                    req.flash("errors" , messages)
+                    res.redirect(redirectTo)
+                    // next(new HttpResponse(res, statusCodes.VALIDATION_ERROR, messages))
                 } else {
-                    console.log("Next")
                     next();
                 }
             });
     };
 }
-
-export default validationMiddleware;

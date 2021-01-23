@@ -25,4 +25,19 @@
         true
       )
     </script>
+  <% } else if (errors && errors.length) { %>
+    <script>
+      showModal(
+        "مشکلی پیش آمده" , 
+        `<div class='alert alert-danger'>
+          <ul>
+          <% errors.forEach((error , index) => { %>
+            <li class="py-2">- <%- error %></li>
+          <% }) %>
+          </ul>
+        </div>` , 
+        5000 , 
+        true
+      )
+    </script>
   <% } %>
