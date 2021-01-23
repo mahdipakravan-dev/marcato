@@ -126,3 +126,45 @@ export interface productInterface {
     instrument : {enName : string , faName : string} ,
     thumbnails : any[]
 }
+
+/**
+ * Payment
+ */
+
+export interface getTokenInterface {
+    status : number 
+    errors ?: string[]
+    token ?: string
+}
+
+export interface transactionResultInterface {
+status : number
+amount ?: string ,
+transId ?:  number,
+refnumber ?: string ,
+trackingCode ?: string ,
+factorNumber ?: string,
+mobile ?: string,
+description ?: string ,
+cardNumber ?: string ,
+CID ?: string ,
+paymentDate ?: string ,
+message ?: string 
+token ?: string
+errors ?: string[]
+}
+
+export interface verifyResultInterface {
+    status: number 
+    amount ?: string 
+    realAmount ?: number
+    wage ?: string
+    transId ?: number 
+    factorNumber ?: string
+    mobile ?: string
+    description ?: string
+    cardNumber ?: string
+    paymentDate ?: string
+    cid ?: string ,
+    message ?: string
+}
