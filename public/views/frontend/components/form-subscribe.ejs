@@ -7,15 +7,18 @@
             <% if(title.bold) { %><span class="text-primary"><%- title.bold %></span><% } %>
             <%- title.text %></h2>
           <p class="text-light font-weight-normal text-center mb-2"><%- desc %></p>
-          <form action="<%- form.action %>" method="<%- form.method %>">
+          <form action="" method="">
             <div class="d-flex justify-content-center flex-column flex-sm-row align-items-center align-items-sm-stretch">
 
-                  <input type="<%- form.input.type %>" name="<%- form.input.name %>" class="form-control text-light mb-1" placeholder="<%- form.input.placeholder %>">
+                  <input type="text" name="phone" class="form-control text-light mb-1" placeholder="شماره تلفن خود را وارد کنید">
+
+                  <input type="text" name="password" class="form-control text-light mb-1" placeholder="رمز عبور خود را وارد کنید">
+                  <input type="text" name="password" class="form-control text-light mb-1" placeholder="رمز عبور خود را وارد کنید">
 
                   <div class="input-group-append">
                       <button class="btn btn-primary mb-1 letter-spacing-normal text-uppercase"
                           type="submit" id="newsletter-btn">
-                          <span><%- form.submit %></span>
+                          <span>تایید</span>
                       </button>
                   </div>
 

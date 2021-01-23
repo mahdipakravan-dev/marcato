@@ -1,15 +1,24 @@
 
 <%- include('./frontend/components/slider.ejs') %>
-<%- include('./frontend/components/banner-3.ejs') %>
 <%- include('./frontend/components/categories.ejs') %>
 <%- include('./frontend/components/products-2.ejs' , {products , title : "جدید ترین محصولات" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
 
-<%- include('./frontend/components/form-subscribe.ejs' , {
-  subtitle : "" , title : {bold:"در تمام مراحل موسیقی" , text:"در کنار شما هستیم !"} , background : "/images/banners/banner-empty-white1.png" , 
-  desc : `<b class="text-dark"> با وارد کردن ایمیلتون </b> تخفیف میگیرید , اولین نفر از محصولات و دوره های آموزش باخبر میشوید و به باشگاه مارکاتو اضافه میشوید ! ` ,
-  form : {action : "#" , method : "POST" , input : {type : "email" , name : "email" , placeholder : "ایمیل خود را را وارد کنید"} , submit : "عضویت"}
+<%- include('./frontend/components/banner-3.ejs' , {data : [
+  {src : "/images/banners/banner-kalimba-1.png" , subtitle : "" , title : "لذت داشتن کالیمبا با طرح اختصاصی" , link : {href : helper.linkToInstrument("kalimba") , title : "مشاهده محصولات"}} ,
+  {src : "/images/banners/banner-guitar-1.png" , subtitle : "گیتار" , title : "گیتار های با کیفیت دلشاد! + گارانتی" , link : {href : helper.linkToInstrument("guitar") , title : "مشاهده گیتار ها"}} ,
+  {src : "/images/banners/banner-kajun-2.png" , subtitle : "کاخن" , title : "کاخن های مارکاتو , خیلی خاص !" , link : {href : helper.linkToInstrument("kajun") , title : "مشاهده کاخن ها"}} ,
+]
 }) %>
 
 <%- include('./frontend/components/products-2.ejs' , {products , title : "پرطرفدار ترین ساز ها" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
+
+<%- include('./frontend/components/products-2.ejs' , {products , title : "پادکست های مارکاتو" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
+
+<%- include('./frontend/components/banner-3.ejs' , {data : [
+  {src : "/images/banners/banner-kalimba-2.png" , subtitle : "ایرانی و خارجی" , title : "تو مارکاتو هــر نوع کالیمبایی وجود داره!" , link : {href : helper.linkToInstrument("kalimba") , title : "مشاهده محصولات"}} ,
+  {src : "/images/banners/banner-kalimba-3.png" , subtitle : "کالیمبا عروسکی!" , title : "یک هدیه ارزان و زیبا" , link : {href : '#' , title : "مشاهده کالیمبا عروسکی"}} ,
+  {src : "/images/banners/banner-kajun-1.png" , subtitle : "طرح جدید !" , title : "طرح های جدید کاخن های مارکاتو" , link : {href : helper.linkToInstrument("kajun") , title : "نــه بریم ببینیم"}} ,
+]
+}) %>
 
 <%- include('./frontend/components/products-2.ejs' , {products , title : "پادکست های مارکاتو" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>

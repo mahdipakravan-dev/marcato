@@ -19,47 +19,20 @@
               }
           }
       }'>
-          <div class="banner mb-0">
-              <a href="#">
-                  <img src="/images/banners/banner-1.png" width="460"
-                      height="210">
-              </a>
-              <div class="banner-content p-3">
-                  <h2 class="banner-subtitle font-weight-normal text-dark mb-1">مارکاکَست(پادکست آموزشی موسیقی)</h2>
-                  <h3 class="banner-title font-weight-bold  text-dark ">لذت یادگیری در مسیر!
-                  </h3>
-                  <a href="#" class="banner-link text-decoration-none">بریم مارکاکَست<i
-                          class="icon-angle-left"></i></a>
-              </div>
-          </div>
-          <div class="banner mb-0">
-              <a href="#">
-                  <img src="/images/banners/banner-2.png" width="460"
-                      height="210">
-              </a>
-              <div class="banner-content p-3">
-                <h2 class="banner-subtitle font-weight-normal text-light mb-1">آموزشگاه مارکاتو</h2>
-                <h3 class="banner-title font-weight-bold  text-light ">لذت یادگیری موسیقی!
-                </h3>
-                <a href="#" class="banner-link text-decoration-none">شروع آموزش<i
-                        class="icon-angle-left"></i></a>
+          <% data.forEach(banner => { %>
+            <div class="banner mb-0">
+                <a href="<%- banner.link.href %>">
+                    <img src="<%- banner.src %>" width="460"
+                        height="210">
+                </a>
+                <div class="banner-content p-3">
+                    <h2 class="banner-subtitle font-weight-normal text-dark mb-1"><%- banner.subtitle %></h2>
+                    <h3 class="banner-title font-weight-bold  text-dark "><%- banner.title %></h3>
+                    <a href="<%- banner.link.href %>" class="banner-link text-decoration-none"><%- banner.link.title %><i
+                            class="icon-angle-left"></i></a>
+                </div>
             </div>
-          </div>
-          <div class="banner mb-0">
-              <a href="#">
-                  <img src="/images/banners/banner-3.png" width="460"
-                      height="210">
-              </a>
-              <div class="banner-content p-3">
-                <h2 class="banner-subtitle font-weight-normal text-dark mb-1">فروشگاه مارکاتو</h2>
-                <h3 class="banner-title font-weight-bold  text-dark ">ساز رویایی شما
-                    </br>
-                    با بهترین قیمت و کیفیت!
-                </h3>
-                <a href="#" class="banner-link text-decoration-none">شروع آموزش<i
-                        class="icon-angle-left"></i></a>
-            </div>
-          </div>
+          <% }) %>
       </div>
   </div>
 </div>
