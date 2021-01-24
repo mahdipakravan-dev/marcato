@@ -1,7 +1,7 @@
 
 <%- include('./frontend/components/slider.ejs') %>
 <%- include('./frontend/components/categories.ejs') %>
-<%- include('./frontend/components/products-2.ejs' , {products , title : "جدید ترین محصولات" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
+<%- include('./frontend/components/products-2.ejs' , {products : newProducts , title : "جدید ترین محصولات" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
 
 <%- include('./frontend/components/banner-3.ejs' , {data : [
   {src : "/images/banners/banner-kalimba-1.png" , subtitle : "" , title : "لذت داشتن کالیمبا با طرح اختصاصی" , link : {href : helper.linkToInstrument("kalimba") , title : "مشاهده محصولات"}} ,
@@ -10,9 +10,9 @@
 ]
 }) %>
 
-<%- include('./frontend/components/products-2.ejs' , {products , title : "پرطرفدار ترین ساز ها" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
+<%- include('./frontend/components/products-2.ejs' , {products : topProducts , title : "پرطرفدار ترین ساز ها" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
 
-<%- include('./frontend/components/products-2.ejs' , {products , title : "پادکست های مارکاتو" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
+<%- include('./frontend/components/products-2.ejs' , {products : newGuitars , title : "گیتار های جدید " , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
 
 <%- include('./frontend/components/banner-3.ejs' , {data : [
   {src : "/images/banners/banner-kalimba-2.png" , subtitle : "ایرانی و خارجی" , title : "تو مارکاتو هــر نوع کالیمبایی وجود داره!" , link : {href : helper.linkToInstrument("kalimba") , title : "مشاهده محصولات"}} ,
@@ -21,4 +21,4 @@
 ]
 }) %>
 
-<%- include('./frontend/components/products-2.ejs' , {products , title : "پادکست های مارکاتو" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>
+<%- include('./frontend/components/products-2.ejs' , {products : newKalimbas , title : "کالیمبا های جدید" , express : {status : false , title : "زمان باقی مانده :" , time : "+5h"}}) %>

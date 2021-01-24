@@ -28,6 +28,7 @@ import Regex from "./helpers/Regex"
 import { OptionModel } from "./models/options"
 import { OrderModel } from "./models/order"
 import { DiscountModel } from "./models/discounts"
+import moment from "moment"
 
 /**
   * Repository Design Pattern                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -39,7 +40,6 @@ class App {
     app: Application = express()
 
     constructor() {
-        // console.log("***********THIS IS PROCESS.env***********" , process.env)
         new EnvConfig()
         new MongoConfig()
         new ViewConfig(this.app)
