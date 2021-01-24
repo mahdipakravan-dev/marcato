@@ -16,7 +16,9 @@
           <span>ورود</span>
           <i class="icon-long-arrow-left"></i>
       </button>
+    </div><!-- End .form-footer -->
 
-      <a href="#" class="forgot-link">فراموشی رمز عبور؟</a>
-  </div><!-- End .form-footer -->
+  <% if(locals.redirectTo) { %>
+    <input type="hidden" value="<%- redirectTo %>" name="redirectTo">
+  <% } %>
 </form>

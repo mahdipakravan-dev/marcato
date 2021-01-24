@@ -16,6 +16,49 @@ function Ajax(route , type , data , headers){
   })
 }
 
+function productAlerts(type , data){
+  switch(type){
+    case "login":
+      showModal("میشه قبلش وارد وبسایت بشین ؟" , 
+      `
+      لطفا قبل از اینکه ثبت سفارش کنید وارد وبسایت شوید یا ثبت نام کنید , بعدش به همین صفحه برمیگردیم
+      <br>
+      <br>
+      <a href="/user/login?back=/product/${data.productId}" class="btn btn-primary">بریم ثبت نام کنیم</a>
+      `,
+      10000 ,
+      false);
+      break
+    case "already" :
+      showModal("" 
+      , `
+        این محصول در سبدخرید شما موجود میباشد
+        <br/>
+        <br/>
+        <a href="/cart" class="btn btn-primary">اوکی پس بریم به سبد خرید</a>
+      ` ,
+       5000 
+       , true)
+      break
+    case "success" :
+      showModal("" 
+      , `
+        <div class="alert alert-success">با موفقیت به سبد خرید شما اضافه شد</div>
+      ` ,
+       5000 
+       , true)
+      break
+    case "error" :
+      showModal("" 
+      , `
+        <div class="alert alert-danger">ظاهرا مشکلی پیش آمده , لطفا مجددا تلاش کنید</div>
+      ` ,
+        5000 
+        , true)
+      break
+  }
+}
+
 function getCookies() { 
   return document.cookie.split(';').reduce((cookies, cookie) => { 
     const [name, val] = cookie.split('=').map(c => c.trim()); 
@@ -29,14 +72,6 @@ function setCookie(cname , cvalue , exdays=1){
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
   var expires = "expires="+d.toUTCString();
   document.cookie = `${cname}=${cvalue};${expires};path=/`;
-}
-
-function alertSuccess(){
-  $("#alertSuccess").css("display" , "block")
-  const interval = setInterval(() => {
-    $("#alertSuccess").css("display" , "none")
-    clearInterval(interval)
-  } , 4000)
 }
 
 function decimaller(number){return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
@@ -93,34 +128,21 @@ function reloadCart(){
 
 function addToCart(productId , userId , qty){
   const cookies = getCookies()
-  if(!cookies.frontendToken) {
-    $('#loginRequired').modal('show')
-  }
-  else{
-    Ajax("rest/cart/add" , "POST" , {productId , userId , qty} , {token : cookies.frontendToken})
-    .then(result => {console.log(result)})
-    .catch(err => {
-      console.log
-      if(err.status === 409 ) {showModal("" 
-      , `
-        این محصول در سبدخرید شما موجود میباشد
-        <br/>
-        <br/>
-        <a href="/cart" class="btn btn-primary">اوکی پس بریم به سبد خرید</a>
-      ` ,
-       5000 
-       , true)}
-      if(err.status === 200 ) {alertSuccess()}
-    })
-  }
+  if(!cookies.frontendToken) return productAlerts("login" , {productId})
+  Ajax("rest/cart/add" , "POST" , {productId , userId , qty} , {token : cookies.frontendToken})
+  .then(() => productAlerts("success"))
+  .catch(err => {
+    if(err.status === 409 ) return productAlerts("already")
+    if(err.status === 200 ) return productAlerts("success")
+  })
 }
 
 function deleteCart(productId) {
   Ajax("rest/cart/delete" , "DELETE" , {productId } , {token : getCookies().frontendToken})
-  .then(result => {reloadCart(); console.log(result)})
+  .then(result => {reloadCart();})
   .catch(err => {
-    if(err.status === 200 ) {reloadCart()}
-    else {alert("هنگام ارسال اطلاعات به سرور مشکلی پیش آمده لطفا مجددا تلاش نمایید")}
+    if(err.status === 200 ) return reloadCart()
+    productAlerts("error")
   })
 }
 
@@ -129,13 +151,10 @@ function useDiscount() {
   const discountCode = $("#discountCode").val()
   Ajax("rest/cart/discount" , "POST" , {discountCode } , {token : getCookies().frontendToken})
   .then(result => {
-    console.log("Result" , result)
     reloadCart();
   })
   .catch(err => {
-    console.log("Err" , err)
-    if(err.status == 404) showModal("خطا" 
-    , `<div class="alert alert-danger">کد تخفیف شما اشتباه است , درصورتی که مطمئن هستید با پشتیبانی تماس حاصل کنید</div>` , 5000)
+    if(err.status == 404) productAlerts("error")
     if(err.status === 200 ) {
       showModal("تبریک میگم" 
       , `<div class="alert alert-success">کد تخفیف شما صحیح است</div>` , 3000)
@@ -150,22 +169,18 @@ function disableDiscount() {
     reloadCart();
   })
   .catch(err => {
-    if(err.status === 200 ) {
-      reloadCart()
-    }
-    else {showModal("خطا" , "امکان داره سرور دچار اختلال باشه , درصورتی که مطمئن هستید با پشتیبانی تماس حاصل کنید")}
+    if(err.status === 200 ) return reloadCart()
+    productAlerts("error")
   })
 }
 
 $("input[type='number']").change(function(){
-  console.log("This is Called")
   const productId = $(this).data().productid
   Ajax("rest/cart/update" , "PUT" , {productId , qty : parseInt(this.value)} , {token : getCookies().frontendToken} )
-  .then(result => {reloadCart(); console.log(result)})
+  .then(() => {reloadCart()})
   .catch(err => {
-    console.log(err)
-    if(err.status !== 200) alert("در هنگام ارسال اطلاعات به سرور مشکلی پیش آمده مجددا تلاش نمایید")
-    else {reloadCart(); $(this).next()}
+    if(err.status !== 200) return productAlerts("error")
+    reloadCart();
   })
 })
 

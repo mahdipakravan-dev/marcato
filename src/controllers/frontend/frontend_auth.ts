@@ -10,28 +10,30 @@ import { UserModel } from "../../models/user";
 export default new class frontend_auth {
 
     public async postLogin(req: Request, res: Response, next: NextFunction) {
-        const {phone , password } = req.body
-        const user = await new UserModel().FindUser({phone : Regex.phoneNumber(phone)})
-        
-        if(!user) {
-          req.flash("errors" , ["نام کاربری یا رمز عبور شما اشتباه است"])
-          res.redirect('/user/login')
-        }
+      const {phone , password , redirectTo } = req.body
+      const user = await new UserModel().FindUser({phone : Regex.phoneNumber(phone)})
+      console.log(redirectTo)
+      
+      if(!user) {
+        req.flash("errors" , ["نام کاربری یا رمز عبور شما اشتباه است"])
+        res.redirect('/user/login')
+      }
 
-        await Encrypt.Compare(password , user!.password)
-        .then(result => {
-          const token = Jwt.getToken<FrontendToken>({
-            phone ,
-            id : user._id
-          })  
-          res.cookie("frontendToken" , token)
-          res.redirect('/user')
-        })
-        .catch(err => {throw new Error(err)})
+      await Encrypt.Compare(password , user!.password)
+      .then(result => {
+        const token = Jwt.getToken<FrontendToken>({
+          phone ,
+          id : user._id
+        })  
+        res.cookie("frontendToken" , token)
+        res.redirect(redirectTo)
+      })
+      .catch(err => {throw new Error(err)})
     }
 
     public async postRegister(req: Request, res: Response, next: NextFunction) {
-      let {password , phone } = req.body
+      let {password , phone , redirectTo } = req.body
+      console.log(redirectTo)
 
       //Hash Password & Regex phone
       password = await Encrypt.Hash(req.body.password)
@@ -55,7 +57,7 @@ export default new class frontend_auth {
           id : result._id
         })  
         res.cookie("frontendToken" , token)
-        res.redirect("/user")
+        res.redirect(redirectTo)
       })
       .catch(err => {
         res.send("مشکلی پیش آمده مجددا تلاش نمایید").status(statusCodes.INTERNAL)
@@ -63,7 +65,8 @@ export default new class frontend_auth {
     }
 
     public async getLogin(req: Request, res: Response, next: NextFunction) {
-      res.render("frontend/login")
+      const redirectTo = req.query.back || "/user"
+      res.render("frontend/login" , {redirectTo})
     }
 
     public async getLogout(req:Request,  res:Response , next:NextFunction) {

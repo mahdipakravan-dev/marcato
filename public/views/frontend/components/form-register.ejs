@@ -11,6 +11,10 @@
           name="password" required>
   </div><!-- End .form-group -->
 
+  <% if(locals.redirectTo) { %>
+    <input type="hidden" value="<%- redirectTo %>" name="redirectTo">
+  <% } %>
+
   <div class="form-footer">
       <button type="submit" class="btn btn-outline-primary-2">
           <span>ثبت نام</span>

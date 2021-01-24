@@ -5,8 +5,6 @@
     {title : product.fullName , link : "" , active : true}
 ]}) %>
 
-<%- include("./components/popup-loginRequired.ejs" , {from : product._id}) %>
-
 
   <div class="page-content">
       <div class="container">
@@ -78,7 +76,7 @@
                                         </a>
                                 <% } else { %>
                                     <a style="cursor: pointer;" 
-                                    onclick="$('#loginRequired').modal('show')"
+                                    onclick="productAlerts('login' , {productId : '<%- product._id %>'})"
                                         class="btn-product btn-cart"> 
                                             <span>افزودن به سبد خرید</span>
                                         </a>
