@@ -20,6 +20,7 @@ import authController from '../controllers/frontend/frontend_auth'
 import userController from '../controllers/frontend/frontend_user'
 import checkoutController from '../controllers/frontend/frontend_checkout'
 
+import {Request , Response} from 'express'
 
 const Router = express.Router()
 
@@ -65,5 +66,13 @@ Router.get("/user/logout" , authController.getLogout)
 Router.get("/user" , FrontendAuthenticationMd , userController.getHome)
 Router.get('/user/order/:id' , FrontendAuthenticationMd , userController.getOrder)
 Router.post('/user/edit' , FrontendAuthenticationMd , frontValidationMiddleware(UserEditDto , '/user') , userController.postEdit)
+
+/**
+ * Maintance
+ */
+Router.get('/maintance' , (req:Request , res:Response) => {
+  console.log("Maintance")
+  res.render("maintance" , {layout : "master_none"})
+})
 
 export default Router

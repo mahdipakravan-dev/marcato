@@ -10,10 +10,12 @@ import PublicRoutes from './routes/publicRoutes'
 import DashboardRoutes from './routes/dashboardRoutes'
 import restRoutes from "./routes/restRoutes"
 
+import IpDetector from "./middlewares/ipDetector.md"
+import MaintanceModeMd from './middlewares/maintanceMode.md'
+
 import EnvConfig from './configurations/env'
 import MongoConfig from './configurations/mongo'
 import ViewConfig from './configurations/view'
-import IpDetector from "./middlewares/ipDetector.md"
 import ExceptionHandler from "./middlewares/ExceptionHandler.md"
 
 import { AdminModel } from "./models/admin"
@@ -69,6 +71,7 @@ class App {
     }
 
     private configRoutesAndLog(): void {
+
         this.app.use(IpDetector)
         this.app.use(PublicRoutes)
         this.app.use("/rest" , restRoutes)
@@ -76,6 +79,9 @@ class App {
         this.app.use(PrivateRoutes)
         this.app.use(ExceptionHandler)
         
+        if(process.env.MAINTANCE_MODE == "enable"){
+            this.app.use(MaintanceModeMd)
+        }
     }
 
     private async test(){
