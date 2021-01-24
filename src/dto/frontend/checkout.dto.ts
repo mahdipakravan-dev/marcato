@@ -13,6 +13,4 @@ export default class CheckoutDTO {
     @IsString({ message: "لطفا کد پستی خود را به صورت عدد و صحیح نمایید" })
     @Length(10 , 10 , {message : "کد پستی باید 10 رقم باشد"})
     public rPostalCode!: string;
-
-    public redirectTo : string = "/checkout"
 }

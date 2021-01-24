@@ -6,6 +6,4 @@ export default class SignUpDto {
 
     @IsString({ message : "لطفا رمز عبور خود را وارد نمایید" })
     public password!: string;
-
-    public redirectTo : string = "/user"
 }

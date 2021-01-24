@@ -19,6 +19,7 @@ export interface IProduct extends Document {
   Sort(query:any , sort:any , limit:number) : Promise<any>
   Paginate(query:any) : Promise<any>
   EditProduct(id:string , category:productInterface) : Promise<any>
+  SearchRegex(query : string) : Promise<any>
 }
 
 const productSchema : Schema = new Schema({
@@ -106,6 +107,14 @@ productSchema.methods.Sort = function(query:any , sort:any , limit:number){
 productSchema.methods.Paginate = function(query:any){
     return new Promise((resolve , reject) => {
         ProductModel.paginate(query)
+        .then(result => resolve(result))
+        .catch(err => reject(err))
+    })
+}
+
+productSchema.methods.SearchRegex = function(query:string){
+    return new Promise((resolve , reject) => {
+        ProductModel.find({fullName : {$regex : query}})
         .then(result => resolve(result))
         .catch(err => reject(err))
     })

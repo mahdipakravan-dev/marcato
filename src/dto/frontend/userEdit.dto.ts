@@ -7,6 +7,4 @@ export default class UserEditDto {
 
     @IsEmail({} , {message : "ایمیل شما معتبر نمیباشد"})
     public mail!: string;
-
-    public redirectTo : string = "/user"
 }

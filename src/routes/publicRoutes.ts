@@ -21,6 +21,7 @@ import userController from '../controllers/frontend/frontend_user'
 import checkoutController from '../controllers/frontend/frontend_checkout'
 
 import {Request , Response} from 'express'
+import SearchDTO from '../dto/frontend/search.dto'
 
 const Router = express.Router()
 
@@ -38,6 +39,7 @@ Router.get('/products' , productController.getProducts)
 Router.get('/products-instrument/:instrument' , productController.getProductsIns)
 Router.get('/products-category/:category' , productController.getProductsCat)
 Router.get('/product/:id' , productController.getProduct)
+Router.all("/search" ,  productController.postSearch)
 
 
 /**
