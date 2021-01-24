@@ -1,123 +1,85 @@
 <nav class="main-nav">
   <ul class="menu sf-arrows">
     <li>
-        <a href="/products/" class="sf-with-ul">خرید گیتار</a>
-
-        <ul>
-            <li><a href="blog.html">گیتار کلاسیک</a></li>
-            <li><a href="blog.html">گیتار آکوستیک</a></li>
-            <li><a href="blog.html">گیتار الکتریک</a></li>
-            <li><a href="blog.html">گیتار اوکوله له</a></li>
-            <li><a href="blog.html">گیتار ماندولین</a></li>
-        </ul>
+        <a href="<%- helper.linkToInstrument("guitar") %>">خرید گیتار</a>
     </li>
 
     <li>
-        <a href="/products/" class="">خرید ویولن</a>
+        <a href="<%- helper.linkToInstrument("violin") %>" class="">خرید ویولن</a>
     </li>
     
     <li>
-        <a href="/products/" class="sf-with-ul">خرید پیانو</a>
+        <a href="<%- helper.linkToInstrument("piano") %>" >خرید پیانو</a>
+    </li>
+
+    <li>
+        <a href="<%- helper.linkToCategory("iranian") %>" class="sf-with-ul">سازهای ایرانی</a>
 
         <ul>
-            <li><a href="blog.html">پیانو دیجیتال</a></li>
-            <li><a href="blog.html">پیانو آکوستیک</a></li>
+            <li><a href="<%- helper.linkToInstrument("santoor") %>">سنتور</a></li>
+            <li><a href="<%- helper.linkToInstrument("tar") %>">تار</a></li>
+            <li><a href="<%- helper.linkToInstrument("setar") %>">سه تار</a></li>
+            <li><a href="<%- helper.linkToInstrument("dotar") %>">دو تار</a></li>
+            <li><a href="<%- helper.linkToInstrument("kamanche") %>">کمانچه</a></li>
+            <li><a href="<%- helper.linkToInstrument("ood") %>">عود</a></li>
+            <li><a href="<%- helper.linkToInstrument("tanboor") %>">تنبور</a></li>
+            <li><a href="<%- helper.linkToInstrument("divan") %>">دیوان</a></li>
         </ul>
     </li>
 
     <li>
-        <a href="/products/" class="">کیبورد</a>
-    </li>
-
-    <li>
-        <a href="/products/" class="sf-with-ul">سازهای ایرانی</a>
+        <a href="<%- helper.linkToCategory("percussion") %>" class="sf-with-ul">سازهای کوبه ای</a>
 
         <ul>
-            <li><a href="blog.html">سنتور</a></li>
-            <li><a href="blog.html">تار</a></li>
-            <li><a href="blog.html">سه تار</a></li>
-            <li><a href="blog.html">دو تار</a></li>
-            <li><a href="blog.html">کمانچه</a></li>
-            <li><a href="blog.html">عود</a></li>
-            <li><a href="blog.html">تنبور</a></li>
-            <li><a href="blog.html">دیوان</a></li>
+            <li><a href="<%- helper.linkToInstrument("daf") %>">دف</a></li>
+            <li><a href="<%- helper.linkToInstrument("tonbak") %>">تنبک</a></li>
+            <li><a href="<%- helper.linkToInstrument("tempo") %>">تمپو</a></li>
+            <li><a href="<%- helper.linkToInstrument("kajun") %>">کاخن</a></li>
         </ul>
     </li>
 
     <li>
-        <a href="/products/" class="sf-with-ul">سازهای کوبه ای</a>
+        <a href="<%- helper.linkToCategory("wind") %>" class="sf-with-ul">ساز های بادی</a>
 
         <ul>
-            <li><a href="blog.html">دف</a></li>
-            <li><a href="blog.html">تنبک</a></li>
-            <li><a href="blog.html">تمپو</a></li>
-            <li><a href="blog.html">کاخن</a></li>
+            <li><a href="<%- helper.linkToInstrument("clarinet") %>">کلارینت</a></li>
+            <li><a href="<%- helper.linkToInstrument("trumpet") %>">ترومپت</a></li>
+            <li><a href="<%- helper.linkToInstrument("sxophone") %>">ساکسیفون</a></li>
+            <li><a href="<%- helper.linkToInstrument("accordian") %>">آکاردئون</a></li>
+            <li><a href="<%- helper.linkToInstrument("flute") %>">فلوت</a></li>
+            <li><a href="<%- helper.linkToInstrument("melodyca") %>">ملودیکا</a></li>
+            <li><a href="<%- helper.linkToInstrument("trumpet") %>">شیپور</a></li>
+            <li><a href="<%- helper.linkToInstrument("harmonica") %>">سازدهنی</a></li>
         </ul>
     </li>
 
     <li>
-        <a href="/products/" class="sf-with-ul">ساز های بادی</a>
-
-        <div class="megamenu megamenu-sm">
-            <div class="row no-gutters">
-
-                <div class="col-md-6">
-                    <div class="menu-col">
-                        <!-- End .menu-title -->
-                        <ul>
-                            <li><a href="blog.html">کلارینت</a></li>
-                            <li><a href="blog.html">ترومپت</a></li>
-                            <li><a href="blog.html">ساکسیفون</a></li>
-                            <li><a href="blog.html">آکاردئون</a></li>
-                            <li><a href="blog.html">فلوت</a></li>
-                            <li><a href="blog.html">ملودیکا</a></li>
-                            <li><a href="blog.html">شیپور</a></li>
-                        </ul>
-                    </div><!-- End .menu-col -->
-                </div><!-- End .col-md-6 -->
-
-                <div class="col-md-6">
-                    <div class="menu-col">
-                        <div class="menu-title">سازدهنی(هارمونیکا)</div>
-                        <!-- End .menu-title -->
-                        <ul>
-                            <li><a href="blog.html">ترمولو</a></li>
-                            <li><a href="blog.html">کروماتیک</a></li>
-                        </ul>
-                    </div><!-- End .menu-col -->
-                </div><!-- End .col-md-6 -->
-            </div><!-- End .row -->
-        </div><!-- End .megamenu megamenu-sm -->
-    </li>
-
-    <li>
-        <a href="/products/" class="sf-with-ul">سازهای افکت</a>
+        <a href="<%- helper.linkToCategory("effect") %>" class="sf-with-ul">سازهای افکت</a>
 
         <ul>
-            <li><a href="blog.html">هنگ درام</a></li>
-            <li><a href="blog.html">کالیمبا</a></li>
-            <li><a href="blog.html">چنگ رومی</a></li>
-            <li><a href="blog.html">طوفان</a></li>
-            <li><a href="blog.html">دریا</a></li>
-            <li><a href="blog.html">باران</a></li>
+            <li><a href="<%- helper.linkToInstrument("hangdrum") %>">هنگ درام</a></li>
+            <li><a href="<%- helper.linkToInstrument("tonguedrum") %>">تانگ درام<span class="badge badge-success">(اگه نمیدونی چیه کلیک کن)</span></a></li>
+            <li><a href="<%- helper.linkToInstrument("kalimba") %>">کالیمبا</a></li>
+            <li><a href="<%- helper.linkToInstrument("lyre") %>">چنگ رومی</a></li>
+            <li><a href="<%- helper.linkToInstrument("storm") %>">طوفان</a></li>
         </ul>
     </li>
 
     <li>
-        <a href="/products/" class="sf-with-ul">موسیقی کودک</a>
+        <a href="<%- helper.linkToCategory("kids") %>" class="sf-with-ul">موسیقی کودک</a>
 
         <ul>
-            <li><a href="blog.html">بلز</a></li>
-            <li><a href="blog.html">فلوت ریکوردر</a></li>
-            <li><a href="blog.html">چوبک</a></li>
-            <li><a href="blog.html">شیکر</a></li>
-            <li><a href="blog.html">تنبورین</a></li>
-            <li><a href="blog.html">دایره زنگی</a></li>
+            <li><a href="<%- helper.linkToInstrument("belz") %>">بلز</a></li>
+            <li><a href="<%- helper.linkToInstrument("fluterecorder") %>">فلوت ریکوردر</a></li>
+            <li><a href="<%- helper.linkToInstrument("choobak") %>">چوبک</a></li>
+            <li><a href="<%- helper.linkToInstrument("shaker") %>">شیکر</a></li>
+            <li><a href="<%- helper.linkToInstrument("tanboorin") %>">تنبورین</a></li>
+            <li><a href="<%- helper.linkToInstrument("dayerezangi") %>">دایره زنگی</a></li>
         </ul>
     </li>
     
     <li>
-        <a href="/products/" class="">لوازم جانبی</a>
+        <a href="<%- helper.linkToCategory("accessories") %>" class="">لوازم جانبی</a>
     </li>
     
   </ul><!-- End .menu -->

@@ -7,16 +7,16 @@
         <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
         <form action="#" method="get" class="mobile-search">
-            <label for="mobile-search" class="sr-only">موبایل</label>
+            <label for="mobile-search" class="sr-only"></label>
             <input type="search" class="form-control" name="mobile-search" id="mobile-search"
-                placeholder="جست و جو در ..." required>
+                placeholder="هرچیزی که دنبالشی رو سرچ کن!" required>
             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
         </form>
 
         <ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab"
-                    role="tab" aria-controls="mobile-menu-tab" aria-selected="true">منو</a>
+                    role="tab" aria-controls="mobile-menu-tab" aria-selected="true">مِنو</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab" role="tab"
@@ -33,19 +33,16 @@
                             <a href="/">خانه</a>
                         </li>
                         <li class="">
-                            <a href="/">فروشگاه مارکاتو</a>
+                            <a href="/products">فروشگاه</a>
                         </li>
                         <li class="">
-                            <a href="/">مارکاکَست(پادکست)</a>
+                            <a href="/login">ورود/ثبت نام</a>
                         </li>
                         <li class="">
-                            <a href="/">آموزشگاه مارکاتو</a>
+                            <a href="/about">درباره ما</a>
                         </li>
                         <li class="">
-                            <a href="/">ورود/ثبت نام</a>
-                        </li>
-                        <li class="">
-                            <a href="/">درباره ما</a>
+                            <a href="/faq">سوالات متداول</a>
                         </li>
                     </ul>
                 </nav><!-- End .mobile-nav -->
@@ -54,43 +51,39 @@
                 <nav class="mobile-cats-nav">
                     <ul class="mobile-cats-menu">
                         <li>
-                            <a href="/products/" class="sf-with-ul">خرید گیتار</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToInstrument("guitar") %>" >خرید گیتار</a>
                         </li>
                     
                         <li>
-                            <a href="/products/" class="">خرید ویولن</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToInstrument("violin") %>">خرید ویولن</a>
                         </li>
                         
                         <li>
-                            <a href="/products/" class="sf-with-ul">خرید پیانو</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToInstrument("piano") %>" >خرید پیانو</a>
+                        </li>
+
+                        <li>
+                            <a class="sf-with-ul" href="<%- helper.linkToCategory("iranian") %>" >خرید سازایرانی (مثلا سنتور)</a>
                         </li>
                     
                         <li>
-                            <a href="/products/" class="">کیبورد</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToCategory("percussion") %>" >خرید ساز کوبه ای (مثلا تنبک)</a>
                         </li>
                     
                         <li>
-                            <a href="/products/" class="sf-with-ul">سازهای ایرانی</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToCategory("wind") %>" >خرید ساز بادی (مثلا فلوت)</a>
                         </li>
                     
                         <li>
-                            <a href="/products/" class="sf-with-ul">سازهای کوبه ای</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToInstrument("kalimba") %>" >خرید ساز افکت (مثلا کالیمبا)</a>
                         </li>
                     
                         <li>
-                            <a href="/products/" class="sf-with-ul">ساز های بادی</a>
-                        </li>
-                    
-                        <li>
-                            <a href="/products/" class="sf-with-ul">سازهای افکت</a>
-                        </li>
-                    
-                        <li>
-                            <a href="/products/" class="sf-with-ul">موسیقی کودک</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToInstrument("kids") %>" >ساز های موسیقی کودک</a>
                         </li>
                         
                         <li>
-                            <a href="/products/" class="">لوازم جانبی</a>
+                            <a class="sf-with-ul" href="<%- helper.linkToInstrument("accessories") %>" >خرید لوازم جانبی موسیقی (پایه نت و..)</a>
                         </li>
                     </ul><!-- End .mobile-cats-menu -->
                 </nav><!-- End .mobile-cats-nav -->
