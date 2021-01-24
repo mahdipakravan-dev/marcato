@@ -72,6 +72,10 @@ class App {
 
     private configRoutesAndLog(): void {
 
+        if(process.env.MAINTANCE_MODE == "enable"){
+            this.app.use(MaintanceModeMd)
+        }
+
         this.app.use(IpDetector)
         this.app.use(PublicRoutes)
         this.app.use("/rest" , restRoutes)
@@ -79,9 +83,7 @@ class App {
         this.app.use(PrivateRoutes)
         this.app.use(ExceptionHandler)
         
-        if(process.env.MAINTANCE_MODE == "enable"){
-            this.app.use(MaintanceModeMd)
-        }
+        
     }
 
     private async test(){
