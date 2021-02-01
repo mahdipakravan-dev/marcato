@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import Jwt from "../helpers/jwt"
 
 export default function (req:Request , res:Response , next:NextFunction){
+  console.log("Maintance Mode is Enable")
   if(!req.cookies.dashboardToken) {
     return res.render("maintance" ,{ layout : "master_none"})
   }
