@@ -8,6 +8,8 @@ import dashboard_product from '../controllers/dashboard/dashboard_product'
 import dashboard_subcategory from '../controllers/dashboard/dashboard_category'
 import dashboard_users from '../controllers/dashboard/dashboard_user'
 import dashboard_instrument from '../controllers/dashboard/dashboard_instrument'
+import dashboard_order from '../controllers/dashboard/dashboard_order'
+
 import { MulterConfig , FileFilter} from '../configurations/multer'
 
 import DashboardAuthenticator from '../middlewares/DashboardAuthenticator.md'
@@ -64,7 +66,8 @@ Router.post("/product/instrument/edit/:id" , dashboard_instrument.postEditInstru
 Router.get("/product/instrument/delete/:id" , dashboard_instrument.deleteInstrument)
 
 /**
- * End Products
+ * Orders
  */
+Router.get("/orders" , dashboard_order.getOrders)
 
 export default Router

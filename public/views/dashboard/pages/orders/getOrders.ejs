@@ -1,0 +1,31 @@
+<% 
+let data = [];
+
+orders.forEach((item , index) => {
+  data[index] = {
+    id : item._id , 
+    link : "",
+    showId : false ,
+    data : [
+      {
+          type : "text" ,
+          text : `${item.userId.name} ${item.userId.family}`
+      } ,
+      helper.orderStatus(item.status),
+      {
+        type : "text" , 
+        text : `${helper.decimaller(item.finalPrice)} ریال`
+      },
+      {
+        type : "button" , 
+        button : "btn-sm btn-success" , 
+        text : "ویرایش" , 
+        link : ""
+      }]
+  }
+}) 
+%>
+
+<%- include("../../components/table.ejs" , {title : "لیست سفارشات" ,
+ th : ["نام کاربر" , "وضعیت", "مبلغ نهایی"] ,
+showId : false , items : data}) %>

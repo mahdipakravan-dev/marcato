@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "node ./build/index.js",
     "start:prod": "export NODE_ENV=production && pm2 start ./build",
-    "start:dev": "set NODE_ENV=development && nodemon ./src/index.ts"
+    "start:dev": "set NODE_ENV=development && nodemon ./src/index.ts" ,
+    "deploy:server" : "git pull && npm run build && pm2 restart 0"
   },
   "keywords": [],
   "author": "",
