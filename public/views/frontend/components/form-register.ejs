@@ -29,6 +29,8 @@
 
   <% if(locals.redirectTo) { %>
     <input type="hidden" value="<%- redirectTo %>" name="redirectTo">
+  <% } else { %>
+    <input type="hidden" value="/user" name="redirectTo">
   <% } %>
 
   <div class="form-footer">
