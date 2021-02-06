@@ -21,6 +21,12 @@
           name="password" required>
   </div><!-- End .form-group -->
 
+  <div class="form-group">
+    <label for="register-instrument">چه سازی مینوازید/علاقه دارید ؟</label>
+    <input type="text" class="form-control" placeholder="مثلا : ویولن" id="register-instrument"
+        name="instrument">
+  </div><!-- End .form-group -->
+
   <% if(locals.redirectTo) { %>
     <input type="hidden" value="<%- redirectTo %>" name="redirectTo">
   <% } %>

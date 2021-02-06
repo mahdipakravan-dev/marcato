@@ -45,7 +45,8 @@ export enum adminTypes {
 export interface userInterface {
     name ?: string , 
     username ?: string ,
-    family ?: string , 
+    family ?: string ,
+    instrument ?: string , 
     phone : string , 
     mail ?: string , 
     insta ?: string , 

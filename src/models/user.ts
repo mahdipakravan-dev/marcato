@@ -5,7 +5,8 @@ import { cartInterface, userInterface } from '../helpers/interfaces'
 export interface IUser extends Document {
     name : string , 
     username : string ,
-    family : string , 
+    family : string ,
+    instrument : string , 
     phone : string , 
     mail : string , 
     insta : string , 
@@ -24,6 +25,7 @@ const UserSchema: Schema = new Schema({
     name : { type :String } , 
     family : { type :String } ,
     phone : { type :String , required : true} , 
+    instrument : {type : String , default : "nothing"} ,
     mail : { type :String } , 
     insta : { type :String } , 
     birthday : { type :String } , 

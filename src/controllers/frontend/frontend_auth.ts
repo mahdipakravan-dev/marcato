@@ -32,7 +32,7 @@ export default new class frontend_auth {
     }
 
     public async postRegister(req: Request, res: Response, next: NextFunction) {
-      let {password , phone , name , family , redirectTo } = req.body
+      let {password , phone , name , family , instrument , redirectTo } = req.body
 
       //Hash Password & Regex phone
       password = await Encrypt.Hash(req.body.password)
@@ -49,7 +49,8 @@ export default new class frontend_auth {
         phone ,
         password , 
         name , 
-        family
+        family , 
+        instrument
       })
       .then(result => {
         //Create Session Or Cookie For Here
