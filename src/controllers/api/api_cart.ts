@@ -7,6 +7,7 @@ import autobind from "auto-bind"
 import { userInfo } from "os";
 import { OrderModel } from "../../models/order";
 import { DiscountModel } from "../../models/discounts";
+import { OptionModel } from "../../models/options";
 
 export default new class api_cart {
 
@@ -17,15 +18,18 @@ export default new class api_cart {
   public async addCart(req: Request, res: Response, next: NextFunction){
     const userId = req.auth.id ,
     {productId , qty} = req.body ,
-    product = await new ProductModel().FindProduct({_id : productId})
+    product = await new ProductModel().FindProduct({_id : productId}) ,
+    option = await new OptionModel().GetOptions()
 
     if(!product) res.json().status(statusCodes.NOT_FOUND)
     await new OrderModel().FindOrder({userId , status : "pending"})
     .then(async order => {
       //Initialize Cart
       if(!order) {
-        return await new OrderModel().InitOrder(userId , [{id : product._id , enName : product.enName , qty , price : product.price , fullName : product.fullName , thumbnail : product.thumbnails[0]}])
-        .then(() => {res.json().status(statusCodes.SUCCESS)})
+        return await new OrderModel().InitOrder(userId , [{id : product._id , enName : product.enName , qty , price : product.price + option.transportCost , fullName : product.fullName , thumbnail : product.thumbnails[0]}])
+        .then(() => {
+          res.json().status(statusCodes.SUCCESS)
+        })
         .catch(() => {res.json().status(statusCodes.INTERNAL)})
       }
 
