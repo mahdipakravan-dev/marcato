@@ -9,6 +9,7 @@ import PrivateRoutes from './routes/privateRoutes'
 import PublicRoutes from './routes/publicRoutes'
 import DashboardRoutes from './routes/dashboardRoutes'
 import restRoutes from "./routes/restRoutes"
+import igapRoutes from "./routes/igapRoutes"
 
 import IpDetector from "./middlewares/ipDetector.md"
 import MaintanceModeMd from './middlewares/maintanceMode.md'
@@ -79,6 +80,7 @@ class App {
         this.app.use(IpDetector)
         this.app.use(PublicRoutes)
         this.app.use("/rest" , restRoutes)
+        this.app.use("/igap" , igapRoutes)
         this.app.use("/dashboard" , DashboardRoutes)
         this.app.use(PrivateRoutes)
         this.app.use(ExceptionHandler)
