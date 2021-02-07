@@ -8,7 +8,10 @@ import {InstrumentModel} from "../../models/instrument";
 export default new class ApiIgap {
 
     async getProducts(req:Request, res:Response , next:NextFunction ){
-        res.json(await ProductModel.find())
+        let query = {}
+        if(req.query.instrument) Object.defineProperty(query , 'category.enName' , req.query.instrument)
+
+        res.json(await ProductModel.find(query))
     }
 
     async getUsers(req:Request, res:Response , next:NextFunction){
