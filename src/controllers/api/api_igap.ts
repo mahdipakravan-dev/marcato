@@ -15,6 +15,10 @@ export default new class ApiIgap {
         res.json(await ProductModel.find(query))
     }
 
+    async getProduct(req:Request, res:Response , next:NextFunction){
+        res.json(await ProductModel.findOne({_id : req.params.id}))
+    }
+
     async getUsers(req:Request, res:Response , next:NextFunction){
         res.json(await UserModel.find())
     }

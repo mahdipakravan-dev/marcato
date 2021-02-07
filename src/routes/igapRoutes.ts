@@ -6,6 +6,7 @@ const Router = express.Router()
 
 Router.get("/Users" , ApiIgap.getUsers)
 Router.get("/Products" , ApiIgap.getProducts)
+Router.get("/product/:id" , ApiIgap.getProduct)
 Router.get("/Orders" , ApiIgap.getOrders)
 Router.get('/Instruments' , ApiIgap.getInstruments)
 Router.get('/Categories' , ApiIgap.getCategories)
