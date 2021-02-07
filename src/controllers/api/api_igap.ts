@@ -9,8 +9,9 @@ export default new class ApiIgap {
 
     async getProducts(req:Request, res:Response , next:NextFunction ){
         let query = {}
-        if(req.query.instrument) Object.defineProperty(query , 'category.enName' , req.query.instrument)
+        if(req.query.instrument) Object.defineProperty(query , 'instrument.enName' , req.query.instrument)
 
+        console.log(query)
         res.json(await ProductModel.find(query))
     }
 
